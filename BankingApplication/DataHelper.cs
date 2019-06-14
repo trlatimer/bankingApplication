@@ -60,14 +60,16 @@ namespace BankingApplication
             reader.Read();
             if (reader.HasRows)
             {
-                salt = reader[1].ToString();
+                salt = reader[0].ToString();
+                DBClose();
+                //hash the password with the saved salt for that user
+                string hashed = cryptoService.Compute(password, salt);
+                Console.WriteLine("Hashed: " + hashed);
+                Console.WriteLine("Stored: " + user.getPassword());
+                //return true if both hashes are the same
+                return hashed == user.getPassword();
             }
-            DBClose();
-
-            //hash the password with the saved salt for that user
-            string hashed = cryptoService.Compute(password, salt);
-            //return true if both hashes are the same
-            return hashed == user.getPassword();
+            return false;
         }
 
         //The salt is stored in the format of: “{#hash_iterations}.{generated_salt}”
@@ -127,7 +129,7 @@ namespace BankingApplication
 
         public static User getUser(string name)
         {
-            String query = $"SELECT UserID, UserName, Password, AuthLevel FROM Users WHERE UserName = '{name};'";
+            String query = $"SELECT UserID, UserName, Password, AuthLevel FROM Users WHERE UserName = '{name}';";
             int userID;
             string userName;
             string password;
@@ -143,6 +145,7 @@ namespace BankingApplication
             {
                 Console.WriteLine("Reader[0]: " + reader[0].ToString());
                 userID = Convert.ToInt32(reader[0]);
+                Console.WriteLine("Reader[1]: " + reader[2].ToString());
                 userName = reader[1].ToString();
                 password = reader[2].ToString();
                 auth = Convert.ToInt32(reader[3]);
@@ -152,6 +155,7 @@ namespace BankingApplication
             }
             else
             {
+                Console.WriteLine("No rows in reader");
                 throw new Exception("Unable to find user with that name");
             }
         }
