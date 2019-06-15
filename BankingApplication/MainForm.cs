@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class MainForm : Form
     {
-        public static LoginForm loginForm = null;
+        public LoginForm loginForm = null;
 
         public User currentUser = null;
 
@@ -21,10 +21,17 @@ namespace BankingApplication
             InitializeComponent();
         }
 
-        //
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            loginForm.Show();
+        }
 
+        private void mainLogoutButton_Click(object sender, EventArgs e)
+        {
+            loginForm.currentUser = null;
+            loginForm.mainForm = this;
+            loginForm.Show();
+            loginForm.mainForm.Close();
         }
     }
 }

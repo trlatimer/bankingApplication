@@ -13,6 +13,7 @@ namespace BankingApplication
     public partial class LoginForm : Form
     {
         public User currentUser = null;
+        public MainForm mainForm = null;
 
         public LoginForm()
         {
@@ -51,9 +52,11 @@ namespace BankingApplication
             if (DataHelper.ValidatePassword(currentUser, loginPasswordTextBox.Text))
             {
                 Console.WriteLine($"Successful sign-in for: {currentUser.getUserName()}");
-                MainForm mainForm = new MainForm();
-                mainForm.currentUser = currentUser;
-                MainForm.loginForm = this;
+                mainForm = new MainForm
+                {
+                    currentUser = currentUser,
+                };
+                mainForm.loginForm = this;
                 this.Hide();
                 mainForm.Show();
             }
@@ -95,6 +98,20 @@ namespace BankingApplication
             {
                 loginUserNameTextBox.BackColor = Color.White;
             }
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void LoginForm_Activated(object sender, EventArgs e)
+        {
+            loginUserNameTextBox.Text = "";
+            loginPasswordTextBox.Text = "";
+            loginUserNameTextBox.BackColor = Color.White;
+            loginPasswordTextBox.BackColor = Color.White;
+            loginUserNameTextBox.Focus();
         }
     }
 }

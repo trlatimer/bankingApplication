@@ -64,8 +64,6 @@ namespace BankingApplication
                 DBClose();
                 //hash the password with the saved salt for that user
                 string hashed = cryptoService.Compute(password, salt);
-                Console.WriteLine("Hashed: " + hashed);
-                Console.WriteLine("Stored: " + user.getPassword());
                 //return true if both hashes are the same
                 return hashed == user.getPassword();
             }
@@ -102,7 +100,6 @@ namespace BankingApplication
                 reader.Read();
                 if (reader.HasRows)
                 {
-                    Console.WriteLine("Reader[0]: " + reader[0].ToString());
                     createdUserID = Convert.ToInt32(reader[0]);
                 }
                 DBClose();
@@ -144,9 +141,7 @@ namespace BankingApplication
             reader.Read();
             if (reader.HasRows)
             {
-                Console.WriteLine("Reader[0]: " + reader[0].ToString());
                 userID = Convert.ToInt32(reader[0]);
-                Console.WriteLine("Reader[1]: " + reader[2].ToString());
                 userName = reader[1].ToString();
                 password = reader[2].ToString();
                 auth = Convert.ToInt32(reader[3]);
