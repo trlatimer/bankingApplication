@@ -28,26 +28,40 @@ namespace BankingApplication
 
         private void loginSignInButton_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(loginUserNameTextBox.Text) || string.IsNullOrWhiteSpace(loginPasswordTextBox.Text))
+            {
+                MessageBox.Show("Both username and password are required. Please try again.");
+                loginUserNameTextBox.Text = "";
+                loginPasswordTextBox.Text = "";
+                loginPasswordTextBox.BackColor = Color.Salmon;
+                loginUserNameTextBox.BackColor = Color.Salmon;
+                return;
+            }
+
             try
             {
                 currentUser = DataHelper.getUser(loginUserNameTextBox.Text);
             } catch
             {
-                MessageBox.Show("Unable to locate user");
+                MessageBox.Show("Invalid login credentials");
+                // MessageBox.Show("Unable to locate user");
+                return;
             }
 
             if (DataHelper.ValidatePassword(currentUser, loginPasswordTextBox.Text))
             {
                 Console.WriteLine($"Successful sign-in for: {currentUser.getUserName()}");
                 MainForm mainForm = new MainForm();
+                mainForm.currentUser = currentUser;
                 MainForm.loginForm = this;
                 this.Hide();
                 mainForm.Show();
-
             }
             else
             {
-                MessageBox.Show("Unable to sign in.");
+                MessageBox.Show("Invalid login. Please try again.");
+                loginUserNameTextBox.Focus();
+                currentUser = null;
             }
         }
 
@@ -61,7 +75,26 @@ namespace BankingApplication
 
         private void LoginPasswordTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(loginPasswordTextBox.Text))
+            {
+                loginPasswordTextBox.BackColor = Color.Salmon;
+            }
+            else
+            {
+                loginPasswordTextBox.BackColor = Color.White;
+            }
+        }
 
+        private void loginUserNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(loginUserNameTextBox.Text))
+            {
+                loginUserNameTextBox.BackColor = Color.Salmon;
+            }
+            else
+            {
+                loginUserNameTextBox.BackColor = Color.White;
+            }
         }
     }
 }

@@ -69,6 +69,7 @@ namespace BankingApplication
                 //return true if both hashes are the same
                 return hashed == user.getPassword();
             }
+            DBClose();
             return false;
         }
 
@@ -156,6 +157,7 @@ namespace BankingApplication
             else
             {
                 Console.WriteLine("No rows in reader");
+                DBClose();
                 throw new Exception("Unable to find user with that name");
             }
         }

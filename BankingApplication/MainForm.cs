@@ -14,6 +14,8 @@ namespace BankingApplication
     {
         public static LoginForm loginForm = null;
 
+        public User currentUser = null;
+
         public MainForm()
         {
             InitializeComponent();

@@ -97,6 +97,7 @@
             this.loginUserNameTextBox.Name = "loginUserNameTextBox";
             this.loginUserNameTextBox.Size = new System.Drawing.Size(125, 22);
             this.loginUserNameTextBox.TabIndex = 5;
+            this.loginUserNameTextBox.TextChanged += new System.EventHandler(this.loginUserNameTextBox_TextChanged);
             // 
             // loginPasswordTextBox
             // 
@@ -109,7 +110,7 @@
             this.loginPasswordTextBox.TextChanged += new System.EventHandler(this.LoginPasswordTextBox_TextChanged);
             this.loginPasswordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.LoginPasswordTextBox_KeyPress);
             // 
-            // Login
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -123,7 +124,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.loginTitleLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.Text = "Banking App | Login";
             this.ResumeLayout(false);
             this.PerformLayout();
