@@ -27,8 +27,10 @@ namespace BankingApplication
             Application.Exit();
         }
 
-        private void loginSignInButton_Click(object sender, EventArgs e)
+        private async void loginSignInButton_Click(object sender, EventArgs e)
         {
+            
+
             if (string.IsNullOrWhiteSpace(loginUserNameTextBox.Text) || string.IsNullOrWhiteSpace(loginPasswordTextBox.Text))
             {
                 MessageBox.Show("Both username and password are required. Please try again.");
@@ -39,33 +41,51 @@ namespace BankingApplication
                 return;
             }
 
-            try
-            {
-                currentUser = DataHelper.getUser(loginUserNameTextBox.Text);
-            } catch
-            {
-                MessageBox.Show("Invalid login credentials");
-                // MessageBox.Show("Unable to locate user");
-                return;
-            }
+            LoadingForm loading = new LoadingForm();
+            loading.StartPosition = FormStartPosition.CenterParent;
+            loading.Show(this);
+            this.Enabled = false;
 
-            if (DataHelper.ValidatePassword(currentUser, loginPasswordTextBox.Text))
+            bool successfulLogin = await attemptLogin();
+                       
+            if (successfulLogin)
             {
                 Console.WriteLine($"Successful sign-in for: {currentUser.getUserName()}");
                 mainForm = new MainForm
                 {
                     currentUser = currentUser,
                 };
+                this.Enabled = true;
+                loading.Close();
                 mainForm.loginForm = this;
                 this.Hide();
                 mainForm.Show();
             }
             else
             {
+                this.Enabled = true;
+                loading.Close();
                 MessageBox.Show("Invalid login. Please try again.");
                 loginUserNameTextBox.Focus();
                 currentUser = null;
+                return;
             }
+        }
+
+        private async Task<bool> attemptLogin()
+        {
+            bool success = await Task.Run<bool>(() => {
+                try
+                {
+                    currentUser = DataHelper.getUser(loginUserNameTextBox.Text);
+                    return DataHelper.ValidatePassword(currentUser, loginPasswordTextBox.Text);
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+            return success;
         }
 
         private void LoginPasswordTextBox_KeyPress(object sender, KeyPressEventArgs e)
