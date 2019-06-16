@@ -13,7 +13,8 @@ namespace BankingApplication
     public partial class MainForm : Form
     {
         public LoginForm loginForm = null;
-
+        public OpenAccountForm openAccountForm = null;
+        public AddMemberForm addMemberForm = null;
         public User currentUser = null;
 
         public MainForm()
@@ -32,6 +33,33 @@ namespace BankingApplication
             loginForm.mainForm = this;
             loginForm.Show();
             loginForm.mainForm.Close();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            mainFooterUserLabel.Text = $"Current User: {currentUser.getUserName()}";
+        }
+
+        private void mainTransactionButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openShareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openAccountForm = new OpenAccountForm
+            {
+                currentUser = currentUser
+            };
+            openAccountForm.mainForm = this;
+            openAccountForm.Show();
+        }
+
+        private void AddMemberButton_Click(object sender, EventArgs e)
+        {
+            addMemberForm = new AddMemberForm();
+            addMemberForm.mainForm = this;
+            addMemberForm.Show();
         }
     }
 }

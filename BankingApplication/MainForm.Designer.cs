@@ -34,24 +34,26 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mainTransactionButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.mainAccountButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mainReportButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.mainLookupTextBox = new System.Windows.Forms.ToolStripTextBox();
-            this.mainSearchCriteria = new System.Windows.Forms.ToolStripDropDownButton();
-            this.accountNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.socialSecurityNumberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mainFooter = new System.Windows.Forms.GroupBox();
+            this.mainFooterUserLabel = new System.Windows.Forms.Label();
+            this.mainContainer = new System.Windows.Forms.SplitContainer();
+            this.mainAccountButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.viewAccounButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.openAccountButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddMemberButton = new System.Windows.Forms.ToolStripMenuItem();
             this.mainToolStrip.SuspendLayout();
+            this.mainFooter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
+            this.mainContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainToolStrip
             // 
             this.mainToolStrip.AllowMerge = false;
-            this.mainToolStrip.BackColor = System.Drawing.Color.PeachPuff;
+            this.mainToolStrip.BackColor = System.Drawing.Color.LightGray;
             this.mainToolStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -62,21 +64,18 @@
             this.mainAccountButton,
             this.toolStripSeparator3,
             this.mainReportButton,
-            this.toolStripSeparator5,
-            this.toolStripButton4,
-            this.mainLookupTextBox,
-            this.mainSearchCriteria,
-            this.toolStripSeparator4});
+            this.toolStripSeparator5});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
-            this.mainToolStrip.Size = new System.Drawing.Size(739, 28);
+            this.mainToolStrip.Size = new System.Drawing.Size(796, 28);
             this.mainToolStrip.Stretch = true;
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.Text = "mainToolStrip";
             // 
             // mainLogoutButton
             // 
+            this.mainLogoutButton.BackColor = System.Drawing.Color.LightGray;
             this.mainLogoutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.mainLogoutButton.Image = ((System.Drawing.Image)(resources.GetObject("mainLogoutButton.Image")));
             this.mainLogoutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -98,20 +97,12 @@
             this.mainTransactionButton.Name = "mainTransactionButton";
             this.mainTransactionButton.Size = new System.Drawing.Size(129, 21);
             this.mainTransactionButton.Text = "Perform Transaction";
+            this.mainTransactionButton.Click += new System.EventHandler(this.mainTransactionButton_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 24);
-            // 
-            // mainAccountButton
-            // 
-            this.mainAccountButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.mainAccountButton.Image = ((System.Drawing.Image)(resources.GetObject("mainAccountButton.Image")));
-            this.mainAccountButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mainAccountButton.Name = "mainAccountButton";
-            this.mainAccountButton.Size = new System.Drawing.Size(115, 21);
-            this.mainAccountButton.Text = "Account Manager";
             // 
             // toolStripSeparator3
             // 
@@ -132,70 +123,99 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 24);
             // 
-            // toolStripButton4
+            // mainFooter
             // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(112, 21);
-            this.toolStripButton4.Text = "Lookup Member:";
+            this.mainFooter.AutoSize = true;
+            this.mainFooter.Controls.Add(this.mainFooterUserLabel);
+            this.mainFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mainFooter.Location = new System.Drawing.Point(0, 477);
+            this.mainFooter.Name = "mainFooter";
+            this.mainFooter.Size = new System.Drawing.Size(796, 32);
+            this.mainFooter.TabIndex = 2;
+            this.mainFooter.TabStop = false;
             // 
-            // mainLookupTextBox
+            // mainFooterUserLabel
             // 
-            this.mainLookupTextBox.Name = "mainLookupTextBox";
-            this.mainLookupTextBox.Size = new System.Drawing.Size(100, 24);
-            this.mainLookupTextBox.ToolTipText = "Enter ";
+            this.mainFooterUserLabel.AutoSize = true;
+            this.mainFooterUserLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.mainFooterUserLabel.Location = new System.Drawing.Point(3, 16);
+            this.mainFooterUserLabel.Name = "mainFooterUserLabel";
+            this.mainFooterUserLabel.Size = new System.Drawing.Size(94, 13);
+            this.mainFooterUserLabel.TabIndex = 0;
+            this.mainFooterUserLabel.Text = "Current User: User";
             // 
-            // mainSearchCriteria
+            // mainContainer
             // 
-            this.mainSearchCriteria.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.mainSearchCriteria.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.accountNumberToolStripMenuItem,
-            this.nameToolStripMenuItem,
-            this.socialSecurityNumberToolStripMenuItem});
-            this.mainSearchCriteria.Image = ((System.Drawing.Image)(resources.GetObject("mainSearchCriteria.Image")));
-            this.mainSearchCriteria.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mainSearchCriteria.Name = "mainSearchCriteria";
-            this.mainSearchCriteria.Size = new System.Drawing.Size(80, 21);
-            this.mainSearchCriteria.Text = "Search By:";
+            this.mainContainer.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.mainContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainContainer.Location = new System.Drawing.Point(12, 48);
+            this.mainContainer.Name = "mainContainer";
             // 
-            // accountNumberToolStripMenuItem
+            // mainContainer.Panel1
             // 
-            this.accountNumberToolStripMenuItem.Name = "accountNumberToolStripMenuItem";
-            this.accountNumberToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.accountNumberToolStripMenuItem.Text = "Account Number";
+            this.mainContainer.Panel1.AutoScroll = true;
+            this.mainContainer.Panel1.BackColor = System.Drawing.Color.White;
             // 
-            // nameToolStripMenuItem
+            // mainContainer.Panel2
             // 
-            this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.nameToolStripMenuItem.Text = "Name";
+            this.mainContainer.Panel2.BackColor = System.Drawing.Color.White;
+            this.mainContainer.Size = new System.Drawing.Size(772, 423);
+            this.mainContainer.SplitterDistance = 257;
+            this.mainContainer.TabIndex = 4;
             // 
-            // socialSecurityNumberToolStripMenuItem
+            // mainAccountButton
             // 
-            this.socialSecurityNumberToolStripMenuItem.Name = "socialSecurityNumberToolStripMenuItem";
-            this.socialSecurityNumberToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.socialSecurityNumberToolStripMenuItem.Text = "Social Security Number";
+            this.mainAccountButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.mainAccountButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewAccounButton,
+            this.AddMemberButton,
+            this.openAccountButton});
+            this.mainAccountButton.Image = ((System.Drawing.Image)(resources.GetObject("mainAccountButton.Image")));
+            this.mainAccountButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mainAccountButton.Name = "mainAccountButton";
+            this.mainAccountButton.Size = new System.Drawing.Size(124, 21);
+            this.mainAccountButton.Text = "Account Manager";
             // 
-            // toolStripSeparator4
+            // viewAccounButton
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 24);
+            this.viewAccounButton.Name = "viewAccounButton";
+            this.viewAccounButton.Size = new System.Drawing.Size(206, 22);
+            this.viewAccounButton.Text = "View/Manage Account";
+            // 
+            // openAccountButton
+            // 
+            this.openAccountButton.Name = "openAccountButton";
+            this.openAccountButton.Size = new System.Drawing.Size(206, 22);
+            this.openAccountButton.Text = "Open Account";
+            this.openAccountButton.Click += new System.EventHandler(this.openShareToolStripMenuItem_Click);
+            // 
+            // AddMemberButton
+            // 
+            this.AddMemberButton.Name = "AddMemberButton";
+            this.AddMemberButton.Size = new System.Drawing.Size(206, 22);
+            this.AddMemberButton.Text = "Add Member";
+            this.AddMemberButton.Click += new System.EventHandler(this.AddMemberButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(739, 484);
+            this.ClientSize = new System.Drawing.Size(796, 509);
+            this.Controls.Add(this.mainContainer);
+            this.Controls.Add(this.mainFooter);
             this.Controls.Add(this.mainToolStrip);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Banking App | Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
+            this.mainFooter.ResumeLayout(false);
+            this.mainFooter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).EndInit();
+            this.mainContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,16 +227,15 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton mainTransactionButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton mainAccountButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton mainReportButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripTextBox mainLookupTextBox;
-        private System.Windows.Forms.ToolStripDropDownButton mainSearchCriteria;
-        private System.Windows.Forms.ToolStripMenuItem accountNumberToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem socialSecurityNumberToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.GroupBox mainFooter;
+        private System.Windows.Forms.Label mainFooterUserLabel;
+        private System.Windows.Forms.SplitContainer mainContainer;
+        private System.Windows.Forms.ToolStripDropDownButton mainAccountButton;
+        private System.Windows.Forms.ToolStripMenuItem viewAccounButton;
+        private System.Windows.Forms.ToolStripMenuItem openAccountButton;
+        private System.Windows.Forms.ToolStripMenuItem AddMemberButton;
     }
 }
