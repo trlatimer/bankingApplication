@@ -44,6 +44,8 @@
             this.viewAccounButton = new System.Windows.Forms.ToolStripMenuItem();
             this.openAccountButton = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMemberButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainManageButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mainToolStrip.SuspendLayout();
             this.mainFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
@@ -64,7 +66,9 @@
             this.mainAccountButton,
             this.toolStripSeparator3,
             this.mainReportButton,
-            this.toolStripSeparator5});
+            this.toolStripSeparator5,
+            this.mainManageButton,
+            this.toolStripSeparator4});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
@@ -196,6 +200,20 @@
             this.AddMemberButton.Text = "Add Member";
             this.AddMemberButton.Click += new System.EventHandler(this.AddMemberButton_Click);
             // 
+            // mainManageButton
+            // 
+            this.mainManageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.mainManageButton.Image = ((System.Drawing.Image)(resources.GetObject("mainManageButton.Image")));
+            this.mainManageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mainManageButton.Name = "mainManageButton";
+            this.mainManageButton.Size = new System.Drawing.Size(120, 21);
+            this.mainManageButton.Text = "User Management";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 24);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,5 +255,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewAccounButton;
         private System.Windows.Forms.ToolStripMenuItem openAccountButton;
         private System.Windows.Forms.ToolStripMenuItem AddMemberButton;
+        private System.Windows.Forms.ToolStripButton mainManageButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }

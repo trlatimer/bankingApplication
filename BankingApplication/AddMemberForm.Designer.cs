@@ -61,6 +61,7 @@
             this.memberStateTextBox = new System.Windows.Forms.TextBox();
             this.memberStateLabel = new System.Windows.Forms.Label();
             this.memberIdentificationGroupBox = new System.Windows.Forms.GroupBox();
+            this.memberDOBPicker = new System.Windows.Forms.DateTimePicker();
             this.memberSSNTextBox = new System.Windows.Forms.TextBox();
             this.memberIDNumTextBox = new System.Windows.Forms.TextBox();
             this.memberSSNLabel = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@
             this.nameLastLabel = new System.Windows.Forms.Label();
             this.memberSubmitButton = new System.Windows.Forms.Button();
             this.memberCancelButton = new System.Windows.Forms.Button();
-            this.memberDOBPicker = new System.Windows.Forms.DateTimePicker();
             this.addMemberPanel.SuspendLayout();
             this.memberContactInfoGroupBox.SuspendLayout();
             this.memberMailAddrGroupBox.SuspendLayout();
@@ -159,6 +159,7 @@
             this.memberCellTextBox.Name = "memberCellTextBox";
             this.memberCellTextBox.Size = new System.Drawing.Size(100, 22);
             this.memberCellTextBox.TabIndex = 0;
+            this.memberCellTextBox.TextChanged += new System.EventHandler(this.memberCellTextBox_TextChanged);
             // 
             // memberHomeTextBox
             // 
@@ -166,6 +167,7 @@
             this.memberHomeTextBox.Name = "memberHomeTextBox";
             this.memberHomeTextBox.Size = new System.Drawing.Size(100, 22);
             this.memberHomeTextBox.TabIndex = 1;
+            this.memberHomeTextBox.TextChanged += new System.EventHandler(this.memberHomeTextBox_TextChanged);
             // 
             // memberEmailTextBox
             // 
@@ -173,6 +175,7 @@
             this.memberEmailTextBox.Name = "memberEmailTextBox";
             this.memberEmailTextBox.Size = new System.Drawing.Size(161, 22);
             this.memberEmailTextBox.TabIndex = 2;
+            this.memberEmailTextBox.TextChanged += new System.EventHandler(this.memberEmailTextBox_TextChanged);
             // 
             // mailingSameCheckBox
             // 
@@ -184,6 +187,7 @@
             this.mailingSameCheckBox.TabIndex = 31;
             this.mailingSameCheckBox.Text = "Mailing address same as above";
             this.mailingSameCheckBox.UseVisualStyleBackColor = true;
+            this.mailingSameCheckBox.CheckedChanged += new System.EventHandler(this.mailingSameCheckBox_CheckedChanged);
             // 
             // memberMailAddrGroupBox
             // 
@@ -232,6 +236,7 @@
             this.mailAddrStreetTextBox.Name = "mailAddrStreetTextBox";
             this.mailAddrStreetTextBox.Size = new System.Drawing.Size(226, 22);
             this.mailAddrStreetTextBox.TabIndex = 0;
+            this.mailAddrStreetTextBox.TextChanged += new System.EventHandler(this.mailAddrStreetTextBox_TextChanged);
             // 
             // mailAddrExtraTextBox
             // 
@@ -256,6 +261,7 @@
             this.mailAddrCityTextBox.Name = "mailAddrCityTextBox";
             this.mailAddrCityTextBox.Size = new System.Drawing.Size(140, 22);
             this.mailAddrCityTextBox.TabIndex = 2;
+            this.mailAddrCityTextBox.TextChanged += new System.EventHandler(this.mailAddrCityTextBox_TextChanged);
             // 
             // label4
             // 
@@ -273,6 +279,7 @@
             this.mailAddrZipTextBox.Name = "mailAddrZipTextBox";
             this.mailAddrZipTextBox.Size = new System.Drawing.Size(100, 22);
             this.mailAddrZipTextBox.TabIndex = 4;
+            this.mailAddrZipTextBox.TextChanged += new System.EventHandler(this.mailAddrZipTextBox_TextChanged);
             // 
             // mailAddrStateTextBox
             // 
@@ -280,6 +287,7 @@
             this.mailAddrStateTextBox.Name = "mailAddrStateTextBox";
             this.mailAddrStateTextBox.Size = new System.Drawing.Size(116, 22);
             this.mailAddrStateTextBox.TabIndex = 3;
+            this.mailAddrStateTextBox.TextChanged += new System.EventHandler(this.mailAddrStateTextBox_TextChanged);
             // 
             // label5
             // 
@@ -338,6 +346,7 @@
             this.memberStreetTextBox.Name = "memberStreetTextBox";
             this.memberStreetTextBox.Size = new System.Drawing.Size(226, 22);
             this.memberStreetTextBox.TabIndex = 0;
+            this.memberStreetTextBox.TextChanged += new System.EventHandler(this.memberStreetTextBox_TextChanged);
             // 
             // memberExtraAddrTextBox
             // 
@@ -362,6 +371,7 @@
             this.memberCityTextBox.Name = "memberCityTextBox";
             this.memberCityTextBox.Size = new System.Drawing.Size(140, 22);
             this.memberCityTextBox.TabIndex = 2;
+            this.memberCityTextBox.TextChanged += new System.EventHandler(this.memberCityTextBox_TextChanged);
             // 
             // memberZipLabel
             // 
@@ -379,6 +389,7 @@
             this.memberZipTextBox.Name = "memberZipTextBox";
             this.memberZipTextBox.Size = new System.Drawing.Size(100, 22);
             this.memberZipTextBox.TabIndex = 4;
+            this.memberZipTextBox.TextChanged += new System.EventHandler(this.memberZipTextBox_TextChanged);
             // 
             // memberStateTextBox
             // 
@@ -386,6 +397,7 @@
             this.memberStateTextBox.Name = "memberStateTextBox";
             this.memberStateTextBox.Size = new System.Drawing.Size(116, 22);
             this.memberStateTextBox.TabIndex = 3;
+            this.memberStateTextBox.TextChanged += new System.EventHandler(this.memberStateTextBox_TextChanged);
             // 
             // memberStateLabel
             // 
@@ -414,12 +426,22 @@
             this.memberIdentificationGroupBox.TabStop = false;
             this.memberIdentificationGroupBox.Text = "Identification";
             // 
+            // memberDOBPicker
+            // 
+            this.memberDOBPicker.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
+            this.memberDOBPicker.CalendarTitleForeColor = System.Drawing.Color.DarkRed;
+            this.memberDOBPicker.Location = new System.Drawing.Point(309, 39);
+            this.memberDOBPicker.Name = "memberDOBPicker";
+            this.memberDOBPicker.Size = new System.Drawing.Size(111, 22);
+            this.memberDOBPicker.TabIndex = 8;
+            // 
             // memberSSNTextBox
             // 
             this.memberSSNTextBox.Location = new System.Drawing.Point(9, 39);
             this.memberSSNTextBox.Name = "memberSSNTextBox";
             this.memberSSNTextBox.Size = new System.Drawing.Size(115, 22);
             this.memberSSNTextBox.TabIndex = 0;
+            this.memberSSNTextBox.TextChanged += new System.EventHandler(this.memberSSNTextBox_TextChanged);
             // 
             // memberIDNumTextBox
             // 
@@ -427,6 +449,7 @@
             this.memberIDNumTextBox.Name = "memberIDNumTextBox";
             this.memberIDNumTextBox.Size = new System.Drawing.Size(134, 22);
             this.memberIDNumTextBox.TabIndex = 1;
+            this.memberIDNumTextBox.TextChanged += new System.EventHandler(this.memberIDNumTextBox_TextChanged);
             // 
             // memberSSNLabel
             // 
@@ -434,9 +457,9 @@
             this.memberSSNLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberSSNLabel.Location = new System.Drawing.Point(6, 20);
             this.memberSSNLabel.Name = "memberSSNLabel";
-            this.memberSSNLabel.Size = new System.Drawing.Size(110, 16);
+            this.memberSSNLabel.Size = new System.Drawing.Size(107, 16);
             this.memberSSNLabel.TabIndex = 4;
-            this.memberSSNLabel.Text = "Social Security #:";
+            this.memberSSNLabel.Text = "Social Security #";
             // 
             // memberDLLabel
             // 
@@ -444,9 +467,9 @@
             this.memberDLLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberDLLabel.Location = new System.Drawing.Point(150, 20);
             this.memberDLLabel.Name = "memberDLLabel";
-            this.memberDLLabel.Size = new System.Drawing.Size(137, 16);
+            this.memberDLLabel.Size = new System.Drawing.Size(134, 16);
             this.memberDLLabel.TabIndex = 7;
-            this.memberDLLabel.Text = "Driver\'s License/ ID #:";
+            this.memberDLLabel.Text = "Driver\'s License/ ID #";
             // 
             // memberDOBLabel
             // 
@@ -454,9 +477,9 @@
             this.memberDOBLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberDOBLabel.Location = new System.Drawing.Point(306, 20);
             this.memberDOBLabel.Name = "memberDOBLabel";
-            this.memberDOBLabel.Size = new System.Drawing.Size(64, 16);
+            this.memberDOBLabel.Size = new System.Drawing.Size(61, 16);
             this.memberDOBLabel.TabIndex = 6;
-            this.memberDOBLabel.Text = "Birthdate:";
+            this.memberDOBLabel.Text = "Birthdate";
             // 
             // nameGroupBox
             // 
@@ -479,14 +502,15 @@
             // 
             this.memberFNameTextBox.Location = new System.Drawing.Point(8, 39);
             this.memberFNameTextBox.Name = "memberFNameTextBox";
-            this.memberFNameTextBox.Size = new System.Drawing.Size(141, 22);
+            this.memberFNameTextBox.Size = new System.Drawing.Size(127, 22);
             this.memberFNameTextBox.TabIndex = 0;
+            this.memberFNameTextBox.TextChanged += new System.EventHandler(this.memberFNameTextBox_TextChanged);
             // 
             // memberMNameTextBox
             // 
-            this.memberMNameTextBox.Location = new System.Drawing.Point(155, 39);
+            this.memberMNameTextBox.Location = new System.Drawing.Point(141, 39);
             this.memberMNameTextBox.Name = "memberMNameTextBox";
-            this.memberMNameTextBox.Size = new System.Drawing.Size(77, 22);
+            this.memberMNameTextBox.Size = new System.Drawing.Size(91, 22);
             this.memberMNameTextBox.TabIndex = 1;
             // 
             // memberLNameTextBox
@@ -495,6 +519,7 @@
             this.memberLNameTextBox.Name = "memberLNameTextBox";
             this.memberLNameTextBox.Size = new System.Drawing.Size(182, 22);
             this.memberLNameTextBox.TabIndex = 2;
+            this.memberLNameTextBox.TextChanged += new System.EventHandler(this.memberLNameTextBox_TextChanged);
             // 
             // nameFirstLabel
             // 
@@ -502,19 +527,19 @@
             this.nameFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameFirstLabel.Location = new System.Drawing.Point(6, 20);
             this.nameFirstLabel.Name = "nameFirstLabel";
-            this.nameFirstLabel.Size = new System.Drawing.Size(36, 16);
+            this.nameFirstLabel.Size = new System.Drawing.Size(33, 16);
             this.nameFirstLabel.TabIndex = 3;
-            this.nameFirstLabel.Text = "First:";
+            this.nameFirstLabel.Text = "First";
             // 
             // nameMiddleLabel
             // 
             this.nameMiddleLabel.AutoSize = true;
             this.nameMiddleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameMiddleLabel.Location = new System.Drawing.Point(152, 20);
+            this.nameMiddleLabel.Location = new System.Drawing.Point(138, 20);
             this.nameMiddleLabel.Name = "nameMiddleLabel";
-            this.nameMiddleLabel.Size = new System.Drawing.Size(52, 16);
+            this.nameMiddleLabel.Size = new System.Drawing.Size(49, 16);
             this.nameMiddleLabel.TabIndex = 10;
-            this.nameMiddleLabel.Text = "Middle:";
+            this.nameMiddleLabel.Text = "Middle";
             // 
             // nameLastLabel
             // 
@@ -522,9 +547,9 @@
             this.nameLastLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLastLabel.Location = new System.Drawing.Point(235, 18);
             this.nameLastLabel.Name = "nameLastLabel";
-            this.nameLastLabel.Size = new System.Drawing.Size(36, 16);
+            this.nameLastLabel.Size = new System.Drawing.Size(33, 16);
             this.nameLastLabel.TabIndex = 2;
-            this.nameLastLabel.Text = "Last:";
+            this.nameLastLabel.Text = "Last";
             // 
             // memberSubmitButton
             // 
@@ -547,15 +572,6 @@
             this.memberCancelButton.Text = "Cancel";
             this.memberCancelButton.UseVisualStyleBackColor = true;
             this.memberCancelButton.Click += new System.EventHandler(this.memberCancelButton_Click);
-            // 
-            // memberDOBPicker
-            // 
-            this.memberDOBPicker.CalendarTitleBackColor = System.Drawing.SystemColors.ControlText;
-            this.memberDOBPicker.CalendarTitleForeColor = System.Drawing.Color.DarkRed;
-            this.memberDOBPicker.Location = new System.Drawing.Point(309, 39);
-            this.memberDOBPicker.Name = "memberDOBPicker";
-            this.memberDOBPicker.Size = new System.Drawing.Size(111, 22);
-            this.memberDOBPicker.TabIndex = 8;
             // 
             // AddMemberForm
             // 

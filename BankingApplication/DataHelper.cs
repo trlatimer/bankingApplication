@@ -125,6 +125,30 @@ namespace BankingApplication
             Console.WriteLine($"Successfully created user: {name}");
         }
 
+        public static void createMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
+            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, string homePhone = null,
+            string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
+        {
+            Console.WriteLine(dob);
+
+            try
+            {
+                String query = $"INSERT INTO Members (FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, " +
+                    $"MailStreet, MailExtraAddress, MailCity, MailState, MailZipCode, CellPhone, HomePhone, Email, CreatedBy) VALUES (" +
+                    $"'{fName}', '{mName}', '{lName}', {ssn}, '{idNum}', '{dob}', '{street}', '{extraAddress}', '{city}', '{state}', '{zipCode}', " +
+                    $"'{mailStreet}', '{mailExtraAddress}', '{mailCity}', '{mailState}', '{mailZipCode}', {cell}, '{homePhone}', '{email}', {userID});";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to create new member. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
         public static User getUser(string name)
         {
             String query = $"SELECT UserID, UserName, Password, AuthLevel FROM Users WHERE UserName = '{name}';";
