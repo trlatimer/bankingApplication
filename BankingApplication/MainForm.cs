@@ -21,7 +21,7 @@ namespace BankingApplication
         {
             InitializeComponent();
 
-            
+            listView2.View = View.Details;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -85,6 +85,11 @@ namespace BankingApplication
             addMemberForm = new AddMemberForm();
             addMemberForm.mainForm = this;
             addMemberForm.Show();
+        }
+
+        private void editAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

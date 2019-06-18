@@ -179,6 +179,7 @@ namespace BankingApplication
                 DBClose();
                 throw new Exception("Unable to find user with that name");
             }
+
         }
     }
 }
