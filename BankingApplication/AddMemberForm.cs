@@ -63,6 +63,7 @@ namespace BankingApplication
         {
             this.Close();
             mainForm.Show();
+            mainForm.Enabled = true;
         }
 
         private void memberSubmitButton_Click(object sender, EventArgs e)
@@ -82,6 +83,7 @@ namespace BankingApplication
                 Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been created by user {mainForm.currentUser.getUserID()}");
                 this.Close();
                 mainForm.Show();
+                mainForm.Enabled = true;
             }
             return;
         }

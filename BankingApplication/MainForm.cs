@@ -16,12 +16,13 @@ namespace BankingApplication
         public OpenAccountForm openAccountForm = null;
         public AddMemberForm addMemberForm = null;
         public User currentUser = null;
+        public Member currentMember = null;
 
         public MainForm()
         {
             InitializeComponent();
 
-            listView2.View = View.Details;
+
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -65,11 +66,6 @@ namespace BankingApplication
             }
         }
 
-        private void mainTransactionButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void openShareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openAccountForm = new OpenAccountForm
@@ -84,12 +80,62 @@ namespace BankingApplication
         {
             addMemberForm = new AddMemberForm();
             addMemberForm.mainForm = this;
+            this.Enabled = false;
             addMemberForm.Show();
         }
 
-        private void editAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ViewAccounButton_Click(object sender, EventArgs e)
         {
+            int enteredMemberID = Convert.ToInt32(ShowDialog("Enter Member ID: ", "View Member Information"));
 
+            try
+            {
+                currentMember = DataHelper.getMember(enteredMemberID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Unable to locate member", MessageBoxButtons.OK);
+                return;
+            }
+
+            if (currentMember != null)
+            {
+                memberName.Text = currentMember.firstName + " " + currentMember.middleName + " " + currentMember.lastName;
+                memberDOB.Text = currentMember.Birthdate.ToString("MM/dd/yyyy");
+                memberSSN.Text = currentMember.socialSecurityNumber.ToString().Substring(5, 4);
+                memberIDNum.Text = currentMember.IDNumber;
+                memberCell.Text = string.Format("(999)999-9999", currentMember.cellPhone.ToString());
+                memberHome.Text = string.Format("(999)999-9999", currentMember.homePhone.ToString());
+                memberEmail.Text = currentMember.email;
+                memberStreet.Text = currentMember.street;
+                memberCityStateZip.Text = currentMember.city + ", " + currentMember.state + " " + currentMember.zipCode.ToString();
+                memberMailStreet.Text = currentMember.mailStreet;
+                memberMailCityStateZip.Text = currentMember.mailCity + ", " + currentMember.mailState + " " + currentMember.mailZipCode;
+            }
+        }
+
+
+
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
         }
     }
 }

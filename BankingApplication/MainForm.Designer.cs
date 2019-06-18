@@ -70,6 +70,8 @@
             this.memberName = new System.Windows.Forms.Label();
             this.memberNameLabel = new System.Windows.Forms.Label();
             this.memberInfoLabel = new System.Windows.Forms.Label();
+            this.memberAccountDetails = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.memberAccountsButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.openShareButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,8 +82,6 @@
             this.memberButtons = new System.Windows.Forms.ToolStripDropDownButton();
             this.editMemberButton = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMemberButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.memberAccountDetails = new System.Windows.Forms.GroupBox();
             this.mainToolStrip.SuspendLayout();
             this.mainFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
@@ -90,8 +90,8 @@
             this.mainContainer.SuspendLayout();
             this.memberMailAddressGroupBox.SuspendLayout();
             this.memberAddressGroupBox.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainToolStrip
@@ -143,7 +143,6 @@
             this.mainTransactionButton.Name = "mainTransactionButton";
             this.mainTransactionButton.Size = new System.Drawing.Size(129, 21);
             this.mainTransactionButton.Text = "Perform Transaction";
-            this.mainTransactionButton.Click += new System.EventHandler(this.mainTransactionButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -168,6 +167,7 @@
             this.viewAccounButton.Name = "viewAccounButton";
             this.viewAccounButton.Size = new System.Drawing.Size(206, 22);
             this.viewAccounButton.Text = "View/Manage Account";
+            this.viewAccounButton.Click += new System.EventHandler(this.ViewAccounButton_Click);
             // 
             // AddMemberButton
             // 
@@ -305,9 +305,8 @@
             this.memberIDNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberIDNum.Location = new System.Drawing.Point(67, 107);
             this.memberIDNum.Name = "memberIDNum";
-            this.memberIDNum.Size = new System.Drawing.Size(68, 16);
+            this.memberIDNum.Size = new System.Drawing.Size(0, 16);
             this.memberIDNum.TabIndex = 16;
-            this.memberIDNum.Text = "WA99999I";
             // 
             // memberSSN
             // 
@@ -315,9 +314,8 @@
             this.memberSSN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberSSN.Location = new System.Drawing.Point(186, 80);
             this.memberSSN.Name = "memberSSN";
-            this.memberSSN.Size = new System.Drawing.Size(36, 16);
+            this.memberSSN.Size = new System.Drawing.Size(0, 16);
             this.memberSSN.TabIndex = 15;
-            this.memberSSN.Text = "9999";
             // 
             // memberEmail
             // 
@@ -325,9 +323,8 @@
             this.memberEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberEmail.Location = new System.Drawing.Point(67, 188);
             this.memberEmail.Name = "memberEmail";
-            this.memberEmail.Size = new System.Drawing.Size(143, 16);
+            this.memberEmail.Size = new System.Drawing.Size(0, 16);
             this.memberEmail.TabIndex = 14;
-            this.memberEmail.Text = "johndoe@hotmail.com";
             // 
             // memberEmailLabel
             // 
@@ -345,9 +342,8 @@
             this.memberHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberHome.Location = new System.Drawing.Point(67, 162);
             this.memberHome.Name = "memberHome";
-            this.memberHome.Size = new System.Drawing.Size(90, 16);
+            this.memberHome.Size = new System.Drawing.Size(0, 16);
             this.memberHome.TabIndex = 12;
-            this.memberHome.Text = "(999)999-9999";
             // 
             // memberHomeLabel
             // 
@@ -365,9 +361,8 @@
             this.memberCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberCell.Location = new System.Drawing.Point(67, 134);
             this.memberCell.Name = "memberCell";
-            this.memberCell.Size = new System.Drawing.Size(90, 16);
+            this.memberCell.Size = new System.Drawing.Size(0, 16);
             this.memberCell.TabIndex = 10;
-            this.memberCell.Text = "(999)999-9999";
             // 
             // memberCellLabel
             // 
@@ -396,18 +391,16 @@
             this.memberMailCityStateZip.AutoSize = true;
             this.memberMailCityStateZip.Location = new System.Drawing.Point(7, 55);
             this.memberMailCityStateZip.Name = "memberMailCityStateZip";
-            this.memberMailCityStateZip.Size = new System.Drawing.Size(141, 16);
+            this.memberMailCityStateZip.Size = new System.Drawing.Size(0, 16);
             this.memberMailCityStateZip.TabIndex = 1;
-            this.memberMailCityStateZip.Text = "MyCity, MyState 99999";
             // 
             // memberMailStreet
             // 
             this.memberMailStreet.AutoSize = true;
             this.memberMailStreet.Location = new System.Drawing.Point(7, 28);
             this.memberMailStreet.Name = "memberMailStreet";
-            this.memberMailStreet.Size = new System.Drawing.Size(95, 16);
+            this.memberMailStreet.Size = new System.Drawing.Size(0, 16);
             this.memberMailStreet.TabIndex = 0;
-            this.memberMailStreet.Text = "9999 My Street";
             // 
             // memberAddressGroupBox
             // 
@@ -426,18 +419,16 @@
             this.memberCityStateZip.AutoSize = true;
             this.memberCityStateZip.Location = new System.Drawing.Point(7, 54);
             this.memberCityStateZip.Name = "memberCityStateZip";
-            this.memberCityStateZip.Size = new System.Drawing.Size(141, 16);
+            this.memberCityStateZip.Size = new System.Drawing.Size(0, 16);
             this.memberCityStateZip.TabIndex = 1;
-            this.memberCityStateZip.Text = "MyCity, MyState 99999";
             // 
             // memberStreet
             // 
             this.memberStreet.AutoSize = true;
             this.memberStreet.Location = new System.Drawing.Point(7, 28);
             this.memberStreet.Name = "memberStreet";
-            this.memberStreet.Size = new System.Drawing.Size(95, 16);
+            this.memberStreet.Size = new System.Drawing.Size(0, 16);
             this.memberStreet.TabIndex = 0;
-            this.memberStreet.Text = "9999 My Street";
             // 
             // memberSSNLabel
             // 
@@ -455,9 +446,8 @@
             this.memberDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberDOB.Location = new System.Drawing.Point(67, 80);
             this.memberDOB.Name = "memberDOB";
-            this.memberDOB.Size = new System.Drawing.Size(72, 16);
+            this.memberDOB.Size = new System.Drawing.Size(0, 16);
             this.memberDOB.TabIndex = 5;
-            this.memberDOB.Text = "01/01/2019";
             // 
             // memberIDNumLabel
             // 
@@ -485,9 +475,8 @@
             this.memberName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.memberName.Location = new System.Drawing.Point(67, 53);
             this.memberName.Name = "memberName";
-            this.memberName.Size = new System.Drawing.Size(110, 16);
+            this.memberName.Size = new System.Drawing.Size(0, 16);
             this.memberName.TabIndex = 2;
-            this.memberName.Text = "John James Doe";
             // 
             // memberNameLabel
             // 
@@ -508,6 +497,23 @@
             this.memberInfoLabel.Size = new System.Drawing.Size(178, 24);
             this.memberInfoLabel.TabIndex = 0;
             this.memberInfoLabel.Text = "Member Information";
+            // 
+            // memberAccountDetails
+            // 
+            this.memberAccountDetails.Location = new System.Drawing.Point(17, 249);
+            this.memberAccountDetails.Name = "memberAccountDetails";
+            this.memberAccountDetails.Size = new System.Drawing.Size(475, 150);
+            this.memberAccountDetails.TabIndex = 2;
+            this.memberAccountDetails.TabStop = false;
+            this.memberAccountDetails.Text = "Account Details";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(17, 41);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(475, 202);
+            this.dataGridView1.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -552,7 +558,6 @@
             this.editAccountButton.Name = "editAccountButton";
             this.editAccountButton.Size = new System.Drawing.Size(168, 22);
             this.editAccountButton.Text = "Edit  an Account";
-            this.editAccountButton.Click += new System.EventHandler(this.editAccountToolStripMenuItem_Click);
             // 
             // closeAccountButton
             // 
@@ -590,23 +595,6 @@
             this.deleteMemberButton.Size = new System.Drawing.Size(155, 22);
             this.deleteMemberButton.Text = "Delete Member";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(17, 41);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(475, 202);
-            this.dataGridView1.TabIndex = 1;
-            // 
-            // memberAccountDetails
-            // 
-            this.memberAccountDetails.Location = new System.Drawing.Point(17, 249);
-            this.memberAccountDetails.Name = "memberAccountDetails";
-            this.memberAccountDetails.Size = new System.Drawing.Size(475, 150);
-            this.memberAccountDetails.TabIndex = 2;
-            this.memberAccountDetails.TabStop = false;
-            this.memberAccountDetails.Text = "Account Details";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,9 +623,9 @@
             this.memberMailAddressGroupBox.PerformLayout();
             this.memberAddressGroupBox.ResumeLayout(false);
             this.memberAddressGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

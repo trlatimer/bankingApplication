@@ -181,5 +181,72 @@ namespace BankingApplication
             }
 
         }
-    }
+
+        public static Member getMember(int memberNum)
+        {
+            Member member;
+            int memberID;
+            string firstName;
+            string middleName;
+            string lastName;
+            int socialSecurityNumber;
+            string IDNumber;
+            string birthdate;
+            string street;
+            string extraAddress;
+            string city;
+            string state;
+            int zipCode;
+            string mailStreet;
+            string mailExtraAddress;
+            string mailCity;
+            string mailState;
+            string mailZipCode;
+            int cellPhone;
+            string homePhone;
+            string email;
+
+            String query = $"SELECT MemberID, FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, MailStreet, MailExtraAddress, MailCity, " +
+                $"MailState, MailZipCode, CellPhone, HomePhone, Email FROM Members WHERE MemberID = {memberNum};";
+
+
+            DBOpen();
+            cmd = new MySqlCommand(query, conn);
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            if (reader.HasRows)
+            {
+                memberID = Convert.ToInt32(reader[0]);
+                firstName = reader[1].ToString();
+                middleName= reader[2].ToString();
+                lastName = reader[3].ToString();
+                socialSecurityNumber = Convert.ToInt32(reader[4]);
+                IDNumber = reader[5].ToString();
+                birthdate = reader[6].ToString();
+                street = reader[7].ToString();
+                extraAddress = reader[8].ToString();
+                city = reader[9].ToString();
+                state = reader[10].ToString();
+                zipCode = Convert.ToInt32(reader[11]);
+                mailStreet = reader[12].ToString();
+                mailExtraAddress = reader[13].ToString();
+                mailCity = reader[14].ToString();
+                mailState = reader[15].ToString();
+                mailZipCode = reader[16].ToString();
+                cellPhone = Convert.ToInt32(reader[17]);
+                homePhone = reader[18].ToString();
+                email = reader[19].ToString();
+                member = new Member(memberID, firstName, lastName, socialSecurityNumber, IDNumber, birthdate, street, city, state, zipCode, cellPhone, email, middleName, extraAddress,
+                    homePhone, mailStreet, mailExtraAddress, mailCity, mailState, mailZipCode);
+                DBClose();
+                return member;
+            }
+            else
+            {
+                Console.WriteLine("No rows in reader");
+                DBClose();
+                throw new Exception("Unable to find member matching that member ID");
+            }
+        }
+}
 }

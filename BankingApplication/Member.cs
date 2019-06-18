@@ -8,26 +8,26 @@ namespace BankingApplication
 {
     public class Member
     {
-        private int memberID { get; set; }
-        private string firstName { get; set; }
-        private string middleName { get; set; }
-    private string lastName { get; set; }
-        private int socialSecurityNumber { get; set; }
-        private string IDNumber { get; set; }
-        private DateTime Birthdate { get; set; }
-        private string street { get; set; }
-        private string extraAddress { get; set; }
-        private string city { get; set; }
-        private string state { get; set; }
-        private int zipCode { get; set; }
-        private string mailStreet { get; set; }
-        private string mailExtraAddress { get; set; }
-        private string mailCity { get; set; }
-        private string mailState { get; set; }
-        private string mailZipCode { get; set; }
-        private int cellPhone { get; set; }
-        private string homePhone { get; set; }
-        private string email { get; set; }
+        public int memberID { get; set; }
+        public string firstName { get; set; }
+        public string middleName { get; set; }
+        public string lastName { get; set; }
+        public int socialSecurityNumber { get; set; }
+        public string IDNumber { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string street { get; set; }
+        public string extraAddress { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public int zipCode { get; set; }
+        public string mailStreet { get; set; }
+        public string mailExtraAddress { get; set; }
+        public string mailCity { get; set; }
+        public string mailState { get; set; }
+        public string mailZipCode { get; set; }
+        public int cellPhone { get; set; }
+        public string homePhone { get; set; }
+        public string email { get; set; }
 
 
         public Member(int ID, string fName, string lName, int ssn, string idNum, string dob, string Street, string City,
