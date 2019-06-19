@@ -126,11 +126,9 @@ namespace BankingApplication
         }
 
         public static void createMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
-            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, string homePhone = null,
+            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
         {
-            Console.WriteLine(dob);
-
             try
             {
                 String query = $"INSERT INTO Members (FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, " +
@@ -182,6 +180,27 @@ namespace BankingApplication
 
         }
 
+        public static List<string> getUsers()
+        {
+            List<string> foundUsers = new List<string>();
+
+            String query = "SELECT UserName FROM Users;";
+            DBOpen();
+            cmd = new MySqlCommand(query, conn);
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                foundUsers.Add(reader[0].ToString());
+                Console.WriteLine(reader[0]);
+            }
+            DBClose();
+            if (foundUsers.Count == 0)
+            {
+                Console.WriteLine("No users found");
+            }
+            return foundUsers;
+        }
+
         public static Member getMember(int memberNum)
         {
             Member member;
@@ -203,7 +222,7 @@ namespace BankingApplication
             string mailState;
             string mailZipCode;
             int cellPhone;
-            string homePhone;
+            int homePhone;
             string email;
 
             String query = $"SELECT MemberID, FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, MailStreet, MailExtraAddress, MailCity, " +
@@ -234,7 +253,7 @@ namespace BankingApplication
                 mailState = reader[15].ToString();
                 mailZipCode = reader[16].ToString();
                 cellPhone = Convert.ToInt32(reader[17]);
-                homePhone = reader[18].ToString();
+                homePhone = Convert.ToInt32(reader[18]);
                 email = reader[19].ToString();
                 member = new Member(memberID, firstName, lastName, socialSecurityNumber, IDNumber, birthdate, street, city, state, zipCode, cellPhone, email, middleName, extraAddress,
                     homePhone, mailStreet, mailExtraAddress, mailCity, mailState, mailZipCode);
@@ -248,5 +267,45 @@ namespace BankingApplication
                 throw new Exception("Unable to find member matching that member ID");
             }
         }
-}
+
+        public static void updateMember(int memberID, string fName, string lName, int ssn, string idNum, string dob, string street, string city,
+            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
+            string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
+        {
+            try
+            {
+                String query = $"UPDATE Members SET " +
+                    $"FName = '{fName}', MName = '{mName}', LName = '{lName}', SSN = {ssn}, IDNum = '{idNum}', Birthdate = '{dob}', Street = '{street}', " +
+                    $"ExtraAddress = '{extraAddress}', City = '{city}', State = '{state}', ZipCode = '{zipCode}', MailStreet = '{mailStreet}', " +
+                    $"MailExtraAddress = '{mailExtraAddress}', MailCity = '{mailCity}', MailState = '{mailState}', MailZipCode = '{mailZipCode}', " +
+                    $"CellPhone = {cell}, HomePhone = {homePhone}, Email = '{email}', LastUpdatedBy = {userID} WHERE MemberID = {memberID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update member. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
+        public static void deleteMember(int memberID)
+        {
+            // TODO Add check for accounts
+
+            try
+            {
+                String query = $"DELETE FROM Members WHERE MemberID = {memberID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            } catch (Exception e)
+            {
+                MessageBox.Show("Unable to delete member. \n" + e.Message.ToString());
+            }
+        }
+    }
 }

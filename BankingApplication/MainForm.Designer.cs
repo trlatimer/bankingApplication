@@ -37,14 +37,13 @@
             this.mainAccountButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.viewAccounButton = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMemberButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.openAccountButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mainReportButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mainManageButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addUserButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.editUserButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteUserButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mainFooter = new System.Windows.Forms.GroupBox();
             this.mainFooterUserLabel = new System.Windows.Forms.Label();
@@ -82,6 +81,7 @@
             this.memberButtons = new System.Windows.Forms.ToolStripDropDownButton();
             this.editMemberButton = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMemberButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.memberInfoPanel = new System.Windows.Forms.Panel();
             this.mainToolStrip.SuspendLayout();
             this.mainFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
@@ -92,6 +92,7 @@
             this.memberAddressGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.memberInfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainToolStrip
@@ -154,8 +155,7 @@
             this.mainAccountButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.mainAccountButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewAccounButton,
-            this.AddMemberButton,
-            this.openAccountButton});
+            this.AddMemberButton});
             this.mainAccountButton.Image = ((System.Drawing.Image)(resources.GetObject("mainAccountButton.Image")));
             this.mainAccountButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mainAccountButton.Name = "mainAccountButton";
@@ -165,23 +165,16 @@
             // viewAccounButton
             // 
             this.viewAccounButton.Name = "viewAccounButton";
-            this.viewAccounButton.Size = new System.Drawing.Size(206, 22);
-            this.viewAccounButton.Text = "View/Manage Account";
+            this.viewAccounButton.Size = new System.Drawing.Size(210, 22);
+            this.viewAccounButton.Text = "View/Manage Member";
             this.viewAccounButton.Click += new System.EventHandler(this.ViewAccounButton_Click);
             // 
             // AddMemberButton
             // 
             this.AddMemberButton.Name = "AddMemberButton";
-            this.AddMemberButton.Size = new System.Drawing.Size(206, 22);
-            this.AddMemberButton.Text = "Add Member";
+            this.AddMemberButton.Size = new System.Drawing.Size(210, 22);
+            this.AddMemberButton.Text = "New Member";
             this.AddMemberButton.Click += new System.EventHandler(this.AddMemberButton_Click);
-            // 
-            // openAccountButton
-            // 
-            this.openAccountButton.Name = "openAccountButton";
-            this.openAccountButton.Size = new System.Drawing.Size(206, 22);
-            this.openAccountButton.Text = "Open Account";
-            this.openAccountButton.Click += new System.EventHandler(this.openShareToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -206,32 +199,33 @@
             // 
             this.mainManageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.mainManageButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addUserToolStripMenuItem,
-            this.editUserToolStripMenuItem,
-            this.deleteUserToolStripMenuItem});
+            this.addUserButton,
+            this.editUserButton,
+            this.deleteUserButton});
             this.mainManageButton.Image = ((System.Drawing.Image)(resources.GetObject("mainManageButton.Image")));
             this.mainManageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mainManageButton.Name = "mainManageButton";
             this.mainManageButton.Size = new System.Drawing.Size(129, 21);
             this.mainManageButton.Text = "User Management";
             // 
-            // addUserToolStripMenuItem
+            // addUserButton
             // 
-            this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.addUserToolStripMenuItem.Text = "Add User";
+            this.addUserButton.Name = "addUserButton";
+            this.addUserButton.Size = new System.Drawing.Size(180, 22);
+            this.addUserButton.Text = "Add User";
+            this.addUserButton.Click += new System.EventHandler(this.addUserButton_Click);
             // 
-            // editUserToolStripMenuItem
+            // editUserButton
             // 
-            this.editUserToolStripMenuItem.Name = "editUserToolStripMenuItem";
-            this.editUserToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.editUserToolStripMenuItem.Text = "Edit User";
+            this.editUserButton.Name = "editUserButton";
+            this.editUserButton.Size = new System.Drawing.Size(180, 22);
+            this.editUserButton.Text = "Edit User";
             // 
-            // deleteUserToolStripMenuItem
+            // deleteUserButton
             // 
-            this.deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
-            this.deleteUserToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.deleteUserToolStripMenuItem.Text = "Delete User";
+            this.deleteUserButton.Name = "deleteUserButton";
+            this.deleteUserButton.Size = new System.Drawing.Size(180, 22);
+            this.deleteUserButton.Text = "Delete User";
             // 
             // toolStripSeparator4
             // 
@@ -263,7 +257,7 @@
             // 
             this.mainContainer.BackColor = System.Drawing.Color.LightSteelBlue;
             this.mainContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mainContainer.Location = new System.Drawing.Point(12, 48);
+            this.mainContainer.Location = new System.Drawing.Point(5, 6);
             this.mainContainer.Name = "mainContainer";
             // 
             // mainContainer.Panel1
@@ -588,12 +582,23 @@
             this.editMemberButton.Name = "editMemberButton";
             this.editMemberButton.Size = new System.Drawing.Size(155, 22);
             this.editMemberButton.Text = "Edit Member";
+            this.editMemberButton.Click += new System.EventHandler(this.EditMemberButton_Click);
             // 
             // deleteMemberButton
             // 
             this.deleteMemberButton.Name = "deleteMemberButton";
             this.deleteMemberButton.Size = new System.Drawing.Size(155, 22);
             this.deleteMemberButton.Text = "Delete Member";
+            this.deleteMemberButton.Click += new System.EventHandler(this.deleteMemberButton_Click);
+            // 
+            // memberInfoPanel
+            // 
+            this.memberInfoPanel.Controls.Add(this.mainContainer);
+            this.memberInfoPanel.Location = new System.Drawing.Point(7, 42);
+            this.memberInfoPanel.Name = "memberInfoPanel";
+            this.memberInfoPanel.Size = new System.Drawing.Size(788, 435);
+            this.memberInfoPanel.TabIndex = 5;
+            this.memberInfoPanel.Visible = false;
             // 
             // MainForm
             // 
@@ -601,7 +606,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(796, 509);
-            this.Controls.Add(this.mainContainer);
+            this.Controls.Add(this.memberInfoPanel);
             this.Controls.Add(this.mainFooter);
             this.Controls.Add(this.mainToolStrip);
             this.Name = "MainForm";
@@ -626,6 +631,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.memberInfoPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -645,13 +651,12 @@
         private System.Windows.Forms.SplitContainer mainContainer;
         private System.Windows.Forms.ToolStripDropDownButton mainAccountButton;
         private System.Windows.Forms.ToolStripMenuItem viewAccounButton;
-        private System.Windows.Forms.ToolStripMenuItem openAccountButton;
         private System.Windows.Forms.ToolStripMenuItem AddMemberButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripDropDownButton mainManageButton;
-        private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteUserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addUserButton;
+        private System.Windows.Forms.ToolStripMenuItem editUserButton;
+        private System.Windows.Forms.ToolStripMenuItem deleteUserButton;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton memberAccountsButton;
         private System.Windows.Forms.ToolStripMenuItem openShareButton;
@@ -685,5 +690,6 @@
         private System.Windows.Forms.Label memberNameLabel;
         private System.Windows.Forms.GroupBox memberAccountDetails;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Panel memberInfoPanel;
     }
 }

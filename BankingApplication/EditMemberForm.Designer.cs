@@ -1,6 +1,6 @@
 ﻿namespace BankingApplication
 {
-    partial class AddMemberForm
+    partial class EditMemberForm
     {
         /// <summary>
         /// Required designer variable.
@@ -46,17 +46,17 @@
             // 
             // MemberTitle
             // 
-            this.MemberTitle.Location = new System.Drawing.Point(141, 7);
-            this.MemberTitle.Size = new System.Drawing.Size(208, 25);
-            this.MemberTitle.Text = "Create New Member";
+            this.MemberTitle.Size = new System.Drawing.Size(133, 25);
+            this.MemberTitle.Text = "Edit Member";
             // 
-            // AddMemberForm
+            // EditMemberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 585);
-            this.Name = "AddMemberForm";
-            this.Text = "AddMemberForm";
+            this.ClientSize = new System.Drawing.Size(476, 589);
+            this.Name = "EditMemberForm";
+            this.Text = "EditMemberForm";
+            this.Load += new System.EventHandler(this.EditMemberForm_Load);
             this.addMemberPanel.ResumeLayout(false);
             this.addMemberPanel.PerformLayout();
             this.memberIdentificationGroupBox.ResumeLayout(false);

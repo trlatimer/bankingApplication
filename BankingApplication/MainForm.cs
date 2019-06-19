@@ -15,14 +15,15 @@ namespace BankingApplication
         public LoginForm loginForm = null;
         public OpenAccountForm openAccountForm = null;
         public AddMemberForm addMemberForm = null;
+        public EditMemberForm editMemberForm = null;
+        public AddUserForm addUserForm = null;
         public User currentUser = null;
         public Member currentMember = null;
+        public int enteredMemberID;
 
         public MainForm()
         {
             InitializeComponent();
-
-
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -44,7 +45,6 @@ namespace BankingApplication
             if (currentUser.getAuthLevel() == 1)
             {
                 AddMemberButton.Available = false;
-                openAccountButton.Available = false;
                 mainManageButton.Available = false;
                 toolStripSeparator4.Available = false;
             }
@@ -58,7 +58,6 @@ namespace BankingApplication
                 mainTransactionButton.Available = false;
                 mainReportButton.Available = false;
                 AddMemberButton.Available = false;
-                openAccountButton.Available = false;
                 mainManageButton.Available = false;
                 toolStripSeparator4.Available = false;
 
@@ -86,8 +85,22 @@ namespace BankingApplication
 
         private void ViewAccounButton_Click(object sender, EventArgs e)
         {
-            int enteredMemberID = Convert.ToInt32(ShowDialog("Enter Member ID: ", "View Member Information"));
+            
+            string response = ShowDialog("Enter Member ID: ", "View Member Information");
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                Console.WriteLine("No member ID entered");
+                return;
+            }
+            else
+            {
+                enteredMemberID = Convert.ToInt32(response);
+            }
+            populateData();
+        }
 
+        public void populateData()
+        {
             try
             {
                 currentMember = DataHelper.getMember(enteredMemberID);
@@ -100,35 +113,48 @@ namespace BankingApplication
 
             if (currentMember != null)
             {
+                memberInfoPanel.Visible = true;
                 memberName.Text = currentMember.firstName + " " + currentMember.middleName + " " + currentMember.lastName;
                 memberDOB.Text = currentMember.Birthdate.ToString("MM/dd/yyyy");
                 memberSSN.Text = currentMember.socialSecurityNumber.ToString().Substring(5, 4);
                 memberIDNum.Text = currentMember.IDNumber;
-                memberCell.Text = string.Format("(999)999-9999", currentMember.cellPhone.ToString());
-                memberHome.Text = string.Format("(999)999-9999", currentMember.homePhone.ToString());
+                memberCell.Text = currentMember.cellPhone.ToString("#(###)###-####");
                 memberEmail.Text = currentMember.email;
                 memberStreet.Text = currentMember.street;
                 memberCityStateZip.Text = currentMember.city + ", " + currentMember.state + " " + currentMember.zipCode.ToString();
-                memberMailStreet.Text = currentMember.mailStreet;
-                memberMailCityStateZip.Text = currentMember.mailCity + ", " + currentMember.mailState + " " + currentMember.mailZipCode;
+                if (currentMember.homePhone == 0)
+                {
+                    memberHome.Text = "";
+                }
+                else
+                {
+                    memberHome.Text = currentMember.homePhone.ToString("#(###)###-####");
+                }
+                if (string.IsNullOrWhiteSpace(currentMember.mailStreet))
+                {
+                    memberMailStreet.Text = "";
+                    memberMailCityStateZip.Text = "";
+                } else
+                {
+                    memberMailStreet.Text = currentMember.mailStreet;
+                    memberMailCityStateZip.Text = currentMember.mailCity + ", " + currentMember.mailState + " " + currentMember.mailZipCode;
+                }
             }
         }
-
-
 
         public static string ShowDialog(string text, string caption)
         {
             Form prompt = new Form()
             {
-                Width = 500,
+                Width = 200,
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Text = caption,
                 StartPosition = FormStartPosition.CenterScreen
             };
             Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
-            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
-            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            TextBox textBox = new TextBox() { Left = 20, Top = 50, Width = 150 };
+            Button confirmation = new Button() { Text = "Ok", Left = 75, Width = 50, Top = 75, DialogResult = DialogResult.OK };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             prompt.Controls.Add(textBox);
             prompt.Controls.Add(confirmation);
@@ -136,6 +162,42 @@ namespace BankingApplication
             prompt.AcceptButton = confirmation;
 
             return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
+        private void EditMemberButton_Click(object sender, EventArgs e)
+        {
+            editMemberForm = new EditMemberForm()
+            {
+                currentMember = currentMember
+            };
+            editMemberForm.mainForm = this;
+            editMemberForm.Show();
+            this.Enabled = false;
+        }
+
+        private void deleteMemberButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete member, {currentMember.firstName} { currentMember.lastName}?", "Delete Member", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                DataHelper.deleteMember(currentMember.memberID);
+                Console.WriteLine($"Member, {currentMember.firstName} {currentMember.lastName}");
+                currentMember = null;
+                memberInfoPanel.Visible = false;
+            }
+            return;
+        }
+
+        private void addUserButton_Click(object sender, EventArgs e)
+        {
+            addUserForm = new AddUserForm()
+            {
+                currentUser = currentUser
+            };
+            addUserForm.mainform = this;
+            addUserForm.Show();
+            this.Enabled = false;
         }
     }
 }

@@ -26,12 +26,12 @@ namespace BankingApplication
         public string mailState { get; set; }
         public string mailZipCode { get; set; }
         public int cellPhone { get; set; }
-        public string homePhone { get; set; }
+        public int homePhone { get; set; }
         public string email { get; set; }
 
 
         public Member(int ID, string fName, string lName, int ssn, string idNum, string dob, string Street, string City,
-            string State, int ZipCode, int cell, string Email, string mName = null, string extraAddress = null, string home = null,
+            string State, int ZipCode, int cell, string Email, string mName = null, string extraAddress = null, int home = 0,
             string MailStreet = null, string MailExtraAddress = null, string MailCity = null, string MailState = null, string MailZipCode = null)
         {
             memberID = ID; firstName = fName; middleName = mName; lastName = lName; socialSecurityNumber = ssn; IDNumber = idNum;
