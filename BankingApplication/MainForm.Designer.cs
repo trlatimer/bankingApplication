@@ -69,15 +69,34 @@
             this.memberName = new System.Windows.Forms.Label();
             this.memberNameLabel = new System.Windows.Forms.Label();
             this.memberInfoLabel = new System.Windows.Forms.Label();
+            this.loansDGV = new System.Windows.Forms.DataGridView();
+            this.loansLabel = new System.Windows.Forms.Label();
+            this.sharesLabel = new System.Windows.Forms.Label();
             this.memberAccountDetails = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.accountClosedDate = new System.Windows.Forms.Label();
+            this.accountClosedDateLabel = new System.Windows.Forms.Label();
+            this.accountOpenDate = new System.Windows.Forms.Label();
+            this.accountOpenDateLabel = new System.Windows.Forms.Label();
+            this.accountJointSSN = new System.Windows.Forms.Label();
+            this.accountJointSSNLabel = new System.Windows.Forms.Label();
+            this.accountJointName = new System.Windows.Forms.Label();
+            this.accountJointNameLabel = new System.Windows.Forms.Label();
+            this.accountJointID = new System.Windows.Forms.Label();
+            this.accountJointIDLabel = new System.Windows.Forms.Label();
+            this.accountBalance = new System.Windows.Forms.Label();
+            this.accountBalanceLabel = new System.Windows.Forms.Label();
+            this.accountDesc = new System.Windows.Forms.Label();
+            this.accountDescLabel = new System.Windows.Forms.Label();
+            this.accountID = new System.Windows.Forms.Label();
+            this.accountIDLabel = new System.Windows.Forms.Label();
+            this.viewTranscationsButton = new System.Windows.Forms.Button();
+            this.sharesDGV = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.memberAccountsButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.openShareButton = new System.Windows.Forms.ToolStripMenuItem();
             this.openLoanButton = new System.Windows.Forms.ToolStripMenuItem();
             this.editAccountButton = new System.Windows.Forms.ToolStripMenuItem();
             this.closeAccountButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewTransactionsButton = new System.Windows.Forms.ToolStripMenuItem();
             this.memberButtons = new System.Windows.Forms.ToolStripDropDownButton();
             this.editMemberButton = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMemberButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +109,9 @@
             this.mainContainer.SuspendLayout();
             this.memberMailAddressGroupBox.SuspendLayout();
             this.memberAddressGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loansDGV)).BeginInit();
+            this.memberAccountDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sharesDGV)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.memberInfoPanel.SuspendLayout();
             this.SuspendLayout();
@@ -211,21 +232,23 @@
             // addUserButton
             // 
             this.addUserButton.Name = "addUserButton";
-            this.addUserButton.Size = new System.Drawing.Size(180, 22);
+            this.addUserButton.Size = new System.Drawing.Size(246, 22);
             this.addUserButton.Text = "Add User";
             this.addUserButton.Click += new System.EventHandler(this.addUserButton_Click);
             // 
             // editUserButton
             // 
             this.editUserButton.Name = "editUserButton";
-            this.editUserButton.Size = new System.Drawing.Size(180, 22);
-            this.editUserButton.Text = "Edit User";
+            this.editUserButton.Size = new System.Drawing.Size(246, 22);
+            this.editUserButton.Text = "Edit User / Change Password";
+            this.editUserButton.Click += new System.EventHandler(this.EditUserButton_Click);
             // 
             // deleteUserButton
             // 
             this.deleteUserButton.Name = "deleteUserButton";
-            this.deleteUserButton.Size = new System.Drawing.Size(180, 22);
+            this.deleteUserButton.Size = new System.Drawing.Size(246, 22);
             this.deleteUserButton.Text = "Delete User";
+            this.deleteUserButton.Click += new System.EventHandler(this.DeleteUserButton_Click);
             // 
             // toolStripSeparator4
             // 
@@ -286,8 +309,11 @@
             // 
             this.mainContainer.Panel2.AutoScroll = true;
             this.mainContainer.Panel2.BackColor = System.Drawing.Color.White;
+            this.mainContainer.Panel2.Controls.Add(this.loansDGV);
+            this.mainContainer.Panel2.Controls.Add(this.loansLabel);
+            this.mainContainer.Panel2.Controls.Add(this.sharesLabel);
             this.mainContainer.Panel2.Controls.Add(this.memberAccountDetails);
-            this.mainContainer.Panel2.Controls.Add(this.dataGridView1);
+            this.mainContainer.Panel2.Controls.Add(this.sharesDGV);
             this.mainContainer.Panel2.Controls.Add(this.toolStrip1);
             this.mainContainer.Size = new System.Drawing.Size(772, 423);
             this.mainContainer.SplitterDistance = 257;
@@ -492,22 +518,227 @@
             this.memberInfoLabel.TabIndex = 0;
             this.memberInfoLabel.Text = "Member Information";
             // 
+            // loansDGV
+            // 
+            this.loansDGV.AllowUserToAddRows = false;
+            this.loansDGV.AllowUserToDeleteRows = false;
+            this.loansDGV.AllowUserToOrderColumns = true;
+            this.loansDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.loansDGV.Location = new System.Drawing.Point(20, 185);
+            this.loansDGV.MultiSelect = false;
+            this.loansDGV.Name = "loansDGV";
+            this.loansDGV.ReadOnly = true;
+            this.loansDGV.RowHeadersVisible = false;
+            this.loansDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.loansDGV.Size = new System.Drawing.Size(466, 106);
+            this.loansDGV.TabIndex = 5;
+            // 
+            // loansLabel
+            // 
+            this.loansLabel.AutoSize = true;
+            this.loansLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loansLabel.Location = new System.Drawing.Point(17, 165);
+            this.loansLabel.Name = "loansLabel";
+            this.loansLabel.Size = new System.Drawing.Size(48, 16);
+            this.loansLabel.TabIndex = 4;
+            this.loansLabel.Text = "Loans:";
+            // 
+            // sharesLabel
+            // 
+            this.sharesLabel.AutoSize = true;
+            this.sharesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sharesLabel.Location = new System.Drawing.Point(17, 34);
+            this.sharesLabel.Name = "sharesLabel";
+            this.sharesLabel.Size = new System.Drawing.Size(54, 16);
+            this.sharesLabel.TabIndex = 3;
+            this.sharesLabel.Text = "Shares:";
+            // 
             // memberAccountDetails
             // 
-            this.memberAccountDetails.Location = new System.Drawing.Point(17, 249);
+            this.memberAccountDetails.Controls.Add(this.accountClosedDate);
+            this.memberAccountDetails.Controls.Add(this.accountClosedDateLabel);
+            this.memberAccountDetails.Controls.Add(this.accountOpenDate);
+            this.memberAccountDetails.Controls.Add(this.accountOpenDateLabel);
+            this.memberAccountDetails.Controls.Add(this.accountJointSSN);
+            this.memberAccountDetails.Controls.Add(this.accountJointSSNLabel);
+            this.memberAccountDetails.Controls.Add(this.accountJointName);
+            this.memberAccountDetails.Controls.Add(this.accountJointNameLabel);
+            this.memberAccountDetails.Controls.Add(this.accountJointID);
+            this.memberAccountDetails.Controls.Add(this.accountJointIDLabel);
+            this.memberAccountDetails.Controls.Add(this.accountBalance);
+            this.memberAccountDetails.Controls.Add(this.accountBalanceLabel);
+            this.memberAccountDetails.Controls.Add(this.accountDesc);
+            this.memberAccountDetails.Controls.Add(this.accountDescLabel);
+            this.memberAccountDetails.Controls.Add(this.accountID);
+            this.memberAccountDetails.Controls.Add(this.accountIDLabel);
+            this.memberAccountDetails.Controls.Add(this.viewTranscationsButton);
+            this.memberAccountDetails.Location = new System.Drawing.Point(17, 297);
             this.memberAccountDetails.Name = "memberAccountDetails";
-            this.memberAccountDetails.Size = new System.Drawing.Size(475, 150);
+            this.memberAccountDetails.Size = new System.Drawing.Size(475, 102);
             this.memberAccountDetails.TabIndex = 2;
             this.memberAccountDetails.TabStop = false;
             this.memberAccountDetails.Text = "Account Details";
             // 
-            // dataGridView1
+            // accountClosedDate
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(17, 41);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(475, 202);
-            this.dataGridView1.TabIndex = 1;
+            this.accountClosedDate.AutoSize = true;
+            this.accountClosedDate.Location = new System.Drawing.Point(194, 78);
+            this.accountClosedDate.Name = "accountClosedDate";
+            this.accountClosedDate.Size = new System.Drawing.Size(0, 13);
+            this.accountClosedDate.TabIndex = 16;
+            // 
+            // accountClosedDateLabel
+            // 
+            this.accountClosedDateLabel.AutoSize = true;
+            this.accountClosedDateLabel.Location = new System.Drawing.Point(146, 78);
+            this.accountClosedDateLabel.Name = "accountClosedDateLabel";
+            this.accountClosedDateLabel.Size = new System.Drawing.Size(42, 13);
+            this.accountClosedDateLabel.TabIndex = 15;
+            this.accountClosedDateLabel.Text = "Closed:";
+            // 
+            // accountOpenDate
+            // 
+            this.accountOpenDate.AutoSize = true;
+            this.accountOpenDate.Location = new System.Drawing.Point(61, 78);
+            this.accountOpenDate.Name = "accountOpenDate";
+            this.accountOpenDate.Size = new System.Drawing.Size(0, 13);
+            this.accountOpenDate.TabIndex = 14;
+            // 
+            // accountOpenDateLabel
+            // 
+            this.accountOpenDateLabel.AutoSize = true;
+            this.accountOpenDateLabel.Location = new System.Drawing.Point(7, 78);
+            this.accountOpenDateLabel.Name = "accountOpenDateLabel";
+            this.accountOpenDateLabel.Size = new System.Drawing.Size(48, 13);
+            this.accountOpenDateLabel.TabIndex = 13;
+            this.accountOpenDateLabel.Text = "Opened:";
+            // 
+            // accountJointSSN
+            // 
+            this.accountJointSSN.AutoSize = true;
+            this.accountJointSSN.Location = new System.Drawing.Point(382, 51);
+            this.accountJointSSN.Name = "accountJointSSN";
+            this.accountJointSSN.Size = new System.Drawing.Size(0, 13);
+            this.accountJointSSN.TabIndex = 12;
+            // 
+            // accountJointSSNLabel
+            // 
+            this.accountJointSSNLabel.AutoSize = true;
+            this.accountJointSSNLabel.Location = new System.Drawing.Point(318, 51);
+            this.accountJointSSNLabel.Name = "accountJointSSNLabel";
+            this.accountJointSSNLabel.Size = new System.Drawing.Size(57, 13);
+            this.accountJointSSNLabel.TabIndex = 11;
+            this.accountJointSSNLabel.Text = "Joint SSN:";
+            // 
+            // accountJointName
+            // 
+            this.accountJointName.AutoSize = true;
+            this.accountJointName.Location = new System.Drawing.Point(146, 51);
+            this.accountJointName.Name = "accountJointName";
+            this.accountJointName.Size = new System.Drawing.Size(0, 13);
+            this.accountJointName.TabIndex = 10;
+            // 
+            // accountJointNameLabel
+            // 
+            this.accountJointNameLabel.AutoSize = true;
+            this.accountJointNameLabel.Location = new System.Drawing.Point(102, 51);
+            this.accountJointNameLabel.Name = "accountJointNameLabel";
+            this.accountJointNameLabel.Size = new System.Drawing.Size(38, 13);
+            this.accountJointNameLabel.TabIndex = 9;
+            this.accountJointNameLabel.Text = "Name:";
+            // 
+            // accountJointID
+            // 
+            this.accountJointID.AutoSize = true;
+            this.accountJointID.Location = new System.Drawing.Point(59, 51);
+            this.accountJointID.Name = "accountJointID";
+            this.accountJointID.Size = new System.Drawing.Size(0, 13);
+            this.accountJointID.TabIndex = 8;
+            // 
+            // accountJointIDLabel
+            // 
+            this.accountJointIDLabel.AutoSize = true;
+            this.accountJointIDLabel.Location = new System.Drawing.Point(7, 50);
+            this.accountJointIDLabel.Name = "accountJointIDLabel";
+            this.accountJointIDLabel.Size = new System.Drawing.Size(46, 13);
+            this.accountJointIDLabel.TabIndex = 7;
+            this.accountJointIDLabel.Text = "Joint ID:";
+            // 
+            // accountBalance
+            // 
+            this.accountBalance.AutoSize = true;
+            this.accountBalance.Location = new System.Drawing.Point(373, 20);
+            this.accountBalance.Name = "accountBalance";
+            this.accountBalance.Size = new System.Drawing.Size(0, 13);
+            this.accountBalance.TabIndex = 6;
+            // 
+            // accountBalanceLabel
+            // 
+            this.accountBalanceLabel.AutoSize = true;
+            this.accountBalanceLabel.Location = new System.Drawing.Point(318, 20);
+            this.accountBalanceLabel.Name = "accountBalanceLabel";
+            this.accountBalanceLabel.Size = new System.Drawing.Size(49, 13);
+            this.accountBalanceLabel.TabIndex = 5;
+            this.accountBalanceLabel.Text = "Balance:";
+            // 
+            // accountDesc
+            // 
+            this.accountDesc.AutoSize = true;
+            this.accountDesc.Location = new System.Drawing.Point(143, 20);
+            this.accountDesc.Name = "accountDesc";
+            this.accountDesc.Size = new System.Drawing.Size(0, 13);
+            this.accountDesc.TabIndex = 4;
+            // 
+            // accountDescLabel
+            // 
+            this.accountDescLabel.AutoSize = true;
+            this.accountDescLabel.Location = new System.Drawing.Point(74, 20);
+            this.accountDescLabel.Name = "accountDescLabel";
+            this.accountDescLabel.Size = new System.Drawing.Size(63, 13);
+            this.accountDescLabel.TabIndex = 3;
+            this.accountDescLabel.Text = "Description:";
+            // 
+            // accountID
+            // 
+            this.accountID.AutoSize = true;
+            this.accountID.Location = new System.Drawing.Point(34, 20);
+            this.accountID.Name = "accountID";
+            this.accountID.Size = new System.Drawing.Size(0, 13);
+            this.accountID.TabIndex = 2;
+            // 
+            // accountIDLabel
+            // 
+            this.accountIDLabel.AutoSize = true;
+            this.accountIDLabel.Location = new System.Drawing.Point(7, 20);
+            this.accountIDLabel.Name = "accountIDLabel";
+            this.accountIDLabel.Size = new System.Drawing.Size(21, 13);
+            this.accountIDLabel.TabIndex = 1;
+            this.accountIDLabel.Text = "ID:";
+            // 
+            // viewTranscationsButton
+            // 
+            this.viewTranscationsButton.Location = new System.Drawing.Point(329, 72);
+            this.viewTranscationsButton.Name = "viewTranscationsButton";
+            this.viewTranscationsButton.Size = new System.Drawing.Size(118, 23);
+            this.viewTranscationsButton.TabIndex = 0;
+            this.viewTranscationsButton.Text = "View Transactions";
+            this.viewTranscationsButton.UseVisualStyleBackColor = true;
+            // 
+            // sharesDGV
+            // 
+            this.sharesDGV.AllowUserToAddRows = false;
+            this.sharesDGV.AllowUserToDeleteRows = false;
+            this.sharesDGV.AllowUserToOrderColumns = true;
+            this.sharesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sharesDGV.Location = new System.Drawing.Point(17, 53);
+            this.sharesDGV.MultiSelect = false;
+            this.sharesDGV.Name = "sharesDGV";
+            this.sharesDGV.ReadOnly = true;
+            this.sharesDGV.RowHeadersVisible = false;
+            this.sharesDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.sharesDGV.Size = new System.Drawing.Size(475, 109);
+            this.sharesDGV.TabIndex = 1;
+            this.sharesDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SharesDGV_CellClick);
             // 
             // toolStrip1
             // 
@@ -527,8 +758,7 @@
             this.openShareButton,
             this.openLoanButton,
             this.editAccountButton,
-            this.closeAccountButton,
-            this.viewTransactionsButton});
+            this.closeAccountButton});
             this.memberAccountsButton.Image = ((System.Drawing.Image)(resources.GetObject("memberAccountsButton.Image")));
             this.memberAccountsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.memberAccountsButton.Name = "memberAccountsButton";
@@ -538,32 +768,27 @@
             // openShareButton
             // 
             this.openShareButton.Name = "openShareButton";
-            this.openShareButton.Size = new System.Drawing.Size(168, 22);
+            this.openShareButton.Size = new System.Drawing.Size(167, 22);
             this.openShareButton.Text = "Open Share";
+            this.openShareButton.Click += new System.EventHandler(this.OpenShareButton_Click);
             // 
             // openLoanButton
             // 
             this.openLoanButton.Name = "openLoanButton";
-            this.openLoanButton.Size = new System.Drawing.Size(168, 22);
+            this.openLoanButton.Size = new System.Drawing.Size(167, 22);
             this.openLoanButton.Text = "Open Loan";
             // 
             // editAccountButton
             // 
             this.editAccountButton.Name = "editAccountButton";
-            this.editAccountButton.Size = new System.Drawing.Size(168, 22);
+            this.editAccountButton.Size = new System.Drawing.Size(167, 22);
             this.editAccountButton.Text = "Edit  an Account";
             // 
             // closeAccountButton
             // 
             this.closeAccountButton.Name = "closeAccountButton";
-            this.closeAccountButton.Size = new System.Drawing.Size(168, 22);
+            this.closeAccountButton.Size = new System.Drawing.Size(167, 22);
             this.closeAccountButton.Text = "Close an Account";
-            // 
-            // viewTransactionsButton
-            // 
-            this.viewTransactionsButton.Name = "viewTransactionsButton";
-            this.viewTransactionsButton.Size = new System.Drawing.Size(168, 22);
-            this.viewTransactionsButton.Text = "View Transactions";
             // 
             // memberButtons
             // 
@@ -628,7 +853,10 @@
             this.memberMailAddressGroupBox.PerformLayout();
             this.memberAddressGroupBox.ResumeLayout(false);
             this.memberAddressGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loansDGV)).EndInit();
+            this.memberAccountDetails.ResumeLayout(false);
+            this.memberAccountDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sharesDGV)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.memberInfoPanel.ResumeLayout(false);
@@ -664,7 +892,6 @@
         private System.Windows.Forms.ToolStripMenuItem editAccountButton;
         private System.Windows.Forms.ToolStripMenuItem closeAccountButton;
         private System.Windows.Forms.ToolStripDropDownButton memberButtons;
-        private System.Windows.Forms.ToolStripMenuItem viewTransactionsButton;
         private System.Windows.Forms.ToolStripMenuItem editMemberButton;
         private System.Windows.Forms.ToolStripMenuItem deleteMemberButton;
         private System.Windows.Forms.Label memberInfoLabel;
@@ -689,7 +916,27 @@
         private System.Windows.Forms.Label memberName;
         private System.Windows.Forms.Label memberNameLabel;
         private System.Windows.Forms.GroupBox memberAccountDetails;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView sharesDGV;
         private System.Windows.Forms.Panel memberInfoPanel;
+        private System.Windows.Forms.Button viewTranscationsButton;
+        private System.Windows.Forms.DataGridView loansDGV;
+        private System.Windows.Forms.Label loansLabel;
+        private System.Windows.Forms.Label sharesLabel;
+        private System.Windows.Forms.Label accountJointIDLabel;
+        private System.Windows.Forms.Label accountBalance;
+        private System.Windows.Forms.Label accountBalanceLabel;
+        private System.Windows.Forms.Label accountDesc;
+        private System.Windows.Forms.Label accountDescLabel;
+        private System.Windows.Forms.Label accountID;
+        private System.Windows.Forms.Label accountIDLabel;
+        private System.Windows.Forms.Label accountJointID;
+        private System.Windows.Forms.Label accountClosedDate;
+        private System.Windows.Forms.Label accountClosedDateLabel;
+        private System.Windows.Forms.Label accountOpenDate;
+        private System.Windows.Forms.Label accountOpenDateLabel;
+        private System.Windows.Forms.Label accountJointSSN;
+        private System.Windows.Forms.Label accountJointSSNLabel;
+        private System.Windows.Forms.Label accountJointName;
+        private System.Windows.Forms.Label accountJointNameLabel;
     }
 }

@@ -125,16 +125,14 @@ namespace BankingApplication
             Console.WriteLine($"Successfully created user: {name}");
         }
 
-        public static void createMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
-            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
-            string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
+        public static void updateUserWithPassword(int userID, string name, string password, int auth)
         {
+            string salt = cryptoService.GenerateSalt();
+            string hashedPassword = cryptoService.Compute(password, salt);
+
             try
             {
-                String query = $"INSERT INTO Members (FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, " +
-                    $"MailStreet, MailExtraAddress, MailCity, MailState, MailZipCode, CellPhone, HomePhone, Email, CreatedBy) VALUES (" +
-                    $"'{fName}', '{mName}', '{lName}', {ssn}, '{idNum}', '{dob}', '{street}', '{extraAddress}', '{city}', '{state}', '{zipCode}', " +
-                    $"'{mailStreet}', '{mailExtraAddress}', '{mailCity}', '{mailState}', '{mailZipCode}', {cell}, '{homePhone}', '{email}', {userID});";
+                String query = $"UPDATE Users SET UserName = '{name}', Password = '{hashedPassword}', AuthLevel = {auth} WHERE UserID = {userID};";
                 DBOpen();
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
@@ -142,9 +140,63 @@ namespace BankingApplication
             }
             catch (Exception e)
             {
-                MessageBox.Show("Unable to create new member. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                MessageBox.Show("Unable to update user. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
                 return;
             }
+
+            try
+            {
+                String query = $"UPDATE Salts SET Salt = '{salt}' WHERE UserID = {userID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update salt for user. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            Console.WriteLine($"Successfully updated user: {name}");
+        }
+
+        public static void updateUserWOPassword(int userID, string name, int auth)
+        {
+            try
+            {
+                String query = $"UPDATE Users SET UserName = '{name}', AuthLevel = {auth} WHERE UserID = {userID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update user. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            Console.WriteLine($"Successfully updated user: {name}");
+        }
+
+        public static void deleteUser(int userID)
+        {
+            try
+            {
+                String query = $"DELETE FROM Users WHERE UserID = {userID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to delete. \n " + e.Message.ToString(), "Deletion Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            Console.WriteLine($"Successfully deleted user: {userID}");
         }
 
         public static User getUser(string name)
@@ -154,6 +206,7 @@ namespace BankingApplication
             string userName;
             string password;
             int auth;
+            string salt;
 
             User user;
         
@@ -168,8 +221,7 @@ namespace BankingApplication
                 password = reader[2].ToString();
                 auth = Convert.ToInt32(reader[3]);
                 user = new User(userID, userName, password, auth);
-                DBClose();
-                return user;
+                DBClose(); 
             }
             else
             {
@@ -177,6 +229,8 @@ namespace BankingApplication
                 DBClose();
                 throw new Exception("Unable to find user with that name");
             }
+
+            return user;
 
         }
 
@@ -268,6 +322,28 @@ namespace BankingApplication
             }
         }
 
+        public static void createMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
+            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
+            string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
+        {
+            try
+            {
+                String query = $"INSERT INTO Members (FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, " +
+                    $"MailStreet, MailExtraAddress, MailCity, MailState, MailZipCode, CellPhone, HomePhone, Email, CreatedBy) VALUES (" +
+                    $"'{fName}', '{mName}', '{lName}', {ssn}, '{idNum}', '{dob}', '{street}', '{extraAddress}', '{city}', '{state}', '{zipCode}', " +
+                    $"'{mailStreet}', '{mailExtraAddress}', '{mailCity}', '{mailState}', '{mailZipCode}', {cell}, '{homePhone}', '{email}', {userID});";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to create new member. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
         public static void updateMember(int memberID, string fName, string lName, int ssn, string idNum, string dob, string street, string city,
             string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
@@ -307,5 +383,84 @@ namespace BankingApplication
                 MessageBox.Show("Unable to delete member. \n" + e.Message.ToString());
             }
         }
+
+        public static void createAccount(int memberID, string description, string type, int userID, int jointID = 0)
+        {
+            String query;
+
+            if (jointID == 0)
+            {
+                query = $"INSERT INTO Shares (MemberID, ShareType, ShareDescription, OpenedBy) VALUES ({memberID}, '{type}', '{description}', {userID});";
+            }
+            else
+            {
+                query = $"INSERT INTO Shares (MemberID, ShareType, ShareDescription, OpenedBy, JointMemberID) VALUES ({memberID}, '{type}', '{description}', {userID}, {jointID});";
+            }
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to create account. \n" + e.Message.ToString());
+            }
+        }
+
+        public static DataTable getShares(int memberID)
+        {
+            DataTable memberShares = new DataTable();
+
+            String query = $"SELECT Shares.ShareID AS ID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, " +
+                $"CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
+                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.MemberID = {memberID};";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(memberShares);
+                DBClose();
+            } catch (Exception e)
+            {
+                MessageBox.Show("Unable to obtain shares. \n" + e.Message, "Selection Error");
+                DBClose();
+            }
+            return memberShares;
+        }
+
+        public static Share getShare(int ID)
+        {
+            Share foundShare;
+
+            String query = $"SELECT Shares.ShareID AS ID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, Shares.OpenedDate,  " +
+                $"Shares.DateClosed, Shares.JointMemberID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
+                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.ShareID = {ID};";
+
+            DBOpen();
+            cmd = new MySqlCommand(query, conn);
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            if (reader.HasRows)
+            {
+                foundShare = new Share(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(),
+                    Convert.ToDecimal(reader[4]), Convert.ToDateTime(reader[5]), Convert.ToDateTime(reader[6]), reader[7].ToString(), Convert.ToInt32(reader[8]),
+                    reader[9].ToString(), Convert.ToInt32(reader[10]));
+                DBClose();
+            }
+            else
+            {
+                Console.WriteLine("No rows in reader");
+                DBClose();
+                throw new Exception("Unable to find user with that name");
+            }
+
+            return foundShare;
+        }
+
     }
 }

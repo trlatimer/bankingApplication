@@ -101,6 +101,12 @@
     <Compile Include="EditMemberForm.Designer.cs">
       <DependentUpon>EditMemberForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditUserForm.Designer.cs">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,14 +126,15 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Member.cs" />
-    <Compile Include="OpenAccountForm.cs">
+    <Compile Include="OpenShareForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OpenAccountForm.Designer.cs">
-      <DependentUpon>OpenAccountForm.cs</DependentUpon>
+    <Compile Include="OpenShareForm.Designer.cs">
+      <DependentUpon>OpenShareForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Share.cs" />
     <Compile Include="User.cs" />
     <EmbeddedResource Include="AddMemberForm.resx">
       <DependentUpon>AddMemberForm.cs</DependentUpon>
@@ -138,6 +145,9 @@
     <EmbeddedResource Include="EditMemberForm.resx">
       <DependentUpon>EditMemberForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditUserForm.resx">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,8 +157,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OpenAccountForm.resx">
-      <DependentUpon>OpenAccountForm.cs</DependentUpon>
+    <EmbeddedResource Include="OpenShareForm.resx">
+      <DependentUpon>OpenShareForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

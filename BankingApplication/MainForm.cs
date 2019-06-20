@@ -13,13 +13,19 @@ namespace BankingApplication
     public partial class MainForm : Form
     {
         public LoginForm loginForm = null;
-        public OpenAccountForm openAccountForm = null;
         public AddMemberForm addMemberForm = null;
         public EditMemberForm editMemberForm = null;
         public AddUserForm addUserForm = null;
+        public EditUserForm editUserForm = null;
+        public OpenShareForm openShareForm = null;
+
         public User currentUser = null;
         public Member currentMember = null;
         public int enteredMemberID;
+        public Share selectedShare = null;
+
+        public DataTable sharesDT = new DataTable();
+        public DataTable loansDT = new DataTable();
 
         public MainForm()
         {
@@ -45,13 +51,22 @@ namespace BankingApplication
             if (currentUser.getAuthLevel() == 1)
             {
                 AddMemberButton.Available = false;
-                mainManageButton.Available = false;
                 toolStripSeparator4.Available = false;
+                addUserButton.Available = false;
+                deleteUserButton.Available = false;
+                memberButtons.Available = false;
+                openShareButton.Available = false;
+                openLoanButton.Available = false;
+                editAccountButton.Available = false;
+                closeAccountButton.Available = false;
             }
             else if (currentUser.getAuthLevel() == 2)
             {
-                mainManageButton.Available = false;
                 toolStripSeparator4.Available = false;
+                addUserButton.Available = false;
+                deleteUserButton.Available = false;
+                deleteMemberButton.Available = false;
+                closeAccountButton.Available = false;
             }
             else if (currentUser.getAuthLevel() < 1 || currentUser.getAuthLevel() > 3)
             {
@@ -60,19 +75,17 @@ namespace BankingApplication
                 AddMemberButton.Available = false;
                 mainManageButton.Available = false;
                 toolStripSeparator4.Available = false;
+                addUserButton.Available = false;
+                deleteUserButton.Available = false;
+                memberButtons.Available = false;
+                openShareButton.Available = false;
+                openLoanButton.Available = false;
+                editAccountButton.Available = false;
+                closeAccountButton.Available = false;
+                viewTranscationsButton.Enabled = false;
 
                 MessageBox.Show("You're account has no privileges. Please see your administrator.");
             }
-        }
-
-        private void openShareToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openAccountForm = new OpenAccountForm
-            {
-                currentUser = currentUser
-            };
-            openAccountForm.mainForm = this;
-            openAccountForm.Show();
         }
 
         private void AddMemberButton_Click(object sender, EventArgs e)
@@ -139,6 +152,10 @@ namespace BankingApplication
                     memberMailStreet.Text = currentMember.mailStreet;
                     memberMailCityStateZip.Text = currentMember.mailCity + ", " + currentMember.mailState + " " + currentMember.mailZipCode;
                 }
+
+                sharesDT = DataHelper.getShares(currentMember.memberID);
+                sharesDGV.DataSource = sharesDT;
+                sharesDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
 
@@ -199,5 +216,93 @@ namespace BankingApplication
             addUserForm.Show();
             this.Enabled = false;
         }
+
+        private void EditUserButton_Click(object sender, EventArgs e)
+        {
+            string response = ShowDialog("Enter A Username: ", "Edit User");
+            User foundUser = null;
+
+            try
+            {
+                foundUser = DataHelper.getUser(response);
+                if (currentUser.getAuthLevel() != 3 && (currentUser.getUserID() != foundUser.getUserID()))
+                {
+                    MessageBox.Show("You do not have permissions to edit this user. Please contact your administrator.");
+                    return;
+                }
+
+                editUserForm = new EditUserForm()
+                {
+                    currentUser = currentUser
+                };
+                editUserForm.mainForm = this;
+                editUserForm.selectedUser = foundUser;
+                editUserForm.Show();
+                this.Enabled = false;
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find User. \n" + ex.Message);
+                return;
+            }
+        }
+
+        private void DeleteUserButton_Click(object sender, EventArgs e)
+        {
+            string response = ShowDialog("Enter A Username: ", "Delete User");
+            string response2 = ShowDialog("Confrim Username: ", "Delete User");
+            User foundUser = null;
+
+            if (response != response2)
+            {
+                MessageBox.Show("Usernames did not match. Please try again.");
+                return;
+            }
+
+            try
+            {
+                foundUser = DataHelper.getUser(response);
+                if (currentUser.getAuthLevel() != 3 && (currentUser.getUserID() != foundUser.getUserID()))
+                {
+                    MessageBox.Show("You do not have permissions to delete this user. Please contact your administrator.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find User. \n" + ex.Message);
+                return;
+            }
+
+            DataHelper.deleteUser(foundUser.getUserID());
+            MessageBox.Show("Successfully deleted user.");
+            foundUser = null;
+        }
+
+        private void OpenShareButton_Click(object sender, EventArgs e)
+        {
+            openShareForm = new OpenShareForm
+            {
+                currentUser = currentUser,
+                currentMember = currentMember
+            };
+            openShareForm.mainForm = this;
+            this.Enabled = false;
+            openShareForm.Show();
+        }
+
+        private void SharesDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedShare = DataHelper.getShare(Convert.ToInt32(sharesDGV.SelectedRows[0].Cells[0].Value));
+
+            accountID.Text = selectedShare.shareID.ToString();
+            accountDesc.Text = selectedShare.description;
+            accountBalance.Text = selectedShare.balance.ToString("$###,###,###.##");
+            accountJointID.Text = selectedShare.jointMemberID.ToString();
+            accountJointName.Text = selectedShare.jointMemberName;
+            accountJointSSN.Text = selectedShare.jointMemberSSN.ToString().Substring(5, 4);
+            accountOpenDate.Text = selectedShare.dateOpened.Date.ToString("MM/dd/yyyy");
+            accountClosedDate.Text = selectedShare.dateOpened.Date.ToString("MM/dd/yyyy");
+        }
+
     }
 }

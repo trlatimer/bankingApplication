@@ -8,14 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BankingApplication
+namespace BankingApp_BaseForms
 {
-    public partial class OpenAccountForm : Form
+    public partial class shareBaseForm : Form
     {
-        public MainForm mainForm = null;
-        public User currentUser = null;
 
-        public OpenAccountForm()
+        public shareBaseForm()
         {
             InitializeComponent();
         }

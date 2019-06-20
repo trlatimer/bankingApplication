@@ -39,16 +39,13 @@
             // addUserPasswordConfirmTextBox
             // 
             this.addUserPasswordConfirmTextBox.PasswordChar = '*';
-            this.addUserPasswordConfirmTextBox.TextChanged += new System.EventHandler(this.AddUserPasswordConfirmTextBox_TextChanged);
             // 
             // addUserPasswordTextBox
             // 
             this.addUserPasswordTextBox.PasswordChar = '*';
-            this.addUserPasswordTextBox.TextChanged += new System.EventHandler(this.AddUserPasswordTextBox_TextChanged);
             // 
             // addUserUsernameTextBox
             // 
-            this.addUserUsernameTextBox.TextChanged += new System.EventHandler(this.AddUserUsernameTextBox_TextChanged);
             // 
             // userCancelButton
             // 

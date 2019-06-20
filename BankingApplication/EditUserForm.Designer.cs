@@ -1,6 +1,6 @@
 ﻿namespace BankingApplication
 {
-    partial class OpenAccountForm
+    partial class EditUserForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(174, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(196, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Open New Account";
+            this.label1.Size = new System.Drawing.Size(100, 25);
+            this.label1.Text = "Edit User";
             // 
-            // OpenAccountForm
+            // addUserPasswordConfirmTextBox
+            // 
+            this.addUserPasswordConfirmTextBox.PasswordChar = '*';
+            // 
+            // addUserPasswordTextBox
+            // 
+            this.addUserPasswordTextBox.PasswordChar = '*';
+            // 
+            // userCancelButton
+            // 
+            this.userCancelButton.Click += new System.EventHandler(this.UserCancelButton_Click);
+            // 
+            // userCreateButton
+            // 
+            this.userCreateButton.Text = "Submit";
+            this.userCreateButton.Click += new System.EventHandler(this.UserCreateButton_Click);
+            // 
+            // EditUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(574, 580);
-            this.Controls.Add(this.label1);
-            this.Name = "OpenAccountForm";
-            this.Text = "Banking App | Open Account";
+            this.ClientSize = new System.Drawing.Size(320, 240);
+            this.Name = "EditUserForm";
+            this.Text = "EditUserForm";
+            this.Load += new System.EventHandler(this.EditUserForm_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }
