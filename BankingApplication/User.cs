@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BankingApplication
+﻿namespace BankingApplication
 {
     public class User
     {
-        private int UserID;
-        private string UserName;
+        private readonly int UserID;
+        private readonly string UserName;
         private string Password;
         private int AuthLevel;
 
@@ -21,17 +15,17 @@ namespace BankingApplication
             AuthLevel = auth;
         }
 
-        public int getUserID(){ return UserID; }
-        public string getUserName() { return UserName; }
-        public string getPassword() { return Password; }
-        public int getAuthLevel() { return AuthLevel; }
+        public int GetUserID(){ return UserID; }
+        public string GetUserName() { return UserName; }
+        public string GetPassword() { return Password; }
+        public int GetAuthLevel() { return AuthLevel; }
 
-        public void setPassword(string newPassword)
+        public void SetPassword(string newPassword)
         {
             Password = newPassword;
         }
 
-        public void setAuthLevel(int newLevel)
+        public void SetAuthLevel(int newLevel)
         {
             AuthLevel = newLevel;
         }

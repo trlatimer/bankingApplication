@@ -8,36 +8,36 @@ namespace BankingApplication
 {
     public class Member
     {
-        public int memberID { get; set; }
-        public string firstName { get; set; }
-        public string middleName { get; set; }
-        public string lastName { get; set; }
-        public int socialSecurityNumber { get; set; }
+        public int MemberID { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public int SocialSecurityNumber { get; set; }
         public string IDNumber { get; set; }
         public DateTime Birthdate { get; set; }
-        public string street { get; set; }
-        public string extraAddress { get; set; }
-        public string city { get; set; }
-        public string state { get; set; }
-        public int zipCode { get; set; }
-        public string mailStreet { get; set; }
-        public string mailExtraAddress { get; set; }
-        public string mailCity { get; set; }
-        public string mailState { get; set; }
-        public string mailZipCode { get; set; }
-        public int cellPhone { get; set; }
-        public int homePhone { get; set; }
-        public string email { get; set; }
+        public string Street { get; set; }
+        public string ExtraAddress { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public int ZipCode { get; set; }
+        public string MailStreet { get; set; }
+        public string MailExtraAddress { get; set; }
+        public string MailCity { get; set; }
+        public string MailState { get; set; }
+        public string MailZipCode { get; set; }
+        public int CellPhone { get; set; }
+        public int HomePhone { get; set; }
+        public string Email { get; set; }
 
 
         public Member(int ID, string fName, string lName, int ssn, string idNum, string dob, string Street, string City,
             string State, int ZipCode, int cell, string Email, string mName = null, string extraAddress = null, int home = 0,
             string MailStreet = null, string MailExtraAddress = null, string MailCity = null, string MailState = null, string MailZipCode = null)
         {
-            memberID = ID; firstName = fName; middleName = mName; lastName = lName; socialSecurityNumber = ssn; IDNumber = idNum;
-            Birthdate = Convert.ToDateTime(dob); street = Street; city = City; state = State; zipCode = ZipCode; mailStreet = MailStreet;
-            mailExtraAddress = MailExtraAddress; mailCity = MailCity; mailState = MailState; mailZipCode = MailZipCode; cellPhone = cell;
-            homePhone = home; email = Email;
+            MemberID = ID; FirstName = fName; MiddleName = mName; LastName = lName; SocialSecurityNumber = ssn; IDNumber = idNum;
+            Birthdate = Convert.ToDateTime(dob); this.Street = Street; this.City = City; this.State = State; this.ZipCode = ZipCode; this.MailStreet = MailStreet;
+            this.MailExtraAddress = MailExtraAddress; this.MailCity = MailCity; this.MailState = MailState; this.MailZipCode = MailZipCode; CellPhone = cell;
+            HomePhone = home; this.Email = Email;
         }
     }
 }

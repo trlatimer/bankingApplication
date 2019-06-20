@@ -37,7 +37,7 @@ namespace BankingApplication
             loginForm.Show();
         }
 
-        private void mainLogoutButton_Click(object sender, EventArgs e)
+        private void MainLogoutButton_Click(object sender, EventArgs e)
         {
             loginForm.currentUser = null;
             loginForm.mainForm = this;
@@ -47,8 +47,8 @@ namespace BankingApplication
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            mainFooterUserLabel.Text = $"Current User: {currentUser.getUserName()}";
-            if (currentUser.getAuthLevel() == 1)
+            mainFooterUserLabel.Text = $"Current User: {currentUser.GetUserName()}";
+            if (currentUser.GetAuthLevel() == 1)
             {
                 AddMemberButton.Available = false;
                 toolStripSeparator4.Available = false;
@@ -60,7 +60,7 @@ namespace BankingApplication
                 editAccountButton.Available = false;
                 closeAccountButton.Available = false;
             }
-            else if (currentUser.getAuthLevel() == 2)
+            else if (currentUser.GetAuthLevel() == 2)
             {
                 toolStripSeparator4.Available = false;
                 addUserButton.Available = false;
@@ -68,7 +68,7 @@ namespace BankingApplication
                 deleteMemberButton.Available = false;
                 closeAccountButton.Available = false;
             }
-            else if (currentUser.getAuthLevel() < 1 || currentUser.getAuthLevel() > 3)
+            else if (currentUser.GetAuthLevel() < 1 || currentUser.GetAuthLevel() > 3)
             {
                 mainTransactionButton.Available = false;
                 mainReportButton.Available = false;
@@ -90,8 +90,9 @@ namespace BankingApplication
 
         private void AddMemberButton_Click(object sender, EventArgs e)
         {
-            addMemberForm = new AddMemberForm();
-            addMemberForm.mainForm = this;
+            addMemberForm = new AddMemberForm() {
+                mainForm = this
+            };
             this.Enabled = false;
             addMemberForm.Show();
         }
@@ -109,14 +110,14 @@ namespace BankingApplication
             {
                 enteredMemberID = Convert.ToInt32(response);
             }
-            populateData();
+            PopulateData();
         }
 
-        public void populateData()
+        public void PopulateData()
         {
             try
             {
-                currentMember = DataHelper.getMember(enteredMemberID);
+                currentMember = DataHelper.GetMember(enteredMemberID);
             }
             catch (Exception ex)
             {
@@ -127,35 +128,44 @@ namespace BankingApplication
             if (currentMember != null)
             {
                 memberInfoPanel.Visible = true;
-                memberName.Text = currentMember.firstName + " " + currentMember.middleName + " " + currentMember.lastName;
+                memberName.Text = currentMember.FirstName + " " + currentMember.MiddleName + " " + currentMember.LastName;
                 memberDOB.Text = currentMember.Birthdate.ToString("MM/dd/yyyy");
-                memberSSN.Text = currentMember.socialSecurityNumber.ToString().Substring(5, 4);
+                memberSSN.Text = currentMember.SocialSecurityNumber.ToString().Substring(5, 4);
                 memberIDNum.Text = currentMember.IDNumber;
-                memberCell.Text = currentMember.cellPhone.ToString("#(###)###-####");
-                memberEmail.Text = currentMember.email;
-                memberStreet.Text = currentMember.street;
-                memberCityStateZip.Text = currentMember.city + ", " + currentMember.state + " " + currentMember.zipCode.ToString();
-                if (currentMember.homePhone == 0)
+                memberCell.Text = currentMember.CellPhone.ToString("#(###)###-####");
+                memberEmail.Text = currentMember.Email;
+                memberStreet.Text = currentMember.Street;
+                memberCityStateZip.Text = currentMember.City + ", " + currentMember.State + " " + currentMember.ZipCode.ToString();
+                if (currentMember.HomePhone == 0)
                 {
                     memberHome.Text = "";
                 }
                 else
                 {
-                    memberHome.Text = currentMember.homePhone.ToString("#(###)###-####");
+                    memberHome.Text = currentMember.HomePhone.ToString("#(###)###-####");
                 }
-                if (string.IsNullOrWhiteSpace(currentMember.mailStreet))
+                if (string.IsNullOrWhiteSpace(currentMember.MailStreet))
                 {
                     memberMailStreet.Text = "";
                     memberMailCityStateZip.Text = "";
                 } else
                 {
-                    memberMailStreet.Text = currentMember.mailStreet;
-                    memberMailCityStateZip.Text = currentMember.mailCity + ", " + currentMember.mailState + " " + currentMember.mailZipCode;
+                    memberMailStreet.Text = currentMember.MailStreet;
+                    memberMailCityStateZip.Text = currentMember.MailCity + ", " + currentMember.MailState + " " + currentMember.MailZipCode;
                 }
 
-                sharesDT = DataHelper.getShares(currentMember.memberID);
+                sharesDT = DataHelper.GetShares(currentMember.MemberID);
                 sharesDGV.DataSource = sharesDT;
                 sharesDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                accountID.Text = "";
+                accountDesc.Text = "";
+                accountBalance.Text = "";
+                accountJointID.Text = "";
+                accountJointName.Text = "";
+                accountJointSSN.Text = "";
+                accountOpenDate.Text = "";
+                accountClosedDate.Text = "";
             }
         }
 
@@ -192,21 +202,21 @@ namespace BankingApplication
             this.Enabled = false;
         }
 
-        private void deleteMemberButton_Click(object sender, EventArgs e)
+        private void DeleteMemberButton_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show($"Are you sure you want to delete member, {currentMember.firstName} { currentMember.lastName}?", "Delete Member", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete member, {currentMember.FirstName} { currentMember.LastName}?", "Delete Member", MessageBoxButtons.YesNo);
 
             if (result == DialogResult.Yes)
             {
-                DataHelper.deleteMember(currentMember.memberID);
-                Console.WriteLine($"Member, {currentMember.firstName} {currentMember.lastName}");
+                DataHelper.DeleteMember(currentMember.MemberID);
+                Console.WriteLine($"Member, {currentMember.FirstName} {currentMember.LastName}");
                 currentMember = null;
                 memberInfoPanel.Visible = false;
             }
             return;
         }
 
-        private void addUserButton_Click(object sender, EventArgs e)
+        private void AddUserButton_Click(object sender, EventArgs e)
         {
             addUserForm = new AddUserForm()
             {
@@ -224,8 +234,8 @@ namespace BankingApplication
 
             try
             {
-                foundUser = DataHelper.getUser(response);
-                if (currentUser.getAuthLevel() != 3 && (currentUser.getUserID() != foundUser.getUserID()))
+                foundUser = DataHelper.GetUser(response);
+                if (currentUser.GetAuthLevel() != 3 && (currentUser.GetUserID() != foundUser.GetUserID()))
                 {
                     MessageBox.Show("You do not have permissions to edit this user. Please contact your administrator.");
                     return;
@@ -260,8 +270,8 @@ namespace BankingApplication
 
             try
             {
-                foundUser = DataHelper.getUser(response);
-                if (currentUser.getAuthLevel() != 3 && (currentUser.getUserID() != foundUser.getUserID()))
+                foundUser = DataHelper.GetUser(response);
+                if (currentUser.GetAuthLevel() != 3 && (currentUser.GetUserID() != foundUser.GetUserID()))
                 {
                     MessageBox.Show("You do not have permissions to delete this user. Please contact your administrator.");
                     return;
@@ -273,7 +283,7 @@ namespace BankingApplication
                 return;
             }
 
-            DataHelper.deleteUser(foundUser.getUserID());
+            DataHelper.DeleteUser(foundUser.GetUserID());
             MessageBox.Show("Successfully deleted user.");
             foundUser = null;
         }
@@ -292,16 +302,34 @@ namespace BankingApplication
 
         private void SharesDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedShare = DataHelper.getShare(Convert.ToInt32(sharesDGV.SelectedRows[0].Cells[0].Value));
+            selectedShare = DataHelper.GetShare(Convert.ToInt32(sharesDGV.SelectedRows[0].Cells[0].Value));
 
-            accountID.Text = selectedShare.shareID.ToString();
-            accountDesc.Text = selectedShare.description;
-            accountBalance.Text = selectedShare.balance.ToString("$###,###,###.##");
-            accountJointID.Text = selectedShare.jointMemberID.ToString();
-            accountJointName.Text = selectedShare.jointMemberName;
-            accountJointSSN.Text = selectedShare.jointMemberSSN.ToString().Substring(5, 4);
-            accountOpenDate.Text = selectedShare.dateOpened.Date.ToString("MM/dd/yyyy");
-            accountClosedDate.Text = selectedShare.dateOpened.Date.ToString("MM/dd/yyyy");
+            accountID.Text = selectedShare.ShareID.ToString();
+            accountDesc.Text = selectedShare.Description;
+            accountBalance.Text = selectedShare.Balance.ToString("$###,###,##0.00");
+            if (selectedShare.JointMemberID == 0)
+            {
+                accountJointID.Text = "";
+            } else
+            {
+                accountJointID.Text = selectedShare.JointMemberID.ToString();
+            }           
+            accountJointName.Text = selectedShare.JointMemberName;
+            if (selectedShare.JointMemberSSN == 0)
+            {
+                accountJointSSN.Text = "";
+            } else
+            {
+                accountJointSSN.Text = selectedShare.JointMemberSSN.ToString().Substring(5, 4);
+            }
+            accountOpenDate.Text = selectedShare.DateOpened.Date.ToString("MM/dd/yyyy");
+            if (selectedShare.DateClosed.Date == Convert.ToDateTime("11/11/1111"))
+            {
+                accountClosedDate.Text = "--/--/----";
+            } else
+            {
+                accountClosedDate.Text = selectedShare.DateClosed.Date.ToString("MM/dd/yyyy");
+            }
         }
 
     }

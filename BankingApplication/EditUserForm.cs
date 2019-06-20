@@ -21,7 +21,7 @@ namespace BankingApplication
         public EditUserForm()
         {
             InitializeComponent();
-            existingUsers = DataHelper.getUsers();
+            existingUsers = DataHelper.GetUsers();
         }
 
         private void UserCancelButton_Click(object sender, EventArgs e)
@@ -67,15 +67,15 @@ namespace BankingApplication
             {
                 if (originalPassword != addUserPasswordTextBox.Text)
                 {
-                    DataHelper.updateUserWithPassword(selectedUser.getUserID(), addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
-                    Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.getUserID()}");
+                    DataHelper.UpdateUserWithPassword(selectedUser.GetUserID(), addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
+                    Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.GetUserID()}");
                     mainForm.Enabled = true;
                     mainForm.Show();
                     this.Close();
                 } else
                 {
-                    DataHelper.updateUserWOPassword(selectedUser.getUserID(), addUserUsernameTextBox.Text, selectedAuthLevel);
-                    Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.getUserID()}");
+                    DataHelper.UpdateUserWOPassword(selectedUser.GetUserID(), addUserUsernameTextBox.Text, selectedAuthLevel);
+                    Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.GetUserID()}");
                     mainForm.Enabled = true;
                     mainForm.Show();
                     this.Close();
@@ -87,17 +87,17 @@ namespace BankingApplication
 
         private void EditUserForm_Load(object sender, EventArgs e)
         {
-            if (currentUser.getUserName() == selectedUser.getUserName())
+            if (currentUser.GetUserName() == selectedUser.GetUserName())
             {
                 userAuthLevelComboBox.Enabled = false;
             }
 
-            addUserUsernameTextBox.Text = selectedUser.getUserName();
-            addUserPasswordTextBox.Text = selectedUser.getPassword();
-            addUserPasswordConfirmTextBox.Text = selectedUser.getPassword();
-            userAuthLevelComboBox.SelectedIndex = selectedUser.getAuthLevel();
-            originalUsername = selectedUser.getUserName();
-            originalPassword = selectedUser.getPassword();
+            addUserUsernameTextBox.Text = selectedUser.GetUserName();
+            addUserPasswordTextBox.Text = selectedUser.GetPassword();
+            addUserPasswordConfirmTextBox.Text = selectedUser.GetPassword();
+            userAuthLevelComboBox.SelectedIndex = selectedUser.GetAuthLevel();
+            originalUsername = selectedUser.GetUserName();
+            originalPassword = selectedUser.GetPassword();
         }
     }
 }

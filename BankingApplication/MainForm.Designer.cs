@@ -150,7 +150,7 @@
             this.mainLogoutButton.Name = "mainLogoutButton";
             this.mainLogoutButton.Size = new System.Drawing.Size(53, 21);
             this.mainLogoutButton.Text = "Logout";
-            this.mainLogoutButton.Click += new System.EventHandler(this.mainLogoutButton_Click);
+            this.mainLogoutButton.Click += new System.EventHandler(this.MainLogoutButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -234,7 +234,7 @@
             this.addUserButton.Name = "addUserButton";
             this.addUserButton.Size = new System.Drawing.Size(246, 22);
             this.addUserButton.Text = "Add User";
-            this.addUserButton.Click += new System.EventHandler(this.addUserButton_Click);
+            this.addUserButton.Click += new System.EventHandler(this.AddUserButton_Click);
             // 
             // editUserButton
             // 
@@ -814,7 +814,7 @@
             this.deleteMemberButton.Name = "deleteMemberButton";
             this.deleteMemberButton.Size = new System.Drawing.Size(155, 22);
             this.deleteMemberButton.Text = "Delete Member";
-            this.deleteMemberButton.Click += new System.EventHandler(this.deleteMemberButton_Click);
+            this.deleteMemberButton.Click += new System.EventHandler(this.DeleteMemberButton_Click);
             // 
             // memberInfoPanel
             // 

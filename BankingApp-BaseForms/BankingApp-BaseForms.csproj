@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="loanBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="loanBaseForm.Designer.cs">
+      <DependentUpon>loanBaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="memberBaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="userBaseForm.Designer.cs">
       <DependentUpon>userBaseForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="loanBaseForm.resx">
+      <DependentUpon>loanBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="memberBaseForm.resx">
       <DependentUpon>memberBaseForm.cs</DependentUpon>
     </EmbeddedResource>

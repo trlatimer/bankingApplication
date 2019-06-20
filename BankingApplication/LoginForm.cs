@@ -50,7 +50,7 @@ namespace BankingApplication
                        
             if (successfulLogin)
             {
-                Console.WriteLine($"Successful sign-in for: {currentUser.getUserName()}");
+                Console.WriteLine($"Successful sign-in for: {currentUser.GetUserName()}");
                 mainForm = new MainForm
                 {
                     currentUser = currentUser,
@@ -77,7 +77,7 @@ namespace BankingApplication
             bool success = await Task.Run<bool>(() => {
                 try
                 {
-                    currentUser = DataHelper.getUser(loginUserNameTextBox.Text);
+                    currentUser = DataHelper.GetUser(loginUserNameTextBox.Text);
                     return DataHelper.ValidatePassword(currentUser, loginPasswordTextBox.Text);
                 }
                 catch

@@ -19,7 +19,7 @@ namespace BankingApplication
         {
             InitializeComponent();
 
-            existingUsers = DataHelper.getUsers();
+            existingUsers = DataHelper.GetUsers();
             
         }
 
@@ -55,8 +55,8 @@ namespace BankingApplication
 
             if (validateInputs())
             {
-                DataHelper.createUser(addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
-                Console.WriteLine($"User, {addUserUsernameTextBox.Text}, created by {currentUser.getUserID()}");
+                DataHelper.CreateUser(addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
+                Console.WriteLine($"User, {addUserUsernameTextBox.Text}, created by {currentUser.GetUserID()}");
                 mainform.Enabled = true;
                 mainform.Show();
                 this.Close();

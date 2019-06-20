@@ -24,8 +24,8 @@ namespace BankingApplication
 
         private void OpenShareForm_Load(object sender, EventArgs e)
         {
-            memberNameTextBox.Text = currentMember.firstName + " " + currentMember.lastName;
-            memberSSNTextBox.Text = currentMember.socialSecurityNumber.ToString("###-##-####");
+            memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString("###-##-####");
             memberDOBPicker.Value = currentMember.Birthdate;
             jointDOBPicker.Value = jointDOBPicker.MinDate;
         }
@@ -38,7 +38,7 @@ namespace BankingApplication
 
                 try
                 {
-                    jointMember = DataHelper.getMember(Convert.ToInt32(response));
+                    jointMember = DataHelper.GetMember(Convert.ToInt32(response));
                 } catch (Exception ex)
                 {
                     MessageBox.Show("Unable to locate user with that UserID. Please try again. \n" + ex.Message, "Locate Error");
@@ -46,8 +46,8 @@ namespace BankingApplication
                 }
                 
                 joinInfoGroupBox.Enabled = true;
-                jointNameTextBox.Text = jointMember.firstName + " " + jointMember.lastName;
-                jointSSNTextBox.Text = jointMember.socialSecurityNumber.ToString("###-##-####");
+                jointNameTextBox.Text = jointMember.FirstName + " " + jointMember.LastName;
+                jointSSNTextBox.Text = jointMember.SocialSecurityNumber.ToString("###-##-####");
                 jointDOBPicker.Value = jointMember.Birthdate;
             }
             else
@@ -84,11 +84,18 @@ namespace BankingApplication
                 return;
             }
 
-            DataHelper.createAccount(currentMember.memberID, shareDescTextBox.Text, selectedType, currentUser.getUserID(), jointMember.memberID);
-            Console.WriteLine($"Account created for, {currentMember.firstName} {currentMember.lastName}, by user {currentUser.getUserID()}");
+            if (shareJointCheckBox.Checked == false)
+            {
+                DataHelper.CreateShare(currentMember.MemberID, shareDescTextBox.Text, selectedType, currentUser.GetUserID());
+            }
+            else
+            {
+                DataHelper.CreateShare(currentMember.MemberID, shareDescTextBox.Text, selectedType, currentUser.GetUserID(), jointMember.MemberID);
+            }  
+            Console.WriteLine($"Account created for, {currentMember.FirstName} {currentMember.LastName}, by user {currentUser.GetUserID()}");
             mainForm.Enabled = true;
             mainForm.Show();
-            mainForm.populateData();
+            mainForm.PopulateData();
             this.Close();
         }
     }

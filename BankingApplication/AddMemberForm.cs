@@ -46,11 +46,11 @@ namespace BankingApplication
                     homePhone = Convert.ToInt32(parsedHome);
                 }
 
-                DataHelper.createMember(memberFNameTextBox.Text, memberLNameTextBox.Text, parsedSSN, memberIDNumTextBox.Text, memberDOBPicker.Value.ToString("yyyy-MM-dd"),
+                DataHelper.CreateMember(memberFNameTextBox.Text, memberLNameTextBox.Text, parsedSSN, memberIDNumTextBox.Text, memberDOBPicker.Value.ToString("yyyy-MM-dd"),
                     memberStreetTextBox.Text, memberCityTextBox.Text, memberStateTextBox.Text, parsedZip, parsedCell, memberEmailTextBox.Text,
-                    mainForm.currentUser.getUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
+                    mainForm.currentUser.GetUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
                     mailAddrCityTextBox.Text, mailAddrStateTextBox.Text, parsedMailZip);
-                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been created by user {mainForm.currentUser.getUserID()}");
+                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been created by user {mainForm.currentUser.GetUserID()}");
                 mainForm.Enabled = true;
                 mainForm.Show();
                 this.Close();

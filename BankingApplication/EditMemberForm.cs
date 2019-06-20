@@ -22,29 +22,29 @@ namespace BankingApplication
 
         private void populateData()
         {
-            memberFNameTextBox.Text = currentMember.firstName;
-            memberMNameTextBox.Text = currentMember.middleName;
-            memberLNameTextBox.Text = currentMember.lastName;
-            memberSSNTextBox.Text = currentMember.socialSecurityNumber.ToString();
+            memberFNameTextBox.Text = currentMember.FirstName;
+            memberMNameTextBox.Text = currentMember.MiddleName;
+            memberLNameTextBox.Text = currentMember.LastName;
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString();
             memberIDNumTextBox.Text = currentMember.IDNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
-            memberStreetTextBox.Text = currentMember.street;
-            memberExtraAddrTextBox.Text = currentMember.extraAddress;
-            memberCityTextBox.Text = currentMember.city;
-            memberStateTextBox.Text = currentMember.state;
-            memberZipTextBox.Text = currentMember.zipCode.ToString();
-            mailAddrStreetTextBox.Text = currentMember.mailStreet;
+            memberStreetTextBox.Text = currentMember.Street;
+            memberExtraAddrTextBox.Text = currentMember.ExtraAddress;
+            memberCityTextBox.Text = currentMember.City;
+            memberStateTextBox.Text = currentMember.State;
+            memberZipTextBox.Text = currentMember.ZipCode.ToString();
+            mailAddrStreetTextBox.Text = currentMember.MailStreet;
             if (string.IsNullOrWhiteSpace(mailAddrStreetTextBox.Text))
             {
                 mailingSameCheckBox.Checked = true;
             }
-            mailAddrExtraTextBox.Text = currentMember.mailExtraAddress;
-            mailAddrCityTextBox.Text = currentMember.mailCity;
-            mailAddrStateTextBox.Text = currentMember.mailState;
-            mailAddrZipTextBox.Text = currentMember.mailZipCode;
-            memberCellTextBox.Text = currentMember.cellPhone.ToString("#(###)###-####");
-            memberHomeTextBox.Text = currentMember.homePhone.ToString("#(###)###-####");
-            memberEmailTextBox.Text = currentMember.email;
+            mailAddrExtraTextBox.Text = currentMember.MailExtraAddress;
+            mailAddrCityTextBox.Text = currentMember.MailCity;
+            mailAddrStateTextBox.Text = currentMember.MailState;
+            mailAddrZipTextBox.Text = currentMember.MailZipCode;
+            memberCellTextBox.Text = currentMember.CellPhone.ToString("#(###)###-####");
+            memberHomeTextBox.Text = currentMember.HomePhone.ToString("#(###)###-####");
+            memberEmailTextBox.Text = currentMember.Email;
         }
 
         private void MemberCancelButton_Click(object sender, EventArgs e)
@@ -73,14 +73,14 @@ namespace BankingApplication
                     homePhone = Convert.ToInt32(parsedHome);
                 }
                  
-                DataHelper.updateMember(currentMember.memberID, memberFNameTextBox.Text, memberLNameTextBox.Text, parsedSSN, memberIDNumTextBox.Text, memberDOBPicker.Value.ToString("yyyy-MM-dd"),
+                DataHelper.UpdateMember(currentMember.MemberID, memberFNameTextBox.Text, memberLNameTextBox.Text, parsedSSN, memberIDNumTextBox.Text, memberDOBPicker.Value.ToString("yyyy-MM-dd"),
                     memberStreetTextBox.Text, memberCityTextBox.Text, memberStateTextBox.Text, parsedZip, parsedCell, memberEmailTextBox.Text,
-                    mainForm.currentUser.getUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
+                    mainForm.currentUser.GetUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
                     mailAddrCityTextBox.Text, mailAddrStateTextBox.Text, parsedMailZip);
-                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been update by user {mainForm.currentUser.getUserID()}");
+                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been update by user {mainForm.currentUser.GetUserID()}");
                 mainForm.Enabled = true;
                 mainForm.Show();
-                mainForm.populateData();
+                mainForm.PopulateData();
                 this.Close();
 
             }

@@ -52,7 +52,7 @@ namespace BankingApplication
 
         public static bool ValidatePassword(User user, string password)
         {
-            String query = $"SELECT Salt FROM Salts WHERE UserID = {user.getUserID()};";
+            String query = $"SELECT Salt FROM Salts WHERE UserID = {user.GetUserID()};";
 
             DBOpen();
             cmd = new MySqlCommand(query, conn);
@@ -65,7 +65,7 @@ namespace BankingApplication
                 //hash the password with the saved salt for that user
                 string hashed = cryptoService.Compute(password, salt);
                 //return true if both hashes are the same
-                return hashed == user.getPassword();
+                return hashed == user.GetPassword();
             }
             DBClose();
             return false;
@@ -73,7 +73,7 @@ namespace BankingApplication
 
         //The salt is stored in the format of: “{#hash_iterations}.{generated_salt}”
 
-        public static void createUser(string name, string password, int auth)
+        public static void CreateUser(string name, string password, int auth)
         {
             string salt = cryptoService.GenerateSalt();
             string hashedPassword = cryptoService.Compute(password, salt);
@@ -85,7 +85,8 @@ namespace BankingApplication
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
                 DBClose();
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("Unable to create new user. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
                 return;
@@ -103,12 +104,13 @@ namespace BankingApplication
                     createdUserID = Convert.ToInt32(reader[0]);
                 }
                 DBClose();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("Unable to retrieve ID for username. \n " + e.Message.ToString(), "Retrieval Error", MessageBoxButtons.OK);
                 return;
             }
-    
+
             try
             {
                 String query = $"INSERT INTO Salts (UserID, Salt) VALUES ('{createdUserID}', '{salt}');";
@@ -116,7 +118,8 @@ namespace BankingApplication
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
                 DBClose();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("Unable to insert salt for user. \n " + e.Message.ToString(), "Insertion Error", MessageBoxButtons.OK);
                 return;
@@ -125,7 +128,7 @@ namespace BankingApplication
             Console.WriteLine($"Successfully created user: {name}");
         }
 
-        public static void updateUserWithPassword(int userID, string name, string password, int auth)
+        public static void UpdateUserWithPassword(int userID, string name, string password, int auth)
         {
             string salt = cryptoService.GenerateSalt();
             string hashedPassword = cryptoService.Compute(password, salt);
@@ -161,7 +164,7 @@ namespace BankingApplication
             Console.WriteLine($"Successfully updated user: {name}");
         }
 
-        public static void updateUserWOPassword(int userID, string name, int auth)
+        public static void UpdateUserWOPassword(int userID, string name, int auth)
         {
             try
             {
@@ -180,7 +183,7 @@ namespace BankingApplication
             Console.WriteLine($"Successfully updated user: {name}");
         }
 
-        public static void deleteUser(int userID)
+        public static void DeleteUser(int userID)
         {
             try
             {
@@ -199,17 +202,16 @@ namespace BankingApplication
             Console.WriteLine($"Successfully deleted user: {userID}");
         }
 
-        public static User getUser(string name)
+        public static User GetUser(string name)
         {
             String query = $"SELECT UserID, UserName, Password, AuthLevel FROM Users WHERE UserName = '{name}';";
             int userID;
             string userName;
             string password;
             int auth;
-            string salt;
 
             User user;
-        
+
             DBOpen();
             cmd = new MySqlCommand(query, conn);
             reader = cmd.ExecuteReader();
@@ -221,7 +223,7 @@ namespace BankingApplication
                 password = reader[2].ToString();
                 auth = Convert.ToInt32(reader[3]);
                 user = new User(userID, userName, password, auth);
-                DBClose(); 
+                DBClose();
             }
             else
             {
@@ -234,7 +236,7 @@ namespace BankingApplication
 
         }
 
-        public static List<string> getUsers()
+        public static List<string> GetUsers()
         {
             List<string> foundUsers = new List<string>();
 
@@ -255,7 +257,7 @@ namespace BankingApplication
             return foundUsers;
         }
 
-        public static Member getMember(int memberNum)
+        public static Member GetMember(int memberNum)
         {
             Member member;
             int memberID;
@@ -291,7 +293,7 @@ namespace BankingApplication
             {
                 memberID = Convert.ToInt32(reader[0]);
                 firstName = reader[1].ToString();
-                middleName= reader[2].ToString();
+                middleName = reader[2].ToString();
                 lastName = reader[3].ToString();
                 socialSecurityNumber = Convert.ToInt32(reader[4]);
                 IDNumber = reader[5].ToString();
@@ -322,7 +324,7 @@ namespace BankingApplication
             }
         }
 
-        public static void createMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
+        public static void CreateMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
             string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
         {
@@ -344,7 +346,7 @@ namespace BankingApplication
             }
         }
 
-        public static void updateMember(int memberID, string fName, string lName, int ssn, string idNum, string dob, string street, string city,
+        public static void UpdateMember(int memberID, string fName, string lName, int ssn, string idNum, string dob, string street, string city,
             string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
         {
@@ -367,9 +369,10 @@ namespace BankingApplication
             }
         }
 
-        public static void deleteMember(int memberID)
+        public static void DeleteMember(int memberID)
         {
             // TODO Add check for accounts
+
 
             try
             {
@@ -378,13 +381,14 @@ namespace BankingApplication
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
                 DBClose();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("Unable to delete member. \n" + e.Message.ToString());
             }
         }
 
-        public static void createAccount(int memberID, string description, string type, int userID, int jointID = 0)
+        public static void CreateShare(int memberID, string description, string type, int userID, int jointID = 0)
         {
             String query;
 
@@ -410,7 +414,7 @@ namespace BankingApplication
             }
         }
 
-        public static DataTable getShares(int memberID)
+        public static DataTable GetShares(int memberID)
         {
             DataTable memberShares = new DataTable();
 
@@ -425,7 +429,8 @@ namespace BankingApplication
                 MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
                 adp.Fill(memberShares);
                 DBClose();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("Unable to obtain shares. \n" + e.Message, "Selection Error");
                 DBClose();
@@ -433,12 +438,12 @@ namespace BankingApplication
             return memberShares;
         }
 
-        public static Share getShare(int ID)
+        public static Share GetShare(int ID)
         {
             Share foundShare;
 
-            String query = $"SELECT Shares.ShareID AS ID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, Shares.OpenedDate,  " +
-                $"Shares.DateClosed, Shares.JointMemberID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
+            String query = $"SELECT Shares.ShareID AS ID, Shares.MemberID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, Shares.OpenedDate,  " +
+                $"Shares.DateClosed, Shares.CloseReason, Shares.JointMemberID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
                 $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.ShareID = {ID};";
 
             DBOpen();
@@ -447,9 +452,21 @@ namespace BankingApplication
             reader.Read();
             if (reader.HasRows)
             {
+                DateTime closeDate;
+                string reason;
+                int jointID;
+                string jointName;
+                int jointSSN;
+                if (reader[6] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
+                else { closeDate = Convert.ToDateTime(reader[6]); }
+                if (reader[7] == DBNull.Value) { reason = ""; } else { reason = reader[7].ToString(); }
+                if (reader[8] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[8]); }
+                if (reader[9] == DBNull.Value) { jointName = ""; } else { jointName = reader[9].ToString(); }
+                if (reader[10] == DBNull.Value) { jointSSN = 0; } else { jointSSN = Convert.ToInt32(reader[10]); }
+
                 foundShare = new Share(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(),
-                    Convert.ToDecimal(reader[4]), Convert.ToDateTime(reader[5]), Convert.ToDateTime(reader[6]), reader[7].ToString(), Convert.ToInt32(reader[8]),
-                    reader[9].ToString(), Convert.ToInt32(reader[10]));
+                    Convert.ToDecimal(reader[4]), Convert.ToDateTime(reader[5]), closeDate, reason, jointID,
+                    jointName, jointSSN);
                 DBClose();
             }
             else
@@ -462,5 +479,32 @@ namespace BankingApplication
             return foundShare;
         }
 
+        public static void CreateLoan(int memberID, string type, string description, decimal initialBalance, decimal apr, int dayDue, int userID, int jointID = 0)
+        {
+            String query;
+
+            if (jointID == 0)
+            {
+                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, DayDue, StartingBalance, OpenedBy) " +
+                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {dayDue}, {initialBalance}, {userID});";
+            }
+            else
+            {
+                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, DayDue, StartingBalance, OpenedBy, JointID) " +
+                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {dayDue}, {initialBalance}, {userID}, {jointID});";
+            }
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to create account. \n" + e.Message.ToString());
+            }
+        }
     }
 }
