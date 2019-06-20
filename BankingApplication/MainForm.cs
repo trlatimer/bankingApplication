@@ -12,17 +12,21 @@ namespace BankingApplication
 {
     public partial class MainForm : Form
     {
+        // TODO Test using generic Form for storing child and parent forms
         public LoginForm loginForm = null;
         public AddMemberForm addMemberForm = null;
         public EditMemberForm editMemberForm = null;
         public AddUserForm addUserForm = null;
         public EditUserForm editUserForm = null;
         public OpenShareForm openShareForm = null;
+        public OpenLoanForm openLoanForm = null;
+        public EditShareForm editShareForm = null;
 
         public User currentUser = null;
         public Member currentMember = null;
         public int enteredMemberID;
         public Share selectedShare = null;
+        public Loan selectedLoan = null;
 
         public DataTable sharesDT = new DataTable();
         public DataTable loansDT = new DataTable();
@@ -48,6 +52,10 @@ namespace BankingApplication
         private void MainForm_Load(object sender, EventArgs e)
         {
             mainFooterUserLabel.Text = $"Current User: {currentUser.GetUserName()}";
+            sharesDGV.DefaultCellStyle.SelectionBackColor = Color.White;
+            sharesDGV.DefaultCellStyle.SelectionForeColor = Color.Black;
+            loansDGV.DefaultCellStyle.SelectionBackColor = Color.White;
+            loansDGV.DefaultCellStyle.SelectionForeColor = Color.Black;
             if (currentUser.GetAuthLevel() == 1)
             {
                 AddMemberButton.Available = false;
@@ -157,6 +165,10 @@ namespace BankingApplication
                 sharesDT = DataHelper.GetShares(currentMember.MemberID);
                 sharesDGV.DataSource = sharesDT;
                 sharesDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                loansDT = DataHelper.GetLoans(currentMember.MemberID);
+                loansDGV.DataSource = loansDT;
+                loansDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 accountID.Text = "";
                 accountDesc.Text = "";
@@ -303,7 +315,9 @@ namespace BankingApplication
         private void SharesDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             selectedShare = DataHelper.GetShare(Convert.ToInt32(sharesDGV.SelectedRows[0].Cells[0].Value));
-
+            selectedLoan = null;
+            sharesDGV.DefaultCellStyle.SelectionBackColor = Color.Blue;
+            sharesDGV.DefaultCellStyle.SelectionForeColor = Color.White;
             accountID.Text = selectedShare.ShareID.ToString();
             accountDesc.Text = selectedShare.Description;
             accountBalance.Text = selectedShare.Balance.ToString("$###,###,##0.00");
@@ -332,5 +346,86 @@ namespace BankingApplication
             }
         }
 
+        private void OpenLoanButton_Click(object sender, EventArgs e)
+        {
+            openLoanForm = new OpenLoanForm
+            {
+                currentUser = currentUser,
+                currentMember = currentMember
+            };
+            openLoanForm.mainForm = this;
+            this.Enabled = false;
+            openLoanForm.Show();
+        }
+
+        private void LoansDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            loansDGV.DefaultCellStyle.SelectionBackColor = Color.Blue;
+            loansDGV.DefaultCellStyle.SelectionForeColor = Color.White;
+            selectedShare = null;
+            selectedLoan = DataHelper.GetLoan(Convert.ToInt32(loansDGV.SelectedRows[0].Cells[0].Value));
+
+            accountID.Text = selectedLoan.LoanID.ToString();
+            accountDesc.Text = selectedLoan.Description;
+            accountBalance.Text = selectedLoan.CurrentBalance.ToString("$###,###,##0.00");
+            if (selectedLoan.JointMemberID == 0)
+            {
+                accountJointID.Text = "";
+            }
+            else
+            {
+                accountJointID.Text = selectedLoan.JointMemberID.ToString();
+            }
+            accountJointName.Text = selectedLoan.JointMemberName;
+            if (selectedLoan.JointMemberSSN == 0)
+            {
+                accountJointSSN.Text = "";
+            }
+            else
+            {
+                accountJointSSN.Text = selectedLoan.JointMemberSSN.ToString().Substring(5, 4);
+            }
+            accountOpenDate.Text = selectedLoan.DateOpened.Date.ToString("MM/dd/yyyy");
+            if (selectedLoan.DateClosed.Date == Convert.ToDateTime("11/11/1111"))
+            {
+                accountClosedDate.Text = "--/--/----";
+            }
+            else
+            {
+                accountClosedDate.Text = selectedLoan.DateClosed.Date.ToString("MM/dd/yyyy");
+            }
+        }
+
+        private void SharesDGV_Leave(object sender, EventArgs e)
+        {
+            sharesDGV.DefaultCellStyle.SelectionBackColor = Color.White;
+            sharesDGV.DefaultCellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void LoansDGV_Leave(object sender, EventArgs e)
+        {
+            loansDGV.DefaultCellStyle.SelectionBackColor = Color.White;
+            loansDGV.DefaultCellStyle.SelectionForeColor = Color.Black;
+        }
+
+        private void EditAccountButton_Click(object sender, EventArgs e)
+        {
+            if (selectedShare != null)
+            {
+                editShareForm = new EditShareForm
+                {
+                    currentUser = currentUser,
+                    currentMember = currentMember,
+                    currentShare = selectedShare
+                };
+                editShareForm.mainForm = this;
+                this.Enabled = false;
+                editShareForm.Show();
+            }
+            if (selectedLoan != null)
+            {
+
+            }
+        }
     }
 }

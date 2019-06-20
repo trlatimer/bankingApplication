@@ -41,8 +41,26 @@
             this.loanTypeLabel = new System.Windows.Forms.Label();
             this.loanDescTextBox = new System.Windows.Forms.TextBox();
             this.loanDescLabel = new System.Windows.Forms.Label();
-            this.sharePanel = new System.Windows.Forms.Panel();
+            this.loanPanel = new System.Windows.Forms.Panel();
+            this.loanSummaryGroupBox = new System.Windows.Forms.GroupBox();
+            this.loanPayoffAmountTextBox = new System.Windows.Forms.TextBox();
+            this.loanPayoffAmountLabel = new System.Windows.Forms.Label();
+            this.loanPayoffDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.loanPayOffDate = new System.Windows.Forms.Label();
+            this.loanTotalToPayTextBox = new System.Windows.Forms.TextBox();
+            this.loanTotalPayLabel = new System.Windows.Forms.Label();
+            this.loanPaymentTextBox = new System.Windows.Forms.TextBox();
+            this.loanPayment = new System.Windows.Forms.Label();
             this.loanInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.loanAPR = new System.Windows.Forms.TextBox();
+            this.loanAmount = new System.Windows.Forms.TextBox();
+            this.loanAPRLabel = new System.Windows.Forms.Label();
+            this.loanAmountLabel = new System.Windows.Forms.Label();
+            this.loanDayDue = new System.Windows.Forms.TextBox();
+            this.loanTermTextBox = new System.Windows.Forms.TextBox();
+            this.loanTermLabel = new System.Windows.Forms.Label();
+            this.loanTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.loanDayDueLabel = new System.Windows.Forms.Label();
             this.memberInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.memberDOBPicker = new System.Windows.Forms.DateTimePicker();
             this.dobLabel = new System.Windows.Forms.Label();
@@ -51,9 +69,9 @@
             this.ssnLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
             this.loanTitleLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.joinInfoGroupBox.SuspendLayout();
-            this.sharePanel.SuspendLayout();
+            this.loanPanel.SuspendLayout();
+            this.loanSummaryGroupBox.SuspendLayout();
             this.loanInfoGroupBox.SuspendLayout();
             this.memberInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -61,10 +79,10 @@
             // shareSubmitButton
             // 
             this.shareSubmitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.shareSubmitButton.Location = new System.Drawing.Point(213, 376);
+            this.shareSubmitButton.Location = new System.Drawing.Point(213, 476);
             this.shareSubmitButton.Name = "shareSubmitButton";
             this.shareSubmitButton.Size = new System.Drawing.Size(82, 26);
-            this.shareSubmitButton.TabIndex = 8;
+            this.shareSubmitButton.TabIndex = 1;
             this.shareSubmitButton.Text = "Submit";
             this.shareSubmitButton.UseVisualStyleBackColor = true;
             // 
@@ -76,7 +94,7 @@
             this.jointDOBPicker.Location = new System.Drawing.Point(277, 37);
             this.jointDOBPicker.Name = "jointDOBPicker";
             this.jointDOBPicker.Size = new System.Drawing.Size(92, 22);
-            this.jointDOBPicker.TabIndex = 11;
+            this.jointDOBPicker.TabIndex = 2;
             // 
             // label2
             // 
@@ -95,7 +113,7 @@
             this.jointSSNTextBox.Name = "jointSSNTextBox";
             this.jointSSNTextBox.ReadOnly = true;
             this.jointSSNTextBox.Size = new System.Drawing.Size(78, 22);
-            this.jointSSNTextBox.TabIndex = 9;
+            this.jointSSNTextBox.TabIndex = 1;
             // 
             // jointNameTextBox
             // 
@@ -104,7 +122,7 @@
             this.jointNameTextBox.Name = "jointNameTextBox";
             this.jointNameTextBox.ReadOnly = true;
             this.jointNameTextBox.Size = new System.Drawing.Size(177, 22);
-            this.jointNameTextBox.TabIndex = 8;
+            this.jointNameTextBox.TabIndex = 0;
             // 
             // label3
             // 
@@ -157,10 +175,10 @@
             // shareCancelButton
             // 
             this.shareCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.shareCancelButton.Location = new System.Drawing.Point(112, 376);
+            this.shareCancelButton.Location = new System.Drawing.Point(112, 476);
             this.shareCancelButton.Name = "shareCancelButton";
             this.shareCancelButton.Size = new System.Drawing.Size(82, 26);
-            this.shareCancelButton.TabIndex = 7;
+            this.shareCancelButton.TabIndex = 0;
             this.shareCancelButton.Text = "Cancel";
             this.shareCancelButton.UseVisualStyleBackColor = true;
             // 
@@ -168,7 +186,7 @@
             // 
             this.loanTypeLabel.AutoSize = true;
             this.loanTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loanTypeLabel.Location = new System.Drawing.Point(61, 56);
+            this.loanTypeLabel.Location = new System.Drawing.Point(84, 56);
             this.loanTypeLabel.Name = "loanTypeLabel";
             this.loanTypeLabel.Size = new System.Drawing.Size(43, 16);
             this.loanTypeLabel.TabIndex = 4;
@@ -180,7 +198,8 @@
             this.loanDescTextBox.Location = new System.Drawing.Point(92, 25);
             this.loanDescTextBox.Name = "loanDescTextBox";
             this.loanDescTextBox.Size = new System.Drawing.Size(234, 22);
-            this.loanDescTextBox.TabIndex = 1;
+            this.loanDescTextBox.TabIndex = 0;
+            this.loanDescTextBox.TextChanged += new System.EventHandler(this.LoanDescTextBox_TextChanged);
             // 
             // loanDescLabel
             // 
@@ -192,31 +211,222 @@
             this.loanDescLabel.TabIndex = 0;
             this.loanDescLabel.Text = "Description:";
             // 
-            // sharePanel
+            // loanPanel
             // 
-            this.sharePanel.BackColor = System.Drawing.Color.LightGray;
-            this.sharePanel.Controls.Add(this.loanInfoGroupBox);
-            this.sharePanel.Controls.Add(this.loanJointCheckBox);
-            this.sharePanel.Controls.Add(this.joinInfoGroupBox);
-            this.sharePanel.Controls.Add(this.memberInfoGroupBox);
-            this.sharePanel.Location = new System.Drawing.Point(14, 46);
-            this.sharePanel.Name = "sharePanel";
-            this.sharePanel.Size = new System.Drawing.Size(392, 324);
-            this.sharePanel.TabIndex = 6;
+            this.loanPanel.BackColor = System.Drawing.Color.LightGray;
+            this.loanPanel.Controls.Add(this.loanSummaryGroupBox);
+            this.loanPanel.Controls.Add(this.loanInfoGroupBox);
+            this.loanPanel.Controls.Add(this.loanJointCheckBox);
+            this.loanPanel.Controls.Add(this.joinInfoGroupBox);
+            this.loanPanel.Controls.Add(this.memberInfoGroupBox);
+            this.loanPanel.Location = new System.Drawing.Point(14, 46);
+            this.loanPanel.Name = "loanPanel";
+            this.loanPanel.Size = new System.Drawing.Size(392, 424);
+            this.loanPanel.TabIndex = 6;
+            // 
+            // loanSummaryGroupBox
+            // 
+            this.loanSummaryGroupBox.Controls.Add(this.loanPayoffAmountTextBox);
+            this.loanSummaryGroupBox.Controls.Add(this.loanPayoffAmountLabel);
+            this.loanSummaryGroupBox.Controls.Add(this.loanPayoffDatePicker);
+            this.loanSummaryGroupBox.Controls.Add(this.loanPayOffDate);
+            this.loanSummaryGroupBox.Controls.Add(this.loanTotalToPayTextBox);
+            this.loanSummaryGroupBox.Controls.Add(this.loanTotalPayLabel);
+            this.loanSummaryGroupBox.Controls.Add(this.loanPaymentTextBox);
+            this.loanSummaryGroupBox.Controls.Add(this.loanPayment);
+            this.loanSummaryGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanSummaryGroupBox.Location = new System.Drawing.Point(6, 326);
+            this.loanSummaryGroupBox.Name = "loanSummaryGroupBox";
+            this.loanSummaryGroupBox.Size = new System.Drawing.Size(378, 86);
+            this.loanSummaryGroupBox.TabIndex = 5;
+            this.loanSummaryGroupBox.TabStop = false;
+            this.loanSummaryGroupBox.Text = "Loan Summary";
+            // 
+            // loanPayoffAmountTextBox
+            // 
+            this.loanPayoffAmountTextBox.Location = new System.Drawing.Point(100, 59);
+            this.loanPayoffAmountTextBox.Name = "loanPayoffAmountTextBox";
+            this.loanPayoffAmountTextBox.Size = new System.Drawing.Size(87, 22);
+            this.loanPayoffAmountTextBox.TabIndex = 2;
+            // 
+            // loanPayoffAmountLabel
+            // 
+            this.loanPayoffAmountLabel.AutoSize = true;
+            this.loanPayoffAmountLabel.Location = new System.Drawing.Point(2, 62);
+            this.loanPayoffAmountLabel.Name = "loanPayoffAmountLabel";
+            this.loanPayoffAmountLabel.Size = new System.Drawing.Size(97, 16);
+            this.loanPayoffAmountLabel.TabIndex = 13;
+            this.loanPayoffAmountLabel.Text = "Payoff Amount:";
+            // 
+            // loanPayoffDatePicker
+            // 
+            this.loanPayoffDatePicker.Enabled = false;
+            this.loanPayoffDatePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanPayoffDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.loanPayoffDatePicker.Location = new System.Drawing.Point(277, 57);
+            this.loanPayoffDatePicker.Name = "loanPayoffDatePicker";
+            this.loanPayoffDatePicker.Size = new System.Drawing.Size(92, 22);
+            this.loanPayoffDatePicker.TabIndex = 3;
+            // 
+            // loanPayOffDate
+            // 
+            this.loanPayOffDate.AutoSize = true;
+            this.loanPayOffDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanPayOffDate.Location = new System.Drawing.Point(190, 62);
+            this.loanPayOffDate.Name = "loanPayOffDate";
+            this.loanPayOffDate.Size = new System.Drawing.Size(81, 16);
+            this.loanPayOffDate.TabIndex = 6;
+            this.loanPayOffDate.Text = "Payoff Date:";
+            // 
+            // loanTotalToPayTextBox
+            // 
+            this.loanTotalToPayTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanTotalToPayTextBox.Location = new System.Drawing.Point(269, 29);
+            this.loanTotalToPayTextBox.Name = "loanTotalToPayTextBox";
+            this.loanTotalToPayTextBox.ReadOnly = true;
+            this.loanTotalToPayTextBox.Size = new System.Drawing.Size(100, 22);
+            this.loanTotalToPayTextBox.TabIndex = 1;
+            // 
+            // loanTotalPayLabel
+            // 
+            this.loanTotalPayLabel.AutoSize = true;
+            this.loanTotalPayLabel.Location = new System.Drawing.Point(193, 32);
+            this.loanTotalPayLabel.Name = "loanTotalPayLabel";
+            this.loanTotalPayLabel.Size = new System.Drawing.Size(72, 16);
+            this.loanTotalPayLabel.TabIndex = 4;
+            this.loanTotalPayLabel.Text = "Total Cost:";
+            // 
+            // loanPaymentTextBox
+            // 
+            this.loanPaymentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanPaymentTextBox.Location = new System.Drawing.Point(100, 29);
+            this.loanPaymentTextBox.Name = "loanPaymentTextBox";
+            this.loanPaymentTextBox.ReadOnly = true;
+            this.loanPaymentTextBox.Size = new System.Drawing.Size(87, 22);
+            this.loanPaymentTextBox.TabIndex = 0;
+            // 
+            // loanPayment
+            // 
+            this.loanPayment.AutoSize = true;
+            this.loanPayment.Location = new System.Drawing.Point(22, 32);
+            this.loanPayment.Name = "loanPayment";
+            this.loanPayment.Size = new System.Drawing.Size(71, 16);
+            this.loanPayment.TabIndex = 0;
+            this.loanPayment.Text = "Payments:";
             // 
             // loanInfoGroupBox
             // 
-            this.loanInfoGroupBox.Controls.Add(this.comboBox1);
+            this.loanInfoGroupBox.Controls.Add(this.loanAPR);
+            this.loanInfoGroupBox.Controls.Add(this.loanAmount);
+            this.loanInfoGroupBox.Controls.Add(this.loanAPRLabel);
+            this.loanInfoGroupBox.Controls.Add(this.loanAmountLabel);
+            this.loanInfoGroupBox.Controls.Add(this.loanDayDue);
+            this.loanInfoGroupBox.Controls.Add(this.loanTermTextBox);
+            this.loanInfoGroupBox.Controls.Add(this.loanTermLabel);
+            this.loanInfoGroupBox.Controls.Add(this.loanTypeComboBox);
+            this.loanInfoGroupBox.Controls.Add(this.loanDayDueLabel);
             this.loanInfoGroupBox.Controls.Add(this.loanTypeLabel);
             this.loanInfoGroupBox.Controls.Add(this.loanDescTextBox);
             this.loanInfoGroupBox.Controls.Add(this.loanDescLabel);
             this.loanInfoGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loanInfoGroupBox.Location = new System.Drawing.Point(6, 168);
             this.loanInfoGroupBox.Name = "loanInfoGroupBox";
-            this.loanInfoGroupBox.Size = new System.Drawing.Size(378, 139);
+            this.loanInfoGroupBox.Size = new System.Drawing.Size(378, 152);
             this.loanInfoGroupBox.TabIndex = 4;
             this.loanInfoGroupBox.TabStop = false;
             this.loanInfoGroupBox.Text = "Loan Details";
+            // 
+            // loanAPR
+            // 
+            this.loanAPR.Location = new System.Drawing.Point(105, 120);
+            this.loanAPR.Name = "loanAPR";
+            this.loanAPR.Size = new System.Drawing.Size(50, 22);
+            this.loanAPR.TabIndex = 4;
+            this.loanAPR.TextChanged += new System.EventHandler(this.LoanAPR_TextChanged);
+            // 
+            // loanAmount
+            // 
+            this.loanAmount.Location = new System.Drawing.Point(69, 86);
+            this.loanAmount.Name = "loanAmount";
+            this.loanAmount.Size = new System.Drawing.Size(86, 22);
+            this.loanAmount.TabIndex = 2;
+            this.loanAmount.TextChanged += new System.EventHandler(this.LoanAmount_TextChanged);
+            this.loanAmount.Leave += new System.EventHandler(this.LoanAmount_Leave);
+            // 
+            // loanAPRLabel
+            // 
+            this.loanAPRLabel.AutoSize = true;
+            this.loanAPRLabel.Location = new System.Drawing.Point(24, 123);
+            this.loanAPRLabel.Name = "loanAPRLabel";
+            this.loanAPRLabel.Size = new System.Drawing.Size(62, 16);
+            this.loanAPRLabel.TabIndex = 9;
+            this.loanAPRLabel.Text = "APR (%):";
+            // 
+            // loanAmountLabel
+            // 
+            this.loanAmountLabel.AutoSize = true;
+            this.loanAmountLabel.Location = new System.Drawing.Point(7, 89);
+            this.loanAmountLabel.Name = "loanAmountLabel";
+            this.loanAmountLabel.Size = new System.Drawing.Size(56, 16);
+            this.loanAmountLabel.TabIndex = 8;
+            this.loanAmountLabel.Text = "Amount:";
+            // 
+            // loanDayDue
+            // 
+            this.loanDayDue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanDayDue.Location = new System.Drawing.Point(289, 120);
+            this.loanDayDue.Name = "loanDayDue";
+            this.loanDayDue.Size = new System.Drawing.Size(37, 22);
+            this.loanDayDue.TabIndex = 5;
+            this.loanDayDue.TextChanged += new System.EventHandler(this.LoanDayDue_TextChanged);
+            // 
+            // loanTermTextBox
+            // 
+            this.loanTermTextBox.Location = new System.Drawing.Point(293, 86);
+            this.loanTermTextBox.Name = "loanTermTextBox";
+            this.loanTermTextBox.Size = new System.Drawing.Size(61, 22);
+            this.loanTermTextBox.TabIndex = 3;
+            this.loanTermTextBox.TextChanged += new System.EventHandler(this.LoanTermTextBox_TextChanged);
+            // 
+            // loanTermLabel
+            // 
+            this.loanTermLabel.AutoSize = true;
+            this.loanTermLabel.Location = new System.Drawing.Point(190, 89);
+            this.loanTermLabel.Name = "loanTermLabel";
+            this.loanTermLabel.Size = new System.Drawing.Size(97, 16);
+            this.loanTermLabel.TabIndex = 6;
+            this.loanTermLabel.Text = "Term (Months):";
+            // 
+            // loanTypeComboBox
+            // 
+            this.loanTypeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.loanTypeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.loanTypeComboBox.FormattingEnabled = true;
+            this.loanTypeComboBox.Items.AddRange(new object[] {
+            "Business",
+            "Construction",
+            "Mortgage",
+            "Recreational",
+            "Signature",
+            "Student",
+            "Vehicle"});
+            this.loanTypeComboBox.Location = new System.Drawing.Point(133, 53);
+            this.loanTypeComboBox.Name = "loanTypeComboBox";
+            this.loanTypeComboBox.Size = new System.Drawing.Size(143, 24);
+            this.loanTypeComboBox.Sorted = true;
+            this.loanTypeComboBox.TabIndex = 1;
+            this.loanTypeComboBox.Text = "Loan Type";
+            this.loanTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.LoanTypeComboBox_SelectedIndexChanged);
+            // 
+            // loanDayDueLabel
+            // 
+            this.loanDayDueLabel.AutoSize = true;
+            this.loanDayDueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loanDayDueLabel.Location = new System.Drawing.Point(190, 123);
+            this.loanDayDueLabel.Name = "loanDayDueLabel";
+            this.loanDayDueLabel.Size = new System.Drawing.Size(72, 16);
+            this.loanDayDueLabel.TabIndex = 2;
+            this.loanDayDueLabel.Text = "Due (Day):";
             // 
             // memberInfoGroupBox
             // 
@@ -242,7 +452,7 @@
             this.memberDOBPicker.Location = new System.Drawing.Point(277, 36);
             this.memberDOBPicker.Name = "memberDOBPicker";
             this.memberDOBPicker.Size = new System.Drawing.Size(92, 22);
-            this.memberDOBPicker.TabIndex = 5;
+            this.memberDOBPicker.TabIndex = 2;
             // 
             // dobLabel
             // 
@@ -261,7 +471,7 @@
             this.memberSSNTextBox.Name = "memberSSNTextBox";
             this.memberSSNTextBox.ReadOnly = true;
             this.memberSSNTextBox.Size = new System.Drawing.Size(78, 22);
-            this.memberSSNTextBox.TabIndex = 3;
+            this.memberSSNTextBox.TabIndex = 1;
             // 
             // memberNameTextBox
             // 
@@ -270,7 +480,7 @@
             this.memberNameTextBox.Name = "memberNameTextBox";
             this.memberNameTextBox.ReadOnly = true;
             this.memberNameTextBox.Size = new System.Drawing.Size(177, 22);
-            this.memberNameTextBox.TabIndex = 2;
+            this.memberNameTextBox.TabIndex = 0;
             // 
             // ssnLabel
             // 
@@ -302,42 +512,24 @@
             this.loanTitleLabel.TabIndex = 5;
             this.loanTitleLabel.Text = "Loan Title";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Business",
-            "Construction",
-            "Mortgage",
-            "Recreational",
-            "Signature",
-            "Student",
-            "Vehicle"});
-            this.comboBox1.Location = new System.Drawing.Point(133, 53);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(143, 24);
-            this.comboBox1.Sorted = true;
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.Text = "Loan Type";
-            // 
             // loanBaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(422, 409);
+            this.ClientSize = new System.Drawing.Size(422, 514);
             this.Controls.Add(this.shareSubmitButton);
             this.Controls.Add(this.shareCancelButton);
-            this.Controls.Add(this.sharePanel);
+            this.Controls.Add(this.loanPanel);
             this.Controls.Add(this.loanTitleLabel);
             this.Name = "loanBaseForm";
             this.Text = "loanBaseForm";
             this.joinInfoGroupBox.ResumeLayout(false);
             this.joinInfoGroupBox.PerformLayout();
-            this.sharePanel.ResumeLayout(false);
-            this.sharePanel.PerformLayout();
+            this.loanPanel.ResumeLayout(false);
+            this.loanPanel.PerformLayout();
+            this.loanSummaryGroupBox.ResumeLayout(false);
+            this.loanSummaryGroupBox.PerformLayout();
             this.loanInfoGroupBox.ResumeLayout(false);
             this.loanInfoGroupBox.PerformLayout();
             this.memberInfoGroupBox.ResumeLayout(false);
@@ -362,7 +554,7 @@
         protected System.Windows.Forms.Label loanTypeLabel;
         protected System.Windows.Forms.TextBox loanDescTextBox;
         protected System.Windows.Forms.Label loanDescLabel;
-        protected System.Windows.Forms.Panel sharePanel;
+        protected System.Windows.Forms.Panel loanPanel;
         protected System.Windows.Forms.GroupBox loanInfoGroupBox;
         protected System.Windows.Forms.GroupBox memberInfoGroupBox;
         protected System.Windows.Forms.DateTimePicker memberDOBPicker;
@@ -372,6 +564,23 @@
         protected System.Windows.Forms.Label ssnLabel;
         protected System.Windows.Forms.Label nameLabel;
         protected System.Windows.Forms.Label loanTitleLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
+        protected System.Windows.Forms.DateTimePicker loanPayoffDatePicker;
+        protected System.Windows.Forms.ComboBox loanTypeComboBox;
+        protected System.Windows.Forms.TextBox loanAmount;
+        protected System.Windows.Forms.Label loanAPRLabel;
+        protected System.Windows.Forms.Label loanAmountLabel;
+        protected System.Windows.Forms.TextBox loanTermTextBox;
+        protected System.Windows.Forms.Label loanTermLabel;
+        protected System.Windows.Forms.TextBox loanAPR;
+        protected System.Windows.Forms.GroupBox loanSummaryGroupBox;
+        protected System.Windows.Forms.TextBox loanPaymentTextBox;
+        protected System.Windows.Forms.Label loanPayment;
+        protected System.Windows.Forms.Label loanPayOffDate;
+        protected System.Windows.Forms.TextBox loanTotalToPayTextBox;
+        protected System.Windows.Forms.Label loanTotalPayLabel;
+        protected System.Windows.Forms.TextBox loanDayDue;
+        protected System.Windows.Forms.Label loanDayDueLabel;
+        protected System.Windows.Forms.TextBox loanPayoffAmountTextBox;
+        protected System.Windows.Forms.Label loanPayoffAmountLabel;
     }
 }

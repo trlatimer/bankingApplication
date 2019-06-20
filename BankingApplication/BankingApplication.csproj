@@ -82,6 +82,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditShareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditShareForm.Designer.cs">
+      <DependentUpon>EditShareForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenLoanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenLoanForm.Designer.cs">
+      <DependentUpon>OpenLoanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddMemberForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +158,9 @@
     <EmbeddedResource Include="EditMemberForm.resx">
       <DependentUpon>EditMemberForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditShareForm.resx">
+      <DependentUpon>EditShareForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditUserForm.resx">
       <DependentUpon>EditUserForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenLoanForm.resx">
+      <DependentUpon>OpenLoanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenShareForm.resx">
       <DependentUpon>OpenShareForm.cs</DependentUpon>

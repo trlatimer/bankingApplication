@@ -414,6 +414,32 @@ namespace BankingApplication
             }
         }
 
+        public static void UpdateShare(int shareID, string description, string type, int userID, int jointID = 0)
+        {
+            String query;
+
+            if (jointID == 0)
+            {
+                query = $"UPDATE Shares SET ShareDescription = '{description}', ShareType = '{type}',  LastUpdatedBy = {userID} WHERE ShareID = {shareID};";
+            }
+            else
+            {
+                query = $"UPDATE Shares SET ShareDescription = '{description}', ShareType = '{type}', JointMemberID = {jointID},  LastUpdatedBy = {userID} WHERE ShareID = {shareID};";
+            }
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update account. \n" + e.Message.ToString());
+            }
+        }
+
         public static DataTable GetShares(int memberID)
         {
             DataTable memberShares = new DataTable();
@@ -473,25 +499,25 @@ namespace BankingApplication
             {
                 Console.WriteLine("No rows in reader");
                 DBClose();
-                throw new Exception("Unable to find user with that name");
+                throw new Exception("Unable to find loan with that ID");
             }
 
             return foundShare;
         }
 
-        public static void CreateLoan(int memberID, string type, string description, decimal initialBalance, decimal apr, int dayDue, int userID, int jointID = 0)
+        public static void CreateLoan(int memberID, string type, string description, double initialBalance, double apr, int term, int dayDue, int userID, int jointID = 0)
         {
             String query;
 
             if (jointID == 0)
             {
-                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, DayDue, StartingBalance, OpenedBy) " +
-                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {dayDue}, {initialBalance}, {userID});";
+                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, TermLength, DayDue, StartingBalance, OpenedBy) " +
+                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {term}, {dayDue}, {initialBalance}, {userID});";
             }
             else
             {
-                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, DayDue, StartingBalance, OpenedBy, JointID) " +
-                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {dayDue}, {initialBalance}, {userID}, {jointID});";
+                query = $"INSERT INTO Loans (MemberID, LoanType, LoanDescription, CurrentBalance, APR, TermLength, DayDue, StartingBalance, OpenedBy, JointID) " +
+                    $"VALUES ({memberID}, '{type}', '{description}', {initialBalance}, {apr}, {term}, {dayDue}, {initialBalance}, {userID}, {jointID});";
             }
 
             try
@@ -505,6 +531,70 @@ namespace BankingApplication
             {
                 MessageBox.Show("Unable to create account. \n" + e.Message.ToString());
             }
+        }
+
+        public static DataTable GetLoans(int memberID)
+        {
+            DataTable memberShares = new DataTable();
+
+            String query = $"SELECT Loans.LoanID AS ID, Loans.LoanType AS Type, Loans.LoanDescription AS Description, Loans.CurrentBalance AS Balance, " +
+                $"Loans.DayDue AS Due, CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
+                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.MemberID = {memberID};";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(memberShares);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to obtain loans. \n" + e.Message, "Selection Error");
+                DBClose();
+            }
+            return memberShares;
+        }
+
+        public static Loan GetLoan(int ID)
+        {
+            Loan foundLoan;
+
+            String query = $"SELECT Loans.LoanID AS ID, Loans.MemberID, Loans.LoanType AS Type, Loans.LoanDescription AS Description, Loans.CurrentBalance AS Balance, " +
+                $"Loans.APR, Loans.TermLength, Loans.DayDue AS Due, Loans.StartingBalance, Loans.DateOpened, Loans.DateClosed, " +
+                $"Loans.JointID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
+                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.LoanID = {ID};";
+
+            DBOpen();
+            cmd = new MySqlCommand(query, conn);
+            reader = cmd.ExecuteReader();
+            reader.Read();
+            if (reader.HasRows)
+            {
+                DateTime closeDate;
+                int jointID;
+                string jointName;
+                int jointSSN;
+                if (reader[10] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
+                else { closeDate = Convert.ToDateTime(reader[10]); }
+                if (reader[11] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[11]); }
+                if (reader[12] == DBNull.Value) { jointName = ""; } else { jointName = reader[12].ToString(); }
+                if (reader[13] == DBNull.Value) { jointSSN = 0; } else { jointSSN = Convert.ToInt32(reader[13]); }
+
+                foundLoan = new Loan(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(),
+                    Convert.ToDouble(reader[4]), Convert.ToDouble(reader[5]), Convert.ToInt32(reader[6]), Convert.ToInt32(reader[7]), Convert.ToDouble(reader[8]),
+                    Convert.ToDateTime(reader[9]), closeDate, jointID, jointName, jointSSN);
+                DBClose();
+            }
+            else
+            {
+                Console.WriteLine("No rows in reader");
+                DBClose();
+                throw new Exception("Unable to find loan with that ID");
+            }
+
+            return foundLoan;
         }
     }
 }

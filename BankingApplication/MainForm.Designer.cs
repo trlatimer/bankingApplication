@@ -532,6 +532,8 @@
             this.loansDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.loansDGV.Size = new System.Drawing.Size(466, 106);
             this.loansDGV.TabIndex = 5;
+            this.loansDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoansDGV_CellClick);
+            this.loansDGV.Leave += new System.EventHandler(this.LoansDGV_Leave);
             // 
             // loansLabel
             // 
@@ -739,6 +741,7 @@
             this.sharesDGV.Size = new System.Drawing.Size(475, 109);
             this.sharesDGV.TabIndex = 1;
             this.sharesDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SharesDGV_CellClick);
+            this.sharesDGV.Leave += new System.EventHandler(this.SharesDGV_Leave);
             // 
             // toolStrip1
             // 
@@ -777,12 +780,14 @@
             this.openLoanButton.Name = "openLoanButton";
             this.openLoanButton.Size = new System.Drawing.Size(167, 22);
             this.openLoanButton.Text = "Open Loan";
+            this.openLoanButton.Click += new System.EventHandler(this.OpenLoanButton_Click);
             // 
             // editAccountButton
             // 
             this.editAccountButton.Name = "editAccountButton";
-            this.editAccountButton.Size = new System.Drawing.Size(167, 22);
+            this.editAccountButton.Size = new System.Drawing.Size(180, 22);
             this.editAccountButton.Text = "Edit  an Account";
+            this.editAccountButton.Click += new System.EventHandler(this.EditAccountButton_Click);
             // 
             // closeAccountButton
             // 
