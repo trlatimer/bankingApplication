@@ -13,14 +13,8 @@ namespace BankingApplication
     public partial class MainForm : Form
     {
         // TODO Test using generic Form for storing child and parent forms
+        public Form childForm = null;
         public LoginForm loginForm = null;
-        public AddMemberForm addMemberForm = null;
-        public EditMemberForm editMemberForm = null;
-        public AddUserForm addUserForm = null;
-        public EditUserForm editUserForm = null;
-        public OpenShareForm openShareForm = null;
-        public OpenLoanForm openLoanForm = null;
-        public EditShareForm editShareForm = null;
 
         public User currentUser = null;
         public Member currentMember = null;
@@ -98,11 +92,12 @@ namespace BankingApplication
 
         private void AddMemberButton_Click(object sender, EventArgs e)
         {
-            addMemberForm = new AddMemberForm() {
-                mainForm = this
+            childForm = new AddMemberForm() {
+                originatingForm = this,
+                currentUser = currentUser
             };
             this.Enabled = false;
-            addMemberForm.Show();
+            childForm.Show();
         }
 
         private void ViewAccounButton_Click(object sender, EventArgs e)
@@ -205,12 +200,13 @@ namespace BankingApplication
 
         private void EditMemberButton_Click(object sender, EventArgs e)
         {
-            editMemberForm = new EditMemberForm()
+            childForm = new EditMemberForm()
             {
-                currentMember = currentMember
+                currentMember = currentMember,
+                currentUser = currentUser,
+                originatingForm = this
             };
-            editMemberForm.mainForm = this;
-            editMemberForm.Show();
+            childForm.Show();
             this.Enabled = false;
         }
 
@@ -230,12 +226,12 @@ namespace BankingApplication
 
         private void AddUserButton_Click(object sender, EventArgs e)
         {
-            addUserForm = new AddUserForm()
+            childForm = new AddUserForm()
             {
-                currentUser = currentUser
+                currentUser = currentUser,
+                originatingForm = this
             };
-            addUserForm.mainform = this;
-            addUserForm.Show();
+            childForm.Show();
             this.Enabled = false;
         }
 
@@ -253,13 +249,13 @@ namespace BankingApplication
                     return;
                 }
 
-                editUserForm = new EditUserForm()
+                childForm = new EditUserForm()
                 {
-                    currentUser = currentUser
+                    currentUser = currentUser,
+                    originatingForm = this,
+                    selectedUser = foundUser
                 };
-                editUserForm.mainForm = this;
-                editUserForm.selectedUser = foundUser;
-                editUserForm.Show();
+                childForm.Show();
                 this.Enabled = false;
             } catch (Exception ex)
             {
@@ -302,14 +298,14 @@ namespace BankingApplication
 
         private void OpenShareButton_Click(object sender, EventArgs e)
         {
-            openShareForm = new OpenShareForm
+            childForm = new OpenShareForm
             {
                 currentUser = currentUser,
-                currentMember = currentMember
+                currentMember = currentMember,
+                originatingForm = this
             };
-            openShareForm.mainForm = this;
             this.Enabled = false;
-            openShareForm.Show();
+            childForm.Show();
         }
 
         private void SharesDGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -348,14 +344,14 @@ namespace BankingApplication
 
         private void OpenLoanButton_Click(object sender, EventArgs e)
         {
-            openLoanForm = new OpenLoanForm
+            childForm = new OpenLoanForm
             {
                 currentUser = currentUser,
-                currentMember = currentMember
+                currentMember = currentMember,
+                originatingForm = this
             };
-            openLoanForm.mainForm = this;
             this.Enabled = false;
-            openLoanForm.Show();
+            childForm.Show();
         }
 
         private void LoansDGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -412,19 +408,79 @@ namespace BankingApplication
         {
             if (selectedShare != null)
             {
-                editShareForm = new EditShareForm
+                childForm = new EditShareForm
                 {
                     currentUser = currentUser,
                     currentMember = currentMember,
-                    currentShare = selectedShare
+                    currentShare = selectedShare,
+                    originatingForm = this
                 };
-                editShareForm.mainForm = this;
                 this.Enabled = false;
-                editShareForm.Show();
+                childForm.Show();
             }
             if (selectedLoan != null)
             {
+                childForm = new EditLoanForm()
+                {
+                    currentMember = currentMember,
+                    currentUser = currentUser,
+                    currentLoan = selectedLoan,
+                    originatingForm = this
+                };
+                childForm.Show();
+                this.Enabled = false;
+            }
+        }
 
+        private void MainForm_EnabledChanged(object sender, EventArgs e)
+        {
+            if (this.Enabled == true)
+            {
+                PopulateData();
+            }
+        }
+
+        private void closeAccountButton_Click(object sender, EventArgs e)
+        {
+            string response = ShowDialog("Confirm account #:", "Close Account");
+            if (selectedShare != null)
+            {
+                if (Convert.ToInt32(response) == selectedShare.ShareID)
+                {
+                    response = ShowDialog("Reason:", "Close Account");
+                    try
+                    {
+                        DataHelper.CloseShare(selectedShare.ShareID, response, currentUser.GetUserID());
+                    } catch (Exception)
+                    {
+                        return;
+                    }
+                    MessageBox.Show("Account successfully closed.");
+                    PopulateData();
+                } else
+                {
+                    MessageBox.Show("Account ID's did not match. Please try again.");
+                    return;
+                }
+            }
+            if (selectedLoan != null)
+            {
+                if (Convert.ToInt32(response) == selectedLoan.LoanID)
+                {
+                    try
+                    {
+                        DataHelper.CloseLoan(selectedLoan.LoanID, currentUser.GetUserID());
+                    } catch (Exception)
+                    {
+                        return;
+                    }
+                    MessageBox.Show("Account successfully closed.");
+                    PopulateData();
+                } else
+                {
+                    MessageBox.Show("Account ID's did not match. Please try again.");
+                    return;
+                }
             }
         }
     }

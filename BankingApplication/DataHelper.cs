@@ -440,13 +440,29 @@ namespace BankingApplication
             }
         }
 
+        public static void CloseShare(int shareID, string reason, int userID)
+        {
+            try
+            {
+                String query = $"UPDATE Shares SET DateClosed = {DateTime.Today.Date.ToShortDateString()}, CloseReason = '{reason}', ClosedBy = {userID}, LastUpdatedBy = {userID} WHERE ShareID = {shareID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to close acocunt. \n" + e.Message.ToString());
+            }
+        }
+
         public static DataTable GetShares(int memberID)
         {
             DataTable memberShares = new DataTable();
 
             String query = $"SELECT Shares.ShareID AS ID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, " +
                 $"CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
-                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.MemberID = {memberID};";
+                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.MemberID = {memberID} AND Shares.DateClosed IS NULL;";
 
             try
             {
@@ -470,7 +486,7 @@ namespace BankingApplication
 
             String query = $"SELECT Shares.ShareID AS ID, Shares.MemberID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, Shares.OpenedDate,  " +
                 $"Shares.DateClosed, Shares.CloseReason, Shares.JointMemberID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
-                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.ShareID = {ID};";
+                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.ShareID = {ID} AND Shares.DateClosed IS NULL;";
 
             DBOpen();
             cmd = new MySqlCommand(query, conn);
@@ -484,7 +500,7 @@ namespace BankingApplication
                 string jointName;
                 int jointSSN;
                 if (reader[6] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
-                else { closeDate = Convert.ToDateTime(reader[6]); }
+                else { closeDate = Convert.ToDateTime(reader[6].ToString()); }
                 if (reader[7] == DBNull.Value) { reason = ""; } else { reason = reader[7].ToString(); }
                 if (reader[8] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[8]); }
                 if (reader[9] == DBNull.Value) { jointName = ""; } else { jointName = reader[9].ToString(); }
@@ -533,13 +549,57 @@ namespace BankingApplication
             }
         }
 
+        public static void UpdateLoan(int loanID, string type, string description, double apr, int term, int dayDue, int userID, int jointID = 0)
+        {
+            String query;
+
+            if (jointID == 0)
+            {
+                query = $"UPDATE Loans SET LoanType = '{type}', LoanDescription = '{description}', " +
+                    $"APR = {apr}, TermLength = {term}, DayDue = {dayDue}, UpdatedBy = {userID} WHERE LoanID = {loanID};";
+            }
+            else
+            {
+                query = $"UPDATE Loans SET LoanType = '{type}', LoanDescription = '{description}', " +
+                    $"APR = {apr}, TermLength = {term}, DayDue = {dayDue}, UpdatedBy = {userID}, JointID = {jointID} WHERE LoanID = {loanID};";
+            }
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update account. \n" + e.Message.ToString());
+            }
+        }
+
+        public static void CloseLoan(int loanID, int userID)
+        {
+            try
+            {
+                String query = $"UPDATE Loans SET DateClosed = {DateTime.Today.Date.ToShortDateString()}, ClosedBy = {userID}, UpdatedBy = {userID} WHERE LoanID = {loanID};";
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to close acocunt. \n" + e.Message.ToString());
+            }
+        }
+
         public static DataTable GetLoans(int memberID)
         {
             DataTable memberShares = new DataTable();
 
             String query = $"SELECT Loans.LoanID AS ID, Loans.LoanType AS Type, Loans.LoanDescription AS Description, Loans.CurrentBalance AS Balance, " +
                 $"Loans.DayDue AS Due, CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
-                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.MemberID = {memberID};";
+                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.MemberID = {memberID} AND Loans.DateClosed IS NULL;";
 
             try
             {
@@ -564,7 +624,7 @@ namespace BankingApplication
             String query = $"SELECT Loans.LoanID AS ID, Loans.MemberID, Loans.LoanType AS Type, Loans.LoanDescription AS Description, Loans.CurrentBalance AS Balance, " +
                 $"Loans.APR, Loans.TermLength, Loans.DayDue AS Due, Loans.StartingBalance, Loans.DateOpened, Loans.DateClosed, " +
                 $"Loans.JointID, CONCAT(Members.FName, ' ', Members.LName) AS Joint, Members.SSN " +
-                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.LoanID = {ID};";
+                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.LoanID = {ID} AND Loans.DateClosed IS NULL;";
 
             DBOpen();
             cmd = new MySqlCommand(query, conn);
@@ -577,7 +637,7 @@ namespace BankingApplication
                 string jointName;
                 int jointSSN;
                 if (reader[10] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
-                else { closeDate = Convert.ToDateTime(reader[10]); }
+                else { closeDate = Convert.ToDateTime(reader[10].ToString()); }
                 if (reader[11] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[11]); }
                 if (reader[12] == DBNull.Value) { jointName = ""; } else { jointName = reader[12].ToString(); }
                 if (reader[13] == DBNull.Value) { jointSSN = 0; } else { jointSSN = Convert.ToInt32(reader[13]); }

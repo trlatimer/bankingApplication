@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class OpenShareForm : BankingApp_BaseForms.shareBaseForm
     {
-        public MainForm mainForm = null;
+        public Form originatingForm = null;
         public User currentUser = null;
         public Member currentMember = null;
         public Member jointMember = null;
@@ -42,6 +42,7 @@ namespace BankingApplication
                 } catch (Exception ex)
                 {
                     MessageBox.Show("Unable to locate user with that UserID. Please try again. \n" + ex.Message, "Locate Error");
+                    shareJointCheckBox.Checked = false;
                     return;
                 }
                 
@@ -61,8 +62,8 @@ namespace BankingApplication
 
         private void ShareCancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
-            mainForm.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
@@ -93,9 +94,8 @@ namespace BankingApplication
                 DataHelper.CreateShare(currentMember.MemberID, shareDescTextBox.Text, selectedType, currentUser.GetUserID(), jointMember.MemberID);
             }  
             Console.WriteLine($"Account created for, {currentMember.FirstName} {currentMember.LastName}, by user {currentUser.GetUserID()}");
-            mainForm.Enabled = true;
-            mainForm.Show();
-            mainForm.PopulateData();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
     }

@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class AddUserForm : BankingApp_BaseForms.userBaseForm
     {
-        public MainForm mainform = null;
+        public Form originatingForm = null;
         public User currentUser = null;
         
         public AddUserForm()
@@ -25,8 +25,8 @@ namespace BankingApplication
 
         private void UserCancelButton_Click(object sender, EventArgs e)
         {
-            mainform.Enabled = true;
-            mainform.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
@@ -57,8 +57,8 @@ namespace BankingApplication
             {
                 DataHelper.CreateUser(addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
                 Console.WriteLine($"User, {addUserUsernameTextBox.Text}, created by {currentUser.GetUserID()}");
-                mainform.Enabled = true;
-                mainform.Show();
+                originatingForm.Enabled = true;
+                originatingForm.Show();
                 this.Close();
             }
             return;

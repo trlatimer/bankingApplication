@@ -12,7 +12,8 @@ namespace BankingApplication
 {
     public partial class AddMemberForm : BankingApp_BaseForms.memberBaseForm
     {
-        public MainForm mainForm = null;
+        public Form originatingForm = null;
+        public User currentUser = null;
 
         public AddMemberForm()
         {
@@ -22,8 +23,8 @@ namespace BankingApplication
         private void MemberCancelButton_Click(object sender, EventArgs e)
         {
             
-            mainForm.Enabled = true;
-            mainForm.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
@@ -48,11 +49,11 @@ namespace BankingApplication
 
                 DataHelper.CreateMember(memberFNameTextBox.Text, memberLNameTextBox.Text, parsedSSN, memberIDNumTextBox.Text, memberDOBPicker.Value.ToString("yyyy-MM-dd"),
                     memberStreetTextBox.Text, memberCityTextBox.Text, memberStateTextBox.Text, parsedZip, parsedCell, memberEmailTextBox.Text,
-                    mainForm.currentUser.GetUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
+                    currentUser.GetUserID(), memberMNameTextBox.Text, memberExtraAddrTextBox.Text, homePhone, mailAddrStreetTextBox.Text, mailAddrExtraTextBox.Text,
                     mailAddrCityTextBox.Text, mailAddrStateTextBox.Text, parsedMailZip);
-                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been created by user {mainForm.currentUser.GetUserID()}");
-                mainForm.Enabled = true;
-                mainForm.Show();
+                Console.WriteLine($"Member, {memberFNameTextBox.Text} {memberLNameTextBox.Text}, has been created by user {currentUser.GetUserID()}");
+                originatingForm.Enabled = true;
+                originatingForm.Show();
                 this.Close();
 
             }

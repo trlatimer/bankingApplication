@@ -1,6 +1,6 @@
 ﻿namespace BankingApplication
 {
-    partial class OpenLoanForm
+    partial class EditLoanForm
     {
         /// <summary>
         /// Required designer variable.
@@ -49,8 +49,8 @@
             // 
             // loanTitleLabel
             // 
-            this.loanTitleLabel.Size = new System.Drawing.Size(118, 25);
-            this.loanTitleLabel.Text = "Open Loan";
+            this.loanTitleLabel.Size = new System.Drawing.Size(103, 25);
+            this.loanTitleLabel.Text = "Edit Loan";
             // 
             // loanAmount
             // 
@@ -62,20 +62,20 @@
             // 
             // loanAPR
             // 
-            this.loanAPR.Leave += new System.EventHandler(this.LoanAPR_Leave);
+            this.loanAPR.TextChanged += new System.EventHandler(this.LoanAPR_TextChanged);
             // 
             // loanDayDue
             // 
             this.loanDayDue.Leave += new System.EventHandler(this.LoanDayDue_Leave);
             // 
-            // OpenLoanForm
+            // EditLoanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 508);
-            this.Name = "OpenLoanForm";
-            this.Text = "AddLoanForm";
-            this.Load += new System.EventHandler(this.OpenLoanForm_Load);
+            this.ClientSize = new System.Drawing.Size(419, 510);
+            this.Name = "EditLoanForm";
+            this.Text = "EditLoanForm";
+            this.Load += new System.EventHandler(this.EditLoanForm_Load);
             this.joinInfoGroupBox.ResumeLayout(false);
             this.joinInfoGroupBox.PerformLayout();
             this.loanPanel.ResumeLayout(false);

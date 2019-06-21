@@ -18,11 +18,9 @@ namespace BankingApp_BaseForms
         }
 
 
-        public bool validateForm()
+        public bool ValidateForm()
         {
             bool isValid = true;
-            double value;
-            int digits;
 
             if (string.IsNullOrWhiteSpace(loanDescTextBox.Text))
             {
@@ -38,14 +36,14 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
-            if (!double.TryParse(loanAmount.Text, out value))
+            if (!double.TryParse(loanAmount.Text, out double value))
             {
                 MessageBox.Show("Amount must only contain numbers.");
                 loanAmount.BackColor = Color.Salmon;
                 isValid = false;
             }
 
-            if (!int.TryParse(loanTermTextBox.Text, out digits))
+            if (!int.TryParse(loanTermTextBox.Text, out int digits))
             {
                 MessageBox.Show("Loan terms must be in whole digits and only contain numbers.");
                 loanTermTextBox.BackColor = Color.Salmon;
@@ -142,8 +140,8 @@ namespace BankingApp_BaseForms
 
         private void LoanAmount_Leave(object sender, EventArgs e)
         {
-            double amount = 0.0d;
-            if (Double.TryParse(loanAmount.Text, System.Globalization.NumberStyles.Currency, null, out amount))
+            //double amount = 0.0d;
+            if (Double.TryParse(loanAmount.Text, System.Globalization.NumberStyles.Currency, null, out double amount))
             {
                 loanAmount.Text = amount.ToString("C");
             }

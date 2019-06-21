@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class EditShareForm : BankingApp_BaseForms.shareBaseForm
     {
-        public MainForm mainForm = null;
+        public Form originatingForm = null;
         public User currentUser = null;
         public Member currentMember = null;
         public Member jointMember = null;
@@ -39,6 +39,10 @@ namespace BankingApplication
 
             if (currentShare.JointMemberID != 0)
             {
+                joinInfoGroupBox.Enabled = true;
+                shareJointCheckBox.CheckedChanged -= ShareJointCheckBox_CheckedChanged;
+                shareJointCheckBox.Checked = true;
+                shareJointCheckBox.CheckedChanged += ShareJointCheckBox_CheckedChanged;
                 jointMember = DataHelper.GetMember(Convert.ToInt32(currentShare.JointMemberID));
                 jointDOBPicker.Value = jointMember.Birthdate;
                 jointNameTextBox.Text = currentShare.JointMemberName;
@@ -82,8 +86,8 @@ namespace BankingApplication
 
         private void ShareCancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
-            mainForm.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
@@ -115,9 +119,8 @@ namespace BankingApplication
                 DataHelper.UpdateShare(currentShare.ShareID, shareDescTextBox.Text, selectedType, currentUser.GetUserID(), jointMember.MemberID);
             }
             Console.WriteLine($"Account updated for, {currentMember.FirstName} {currentMember.LastName}, by user {currentUser.GetUserID()}");
-            mainForm.Enabled = true;
-            mainForm.Show();
-            mainForm.PopulateData();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
     }

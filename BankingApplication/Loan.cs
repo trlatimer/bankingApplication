@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankingApplication
 {
@@ -45,7 +41,7 @@ namespace BankingApplication
             DateClosed = closeDate;
         }
 
-        public static double calculatePayment(double amount, int payments, double interestRate)
+        public static double CalculatePayment(double amount, int payments, double interestRate)
         {
             double apr = (interestRate * 0.01) / 12;
             Console.WriteLine(apr.ToString());
@@ -56,7 +52,7 @@ namespace BankingApplication
             return payment;
         }
 
-        public static double calculateTotalCost(double amount, int payments, double interestRate)
+        public static double CalculateTotalCost(double amount, int payments, double interestRate)
         {
             double apr = (interestRate * 0.01) / 12;
             double discountFactor = 1 - Math.Pow((1 + apr), (payments * -1));
@@ -65,7 +61,7 @@ namespace BankingApplication
             return totalCost;
         }
 
-        public static double calculatePayoffAmount(double amount, double interestRate)
+        public static double CalculatePayoffAmount(double amount, double interestRate)
         {
             double apr = (interestRate * 0.01) / 12;
             double payoffAmount = amount * (1 + apr);

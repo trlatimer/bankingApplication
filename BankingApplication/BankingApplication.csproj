@@ -82,6 +82,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditLoanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditLoanForm.Designer.cs">
+      <DependentUpon>EditLoanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditShareForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddUserForm.resx">
       <DependentUpon>AddUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditLoanForm.resx">
+      <DependentUpon>EditLoanForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditMemberForm.resx">
       <DependentUpon>EditMemberForm.cs</DependentUpon>

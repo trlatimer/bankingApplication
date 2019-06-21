@@ -771,14 +771,14 @@
             // openShareButton
             // 
             this.openShareButton.Name = "openShareButton";
-            this.openShareButton.Size = new System.Drawing.Size(167, 22);
+            this.openShareButton.Size = new System.Drawing.Size(180, 22);
             this.openShareButton.Text = "Open Share";
             this.openShareButton.Click += new System.EventHandler(this.OpenShareButton_Click);
             // 
             // openLoanButton
             // 
             this.openLoanButton.Name = "openLoanButton";
-            this.openLoanButton.Size = new System.Drawing.Size(167, 22);
+            this.openLoanButton.Size = new System.Drawing.Size(180, 22);
             this.openLoanButton.Text = "Open Loan";
             this.openLoanButton.Click += new System.EventHandler(this.OpenLoanButton_Click);
             // 
@@ -792,8 +792,9 @@
             // closeAccountButton
             // 
             this.closeAccountButton.Name = "closeAccountButton";
-            this.closeAccountButton.Size = new System.Drawing.Size(167, 22);
+            this.closeAccountButton.Size = new System.Drawing.Size(180, 22);
             this.closeAccountButton.Text = "Close an Account";
+            this.closeAccountButton.Click += new System.EventHandler(this.closeAccountButton_Click);
             // 
             // memberButtons
             // 
@@ -844,6 +845,7 @@
             this.Text = "Banking App | Main";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.EnabledChanged += new System.EventHandler(this.MainForm_EnabledChanged);
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();
             this.mainFooter.ResumeLayout(false);

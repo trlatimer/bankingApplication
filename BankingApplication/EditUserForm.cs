@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class EditUserForm : BankingApp_BaseForms.userBaseForm
     {
-        public MainForm mainForm = null;
+        public Form originatingForm = null;
         public User selectedUser = null;
         public User currentUser = null;
         private string originalPassword;
@@ -26,8 +26,8 @@ namespace BankingApplication
 
         private void UserCancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
-            mainForm.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
@@ -69,15 +69,15 @@ namespace BankingApplication
                 {
                     DataHelper.UpdateUserWithPassword(selectedUser.GetUserID(), addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
                     Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.GetUserID()}");
-                    mainForm.Enabled = true;
-                    mainForm.Show();
+                    originatingForm.Enabled = true;
+                    originatingForm.Show();
                     this.Close();
                 } else
                 {
                     DataHelper.UpdateUserWOPassword(selectedUser.GetUserID(), addUserUsernameTextBox.Text, selectedAuthLevel);
                     Console.WriteLine($"User, {addUserUsernameTextBox.Text}, edited by {currentUser.GetUserID()}");
-                    mainForm.Enabled = true;
-                    mainForm.Show();
+                    originatingForm.Enabled = true;
+                    originatingForm.Show();
                     this.Close();
                 }
                 

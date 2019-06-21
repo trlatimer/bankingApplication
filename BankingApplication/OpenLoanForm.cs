@@ -12,7 +12,7 @@ namespace BankingApplication
 {
     public partial class OpenLoanForm : BankingApp_BaseForms.loanBaseForm
     {
-        public MainForm mainForm = null;
+        public Form originatingForm = null;
         public User currentUser = null;
         public Member currentMember = null;
         public Member jointMember = null;
@@ -24,21 +24,14 @@ namespace BankingApplication
 
         private void ShareCancelButton_Click(object sender, EventArgs e)
         {
-            mainForm.Enabled = true;
-            mainForm.Show();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
         }
 
         private void LoanAPR_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(loanAmount.Text) || string.IsNullOrWhiteSpace(loanTermTextBox.Text) || string.IsNullOrWhiteSpace(loanAPR.Text))
-            {
-                return;
-            }
-            loanPaymentTextBox.Text = Loan.calculatePayment(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)),
-                Convert.ToInt32(loanTermTextBox.Text), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
-            loanTotalToPayTextBox.Text = Loan.calculateTotalCost(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)), Convert.ToInt32(loanTermTextBox.Text), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
-            loanPayoffAmountTextBox.Text = Loan.calculatePayoffAmount(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
+            CalculateDetails();
         }
 
         private void LoanDayDue_Leave(object sender, EventArgs e)
@@ -103,10 +96,31 @@ namespace BankingApplication
                     Convert.ToDouble(loanAPR.Text), Convert.ToInt32(loanTermTextBox.Text), Convert.ToInt32(loanDayDue.Text), currentUser.GetUserID(), jointMember.MemberID);
             }
             Console.WriteLine($"Account created for, {currentMember.FirstName} {currentMember.LastName}, by user {currentUser.GetUserID()}");
-            mainForm.Enabled = true;
-            mainForm.Show();
-            mainForm.PopulateData();
+            originatingForm.Enabled = true;
+            originatingForm.Show();
             this.Close();
+        }
+
+        private void LoanTermTextBox_TextChanged(object sender, EventArgs e)
+        {
+            CalculateDetails();
+        }
+
+        private void LoanAmount_TextChanged(object sender, EventArgs e)
+        {
+            CalculateDetails();
+        }
+
+        public void CalculateDetails()
+        {
+            if (string.IsNullOrWhiteSpace(loanAmount.Text) || string.IsNullOrWhiteSpace(loanTermTextBox.Text) || string.IsNullOrWhiteSpace(loanAPR.Text))
+            {
+                return;
+            }
+            loanPaymentTextBox.Text = Loan.CalculatePayment(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)),
+                Convert.ToInt32(loanTermTextBox.Text), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
+            loanTotalToPayTextBox.Text = Loan.CalculateTotalCost(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)), Convert.ToInt32(loanTermTextBox.Text), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
+            loanPayoffAmountTextBox.Text = Loan.CalculatePayoffAmount(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
         }
     }
 }
