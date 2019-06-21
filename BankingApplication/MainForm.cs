@@ -440,7 +440,7 @@ namespace BankingApplication
             }
         }
 
-        private void closeAccountButton_Click(object sender, EventArgs e)
+        private void CloseAccountButton_Click(object sender, EventArgs e)
         {
             string response = ShowDialog("Confirm account #:", "Close Account");
             if (selectedShare != null)

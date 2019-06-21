@@ -71,6 +71,7 @@
     <Compile Include="shareBaseForm.Designer.cs">
       <DependentUpon>shareBaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transaction.cs" />
     <Compile Include="userBaseForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -771,30 +771,30 @@
             // openShareButton
             // 
             this.openShareButton.Name = "openShareButton";
-            this.openShareButton.Size = new System.Drawing.Size(180, 22);
+            this.openShareButton.Size = new System.Drawing.Size(167, 22);
             this.openShareButton.Text = "Open Share";
             this.openShareButton.Click += new System.EventHandler(this.OpenShareButton_Click);
             // 
             // openLoanButton
             // 
             this.openLoanButton.Name = "openLoanButton";
-            this.openLoanButton.Size = new System.Drawing.Size(180, 22);
+            this.openLoanButton.Size = new System.Drawing.Size(167, 22);
             this.openLoanButton.Text = "Open Loan";
             this.openLoanButton.Click += new System.EventHandler(this.OpenLoanButton_Click);
             // 
             // editAccountButton
             // 
             this.editAccountButton.Name = "editAccountButton";
-            this.editAccountButton.Size = new System.Drawing.Size(180, 22);
+            this.editAccountButton.Size = new System.Drawing.Size(167, 22);
             this.editAccountButton.Text = "Edit  an Account";
             this.editAccountButton.Click += new System.EventHandler(this.EditAccountButton_Click);
             // 
             // closeAccountButton
             // 
             this.closeAccountButton.Name = "closeAccountButton";
-            this.closeAccountButton.Size = new System.Drawing.Size(180, 22);
+            this.closeAccountButton.Size = new System.Drawing.Size(167, 22);
             this.closeAccountButton.Text = "Close an Account";
-            this.closeAccountButton.Click += new System.EventHandler(this.closeAccountButton_Click);
+            this.closeAccountButton.Click += new System.EventHandler(this.CloseAccountButton_Click);
             // 
             // memberButtons
             // 
