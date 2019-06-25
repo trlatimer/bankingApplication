@@ -15,7 +15,7 @@ namespace BankingApplication
         public double StartingBalance { get; set; }
         public int JointMemberID { get; set; }
         public string JointMemberName { get; set; }
-        public int JointMemberSSN { get; set; }
+        public string JointMemberSSN { get; set; }
         public DateTime DateOpened { get; set; }
         public DateTime DateClosed { get; set; }
         public double NextPaymentDue { get; set; }
@@ -23,7 +23,7 @@ namespace BankingApplication
         public double Payoff { get; set; }
 
 
-        public Loan(int ID, int memID, string loanType, string loanDescription, double loanBalance, double apr, int term, int dayDue, double startingBalance, DateTime openDate, DateTime closeDate, int jointID = 0, string jointName = null, int jointSSN = 0)
+        public Loan(int ID, int memID, string loanType, string loanDescription, double loanBalance, double apr, int term, int dayDue, double startingBalance, DateTime openDate, DateTime closeDate, int jointID = 0, string jointName = null, string jointSSN = null)
         {
             LoanID = ID;
             MemberID = memID;

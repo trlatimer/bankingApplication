@@ -25,7 +25,7 @@ namespace BankingApplication
         private void OpenShareForm_Load(object sender, EventArgs e)
         {
             memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
-            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString("###-##-####");
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
             jointDOBPicker.Value = jointDOBPicker.MinDate;
         }
@@ -48,7 +48,7 @@ namespace BankingApplication
                 
                 joinInfoGroupBox.Enabled = true;
                 jointNameTextBox.Text = jointMember.FirstName + " " + jointMember.LastName;
-                jointSSNTextBox.Text = jointMember.SocialSecurityNumber.ToString("###-##-####");
+                jointSSNTextBox.Text = jointMember.SocialSecurityNumber;
                 jointDOBPicker.Value = jointMember.Birthdate;
             }
             else

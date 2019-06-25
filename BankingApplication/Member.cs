@@ -12,7 +12,7 @@ namespace BankingApplication
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public int SocialSecurityNumber { get; set; }
+        public string SocialSecurityNumber { get; set; }
         public string IDNumber { get; set; }
         public DateTime Birthdate { get; set; }
         public string Street { get; set; }
@@ -25,13 +25,13 @@ namespace BankingApplication
         public string MailCity { get; set; }
         public string MailState { get; set; }
         public string MailZipCode { get; set; }
-        public int CellPhone { get; set; }
-        public int HomePhone { get; set; }
+        public string CellPhone { get; set; }
+        public string HomePhone { get; set; }
         public string Email { get; set; }
 
 
-        public Member(int ID, string fName, string lName, int ssn, string idNum, string dob, string Street, string City,
-            string State, int ZipCode, int cell, string Email, string mName = null, string extraAddress = null, int home = 0,
+        public Member(int ID, string fName, string lName, string ssn, string idNum, string dob, string Street, string City,
+            string State, int ZipCode, string cell, string Email, string mName = null, string extraAddress = null, string home = null,
             string MailStreet = null, string MailExtraAddress = null, string MailCity = null, string MailState = null, string MailZipCode = null)
         {
             MemberID = ID; FirstName = fName; MiddleName = mName; LastName = lName; SocialSecurityNumber = ssn; IDNumber = idNum;

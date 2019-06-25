@@ -48,9 +48,10 @@ namespace BankingApplication
         private void OpenLoanForm_Load(object sender, EventArgs e)
         {
             memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
-            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString("###-##-####");
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
             jointDOBPicker.Value = jointDOBPicker.MinDate;
+
         }
 
         private void LoanJointCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -71,7 +72,7 @@ namespace BankingApplication
 
                 joinInfoGroupBox.Enabled = true;
                 jointNameTextBox.Text = jointMember.FirstName + " " + jointMember.LastName;
-                jointSSNTextBox.Text = jointMember.SocialSecurityNumber.ToString("###-##-####");
+                jointSSNTextBox.Text = jointMember.SocialSecurityNumber;
                 jointDOBPicker.Value = jointMember.Birthdate;
             }
             else

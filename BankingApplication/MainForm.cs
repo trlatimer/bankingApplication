@@ -12,7 +12,6 @@ namespace BankingApplication
 {
     public partial class MainForm : Form
     {
-        // TODO Test using generic Form for storing child and parent forms
         public Form childForm = null;
         public LoginForm loginForm = null;
 
@@ -100,7 +99,7 @@ namespace BankingApplication
             childForm.Show();
         }
 
-        private void ViewAccounButton_Click(object sender, EventArgs e)
+        private void ViewAccountButton_Click(object sender, EventArgs e)
         {
             
             string response = ShowDialog("Enter Member ID: ", "View Member Information");
@@ -124,7 +123,7 @@ namespace BankingApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Unable to locate member", MessageBoxButtons.OK);
+                MessageBox.Show(ex.Message, "Member Not Found");
                 return;
             }
 
@@ -133,19 +132,19 @@ namespace BankingApplication
                 memberInfoPanel.Visible = true;
                 memberName.Text = currentMember.FirstName + " " + currentMember.MiddleName + " " + currentMember.LastName;
                 memberDOB.Text = currentMember.Birthdate.ToString("MM/dd/yyyy");
-                memberSSN.Text = currentMember.SocialSecurityNumber.ToString().Substring(5, 4);
+                memberSSN.Text = currentMember.SocialSecurityNumber.ToString().Substring(7, 4);
                 memberIDNum.Text = currentMember.IDNumber;
-                memberCell.Text = currentMember.CellPhone.ToString("#(###)###-####");
+                memberCell.Text = currentMember.CellPhone;
                 memberEmail.Text = currentMember.Email;
                 memberStreet.Text = currentMember.Street;
                 memberCityStateZip.Text = currentMember.City + ", " + currentMember.State + " " + currentMember.ZipCode.ToString();
-                if (currentMember.HomePhone == 0)
+                if (string.IsNullOrWhiteSpace(currentMember.HomePhone))
                 {
                     memberHome.Text = "";
                 }
                 else
                 {
-                    memberHome.Text = currentMember.HomePhone.ToString("#(###)###-####");
+                    memberHome.Text = currentMember.HomePhone;
                 }
                 if (string.IsNullOrWhiteSpace(currentMember.MailStreet))
                 {
@@ -320,18 +319,13 @@ namespace BankingApplication
             if (selectedShare.JointMemberID == 0)
             {
                 accountJointID.Text = "";
-            } else
-            {
-                accountJointID.Text = selectedShare.JointMemberID.ToString();
-            }           
-            accountJointName.Text = selectedShare.JointMemberName;
-            if (selectedShare.JointMemberSSN == 0)
-            {
                 accountJointSSN.Text = "";
             } else
             {
-                accountJointSSN.Text = selectedShare.JointMemberSSN.ToString().Substring(5, 4);
-            }
+                accountJointID.Text = selectedShare.JointMemberID.ToString();
+                accountJointSSN.Text = selectedShare.JointMemberSSN.Substring(7, 4);
+            }           
+            accountJointName.Text = selectedShare.JointMemberName;
             accountOpenDate.Text = selectedShare.DateOpened.Date.ToString("MM/dd/yyyy");
             if (selectedShare.DateClosed.Date == Convert.ToDateTime("11/11/1111"))
             {
@@ -367,20 +361,14 @@ namespace BankingApplication
             if (selectedLoan.JointMemberID == 0)
             {
                 accountJointID.Text = "";
-            }
-            else
-            {
-                accountJointID.Text = selectedLoan.JointMemberID.ToString();
-            }
-            accountJointName.Text = selectedLoan.JointMemberName;
-            if (selectedLoan.JointMemberSSN == 0)
-            {
                 accountJointSSN.Text = "";
             }
             else
             {
-                accountJointSSN.Text = selectedLoan.JointMemberSSN.ToString().Substring(5, 4);
+                accountJointID.Text = selectedLoan.JointMemberID.ToString();
+                accountJointSSN.Text = selectedLoan.JointMemberSSN.Substring(7, 4);
             }
+            accountJointName.Text = selectedLoan.JointMemberName;
             accountOpenDate.Text = selectedLoan.DateOpened.Date.ToString("MM/dd/yyyy");
             if (selectedLoan.DateClosed.Date == Convert.ToDateTime("11/11/1111"))
             {
@@ -432,14 +420,6 @@ namespace BankingApplication
             }
         }
 
-        private void MainForm_EnabledChanged(object sender, EventArgs e)
-        {
-            if (this.Enabled == true)
-            {
-                PopulateData();
-            }
-        }
-
         private void CloseAccountButton_Click(object sender, EventArgs e)
         {
             string response = ShowDialog("Confirm account #:", "Close Account");
@@ -482,6 +462,85 @@ namespace BankingApplication
                     return;
                 }
             }
+        }
+
+        private void MainTransactionButton_Click(object sender, EventArgs e)
+        {
+            string response = ShowDialog("Enter Member #: ", "Perform Transaction");
+
+            try
+            {
+                currentMember = DataHelper.GetMember(Convert.ToInt32(response));
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Invalid member number. Please try again. \n" + ex.Message, "Retrieval Error");
+                return;
+            }
+            
+            childForm = new TransactionForm()
+            {
+                currentMember = currentMember,
+                currentUser = currentUser,
+                originatingForm = this
+            };
+            childForm.Show();
+            currentMember = null;
+            memberInfoPanel.Visible = false;
+            this.Enabled = false;
+        }
+
+        private void MainReportButton_Click(object sender, EventArgs e)
+        {
+            childForm = new ReportForm()
+            {
+                currentUser = currentUser,
+                originatingForm = this
+            };
+            childForm.Show();
+            currentMember = null;
+            memberInfoPanel.Visible = false;
+            this.Enabled = false;
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            childForm = new SearchForm()
+            {
+                originatingForm = this
+            };
+            childForm.Show();
+            this.Enabled = false;
+        }
+
+        private void MainForm_EnabledChanged(object sender, EventArgs e)
+        {
+            if (this.Enabled == true)
+            {
+                if (childForm.GetType() == typeof(TransactionForm) ||
+                    childForm.GetType() == typeof(ReportForm) ||
+                    childForm.GetType() == typeof(SearchForm) ||
+                    childForm.GetType() == typeof(AddMemberForm) ||
+                    childForm.GetType() == typeof(AddUserForm) ||
+                    childForm.GetType() == typeof(EditUserForm) ||
+                    childForm.GetType() == typeof(ViewTransactionsForm))
+                {
+                    return;
+                }
+                PopulateData();
+            }
+        }
+
+        private void ViewTranscationsButton_Click(object sender, EventArgs e)
+        {
+            childForm = new ViewTransactionsForm()
+            {
+                originatingForm = this,
+                currentMember = currentMember,
+                selectedShare = selectedShare,
+                selectedLoan = selectedLoan
+            };
+            childForm.Show();
+            this.Enabled = false;
         }
     }
 }

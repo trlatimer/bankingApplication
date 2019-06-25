@@ -10,9 +10,8 @@ using System.Windows.Forms;
 
 namespace BankingApplication
 {
-    class DataHelper
+    public class DataHelper
     {
-
         public static string connectionString = "server=bankingapp.cp7exr1x8hkd.us-west-2.rds.amazonaws.com;userid=root;database=bankingappdb;password=bankingapp;";
         // Variables for Database Interaction
         public static MySqlConnection conn = new MySqlConnection(connectionString);
@@ -41,17 +40,9 @@ namespace BankingApplication
             conn.Close();
         }
 
-        // Default hash iteration is 5000, default salt size is 16
-        //private void SetNewPassword(User user, string newPassword)
-        //{
-        //    //a new password hash is generated from a generated salt with the default settings
-        //    user.setPassword(cryptoService.Compute(newPassword));
-        //    //assigning the generated salt to the user
-        //    user.setSalt(cryptoService.Salt);
-        //}
-
         public static bool ValidatePassword(User user, string password)
         {
+            // Default hash iteration is 5000, default salt size is 16
             String query = $"SELECT Salt FROM Salts WHERE UserID = {user.GetUserID()};";
 
             DBOpen();
@@ -75,6 +66,7 @@ namespace BankingApplication
 
         public static void CreateUser(string name, string password, int auth)
         {
+            // Default hash iteration is 5000, default salt size is 16
             string salt = cryptoService.GenerateSalt();
             string hashedPassword = cryptoService.Compute(password, salt);
 
@@ -264,7 +256,7 @@ namespace BankingApplication
             string firstName;
             string middleName;
             string lastName;
-            int socialSecurityNumber;
+            string socialSecurityNumber;
             string IDNumber;
             string birthdate;
             string street;
@@ -277,8 +269,8 @@ namespace BankingApplication
             string mailCity;
             string mailState;
             string mailZipCode;
-            int cellPhone;
-            int homePhone;
+            string cellPhone;
+            string homePhone;
             string email;
 
             String query = $"SELECT MemberID, FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, MailStreet, MailExtraAddress, MailCity, " +
@@ -295,7 +287,7 @@ namespace BankingApplication
                 firstName = reader[1].ToString();
                 middleName = reader[2].ToString();
                 lastName = reader[3].ToString();
-                socialSecurityNumber = Convert.ToInt32(reader[4]);
+                socialSecurityNumber = reader[4].ToString();
                 IDNumber = reader[5].ToString();
                 birthdate = reader[6].ToString();
                 street = reader[7].ToString();
@@ -308,8 +300,8 @@ namespace BankingApplication
                 mailCity = reader[14].ToString();
                 mailState = reader[15].ToString();
                 mailZipCode = reader[16].ToString();
-                cellPhone = Convert.ToInt32(reader[17]);
-                homePhone = Convert.ToInt32(reader[18]);
+                cellPhone = reader[17].ToString();
+                homePhone = reader[18].ToString();
                 email = reader[19].ToString();
                 member = new Member(memberID, firstName, lastName, socialSecurityNumber, IDNumber, birthdate, street, city, state, zipCode, cellPhone, email, middleName, extraAddress,
                     homePhone, mailStreet, mailExtraAddress, mailCity, mailState, mailZipCode);
@@ -324,16 +316,16 @@ namespace BankingApplication
             }
         }
 
-        public static void CreateMember(string fName, string lName, int ssn, string idNum, string dob, string street, string city,
-            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
+        public static void CreateMember(string fName, string lName, string ssn, string idNum, string dob, string street, string city,
+            string state, int zipCode, string cell, string email, int userID, string mName = null, string extraAddress = null, string homePhone = null,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
         {
             try
             {
                 String query = $"INSERT INTO Members (FName, MName, LName, SSN, IDNum, Birthdate, Street, ExtraAddress, City, State, ZipCode, " +
                     $"MailStreet, MailExtraAddress, MailCity, MailState, MailZipCode, CellPhone, HomePhone, Email, CreatedBy) VALUES (" +
-                    $"'{fName}', '{mName}', '{lName}', {ssn}, '{idNum}', '{dob}', '{street}', '{extraAddress}', '{city}', '{state}', '{zipCode}', " +
-                    $"'{mailStreet}', '{mailExtraAddress}', '{mailCity}', '{mailState}', '{mailZipCode}', {cell}, '{homePhone}', '{email}', {userID});";
+                    $"'{fName}', '{mName}', '{lName}', '{ssn}', '{idNum}', '{dob}', '{street}', '{extraAddress}', '{city}', '{state}', '{zipCode}', " +
+                    $"'{mailStreet}', '{mailExtraAddress}', '{mailCity}', '{mailState}', '{mailZipCode}', '{cell}', '{homePhone}', '{email}', {userID});";
                 DBOpen();
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
@@ -346,17 +338,17 @@ namespace BankingApplication
             }
         }
 
-        public static void UpdateMember(int memberID, string fName, string lName, int ssn, string idNum, string dob, string street, string city,
-            string state, int zipCode, int cell, string email, int userID, string mName = null, string extraAddress = null, int homePhone = 0,
+        public static void UpdateMember(int memberID, string fName, string lName, string ssn, string idNum, string dob, string street, string city,
+            string state, int zipCode, string cell, string email, int userID, string mName = null, string extraAddress = null, string homePhone = null,
             string mailStreet = null, string mailExtraAddress = null, string mailCity = null, string mailState = null, string mailZipCode = null)
         {
             try
             {
                 String query = $"UPDATE Members SET " +
-                    $"FName = '{fName}', MName = '{mName}', LName = '{lName}', SSN = {ssn}, IDNum = '{idNum}', Birthdate = '{dob}', Street = '{street}', " +
+                    $"FName = '{fName}', MName = '{mName}', LName = '{lName}', SSN = '{ssn}', IDNum = '{idNum}', Birthdate = '{dob}', Street = '{street}', " +
                     $"ExtraAddress = '{extraAddress}', City = '{city}', State = '{state}', ZipCode = '{zipCode}', MailStreet = '{mailStreet}', " +
                     $"MailExtraAddress = '{mailExtraAddress}', MailCity = '{mailCity}', MailState = '{mailState}', MailZipCode = '{mailZipCode}', " +
-                    $"CellPhone = {cell}, HomePhone = {homePhone}, Email = '{email}', LastUpdatedBy = {userID} WHERE MemberID = {memberID};";
+                    $"CellPhone = '{cell}', HomePhone = '{homePhone}', Email = '{email}', LastUpdatedBy = {userID} WHERE MemberID = {memberID};";
                 DBOpen();
                 cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
@@ -371,8 +363,14 @@ namespace BankingApplication
 
         public static void DeleteMember(int memberID)
         {
-            // TODO Add check for accounts
+            DataTable shares = GetShares(memberID);
+            DataTable loans = GetLoans(memberID);
 
+            if (shares.Rows.Count > 0 || loans.Rows.Count > 0)
+            {
+                MessageBox.Show("This member still has accounts in their name. The accounts must be closed before this member can be deleted.");
+                return;
+            }
 
             try
             {
@@ -462,7 +460,7 @@ namespace BankingApplication
 
             String query = $"SELECT Shares.ShareID AS ID, Shares.ShareType AS Type, Shares.ShareDescription AS Description, Shares.Balance, " +
                 $"CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
-                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE Shares.MemberID = {memberID} AND Shares.DateClosed IS NULL;";
+                $"FROM Shares LEFT JOIN Members ON Shares.JointMemberID = Members.MemberID WHERE (Shares.MemberID = {memberID} OR Shares.JointMemberID = {memberID}) AND Shares.DateClosed IS NULL;";
 
             try
             {
@@ -498,13 +496,13 @@ namespace BankingApplication
                 string reason;
                 int jointID;
                 string jointName;
-                int jointSSN;
+                string jointSSN;
                 if (reader[6] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
                 else { closeDate = Convert.ToDateTime(reader[6].ToString()); }
                 if (reader[7] == DBNull.Value) { reason = ""; } else { reason = reader[7].ToString(); }
                 if (reader[8] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[8]); }
                 if (reader[9] == DBNull.Value) { jointName = ""; } else { jointName = reader[9].ToString(); }
-                if (reader[10] == DBNull.Value) { jointSSN = 0; } else { jointSSN = Convert.ToInt32(reader[10]); }
+                if (reader[10] == DBNull.Value) { jointSSN = ""; } else { jointSSN = reader[10].ToString(); }
 
                 foundShare = new Share(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(),
                     Convert.ToDecimal(reader[4]), Convert.ToDateTime(reader[5]), closeDate, reason, jointID,
@@ -599,7 +597,7 @@ namespace BankingApplication
 
             String query = $"SELECT Loans.LoanID AS ID, Loans.LoanType AS Type, Loans.LoanDescription AS Description, Loans.CurrentBalance AS Balance, " +
                 $"Loans.DayDue AS Due, CONCAT(Members.FName, ' ', Members.LName) AS Joint " +
-                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE Loans.MemberID = {memberID} AND Loans.DateClosed IS NULL;";
+                $"FROM Loans LEFT JOIN Members ON Loans.JointID = Members.MemberID WHERE (Loans.MemberID = {memberID} OR Loans.JointID = {memberID}) AND Loans.DateClosed IS NULL;";
 
             try
             {
@@ -635,12 +633,12 @@ namespace BankingApplication
                 DateTime closeDate;
                 int jointID;
                 string jointName;
-                int jointSSN;
+                string jointSSN;
                 if (reader[10] == DBNull.Value) { closeDate = Convert.ToDateTime("11/11/1111"); }
                 else { closeDate = Convert.ToDateTime(reader[10].ToString()); }
                 if (reader[11] == DBNull.Value) { jointID = 0; } else { jointID = Convert.ToInt32(reader[11]); }
                 if (reader[12] == DBNull.Value) { jointName = ""; } else { jointName = reader[12].ToString(); }
-                if (reader[13] == DBNull.Value) { jointSSN = 0; } else { jointSSN = Convert.ToInt32(reader[13]); }
+                if (reader[13] == DBNull.Value) { jointSSN = ""; } else { jointSSN = reader[13].ToString(); }
 
                 foundLoan = new Loan(Convert.ToInt32(reader[0]), Convert.ToInt32(reader[1]), reader[2].ToString(), reader[3].ToString(),
                     Convert.ToDouble(reader[4]), Convert.ToDouble(reader[5]), Convert.ToInt32(reader[6]), Convert.ToInt32(reader[7]), Convert.ToDouble(reader[8]),
@@ -655,6 +653,433 @@ namespace BankingApplication
             }
 
             return foundLoan;
+        }
+
+
+        // TRANSACTIONS
+        public static void Deposit(int memberID, int shareID, string exchange, double amount, int userID)
+        {
+            String query = $"UPDATE Shares SET Balance = Balance + {amount}, LastUpdatedBy = {userID} WHERE MemberID = {memberID} AND ShareID = {shareID};";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            } catch (Exception e)
+            {
+                MessageBox.Show("Unable to add deposit to share balance. \n" + e.Message, "Update Error");
+                return;
+            }
+
+            query = $"INSERT INTO Transactions (MemberID, AccountID, TransactionType, ExchangeType, Amount, UserID) " +
+                $"VALUES ({memberID}, {shareID}, 'Deposit', '{exchange}', {amount}, {userID});";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update Transactions. \n" + e.Message, "Insert Error");
+                return;
+            }
+            Console.WriteLine($"Deposit completed for member {memberID} on account {shareID}");
+        }
+
+        public static void Withdrawal(int memberID, int shareID, string exchange, double amount, int userID)
+        {
+            String query = $"UPDATE Shares SET Balance = Balance - {amount}, LastUpdatedBy = {userID} WHERE MemberID = {memberID} AND ShareID = {shareID};";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to subtract withdrawal to share balance. \n" + e.Message, "Update Error");
+                return;
+            }
+
+            query = $"INSERT INTO Transactions (MemberID, AccountID, TransactionType, ExchangeType, Amount, UserID) " +
+                $"VALUES ({memberID}, {shareID}, 'Withdrawal', '{exchange}', {amount}, {userID});";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update Transactions. \n" + e.Message, "Insert Error");
+                return;
+            }
+            Console.WriteLine($"Withdrawal completed for member {memberID} on account {shareID}");
+        }
+
+        public static void Transfer(int memberID, int shareID, double amount, int destMemberID, int destShareID, int userID)
+        {
+            String query = $"UPDATE Shares SET Balance = Balance - {amount}, LastUpdatedBy = {userID} WHERE MemberID = {memberID} AND ShareID = {shareID};";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to withdraw amount from initial share. \n" + e.Message, "Update Error");
+                return;
+            }
+
+            query = $"UPDATE Shares SET Balance = Balance + {amount}, LastUpdatedBy = {userID} WHERE MemberID = {destMemberID} AND ShareID = {destShareID};";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to deposit amount to destination share. \n" + e.Message, "Update Error");
+                query = $"UPDATE Shares SET Balance = Balance + {amount}, LastUpdatedBy = {userID} WHERE MemberID = {memberID} AND ShareID = {shareID};";
+                try
+                {
+                    DBOpen();
+                    cmd = new MySqlCommand(query, conn);
+                    cmd.ExecuteNonQuery();
+                    DBClose();
+                } catch (Exception)
+                {
+                    MessageBox.Show("Unable restore original balance to originating share. Please correct manually.");
+                    return;
+                }
+                return;
+            }
+
+            query = $"INSERT INTO Transactions (MemberID, AccountID, TransactionType, ExchangeType, Amount, DestMemberID, DestAccountID, UserID) " +
+                $"VALUES ({memberID}, {shareID}, 'Transfer', 'Transfer', {amount}, {destMemberID}, {destShareID}, {userID});";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update Transactions. \n" + e.Message, "Insert Error");
+                return;
+            }
+            Console.WriteLine($"Transfer completed for member {memberID} on account {shareID}");
+        }
+
+        public static void Payment(int memberID, string exchange, double amount, int destAccountID, int userID, int shareID = 0)
+        {
+            
+            String query = $"UPDATE Loans SET CurrentBalance = CurrentBalance - {amount}, UpdatedBy = {userID} WHERE MemberID = {memberID} AND LoanID = {destAccountID};";
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to post payment to loan balance. \n" + e.Message, "Update Error");
+                return;
+            }
+
+            if (shareID > 0)
+            {
+                query = $"UPDATE Shares SET Balance = Balance - {amount}, LastUpdatedBy = {userID} WHERE MemberID = {memberID} AND ShareID = {shareID};";
+                try
+                {
+                    DBOpen();
+                    cmd = new MySqlCommand(query, conn);
+                    cmd.ExecuteNonQuery();
+                    DBClose();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Unable to subtract payment from share balance. Please manually withdraw the payment. \n" + e.Message, "Update Error");
+                    return;
+                }
+            }   
+
+            if (shareID > 0)
+            {
+                query = $"INSERT INTO Transactions (MemberID, AccountID, TransactionType, ExchangeType, Amount, DestAccountID, UserID) " +
+                $"VALUES ({memberID}, {shareID}, 'Payment', '{exchange}', {amount}, {destAccountID}, {userID});";
+            } else
+            {
+                query = $"INSERT INTO Transactions (MemberID, AccountID, TransactionType, ExchangeType, Amount, DestAccountID, UserID) " +
+                $"VALUES ({memberID}, 'Payment', '{exchange}', {amount}, {destAccountID}, {userID});";
+            }
+
+            try
+            {
+                DBOpen();
+                cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to update Transactions. \n" + e.Message, "Insert Error");
+                return;
+            }
+            Console.WriteLine($"Payment completed for member {memberID} on account {destAccountID}");
+        }
+
+        public static DataTable GetTransactions(int memberID, int shareID = 0, int loanID = 0)
+        {
+            DataTable transactions = new DataTable();
+            String query;
+            if (shareID > 0)
+            {
+                query = $"SELECT TransactionID, TransactionType, ExchangeType, Amount, DestMemberID, DestAccountID, Date FROM Transactions WHERE MemberID = {memberID} AND AccountID = {shareID};";
+            } else
+            {
+                query = $"SELECT TransactionID, TransactionType, ExchangeType, Amount, DestMemberID, DestAccountID, Date FROM Transactions WHERE MemberID = {memberID} AND AccountID = {loanID};";
+            }
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(transactions);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve transaction information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return transactions;
+        }
+
+        // REPORTS
+
+        public static DataTable AllMembers()
+        {
+            DataTable members = new DataTable();
+            String query = "SELECT MemberID AS ID, CONCAT(FName, ' ', LName) AS Name FROM Members;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(members);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve member information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return members;
+        }
+
+        public static DataTable AllAccounts()
+        {
+            DataTable accounts = new DataTable();
+            String query = "SELECT ShareID AS ID, MemberID AS MemberID, ShareType AS Type, Balance FROM Shares;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve account information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+
+            query = "SELECT LoanID AS ID, MemberID AS MemberID, LoanType AS Type, CurrentBalance AS Balance FROM Loans;";
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve loan informatoion. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+
+            return accounts;
+        }
+
+        public static DataTable AllShares()
+        {
+            DataTable accounts = new DataTable();
+            String query = "SELECT ShareID AS ID, MemberID AS MemberID, ShareType AS Type, Balance FROM Shares;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve account information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return accounts;
+        }
+
+        public static DataTable AllLoans()
+        {
+            DataTable accounts = new DataTable();
+            String query = "SELECT LoanID AS ID, MemberID, LoanType AS Type, CurrentBalance AS Balance FROM Loans;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve account information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return accounts;
+        }
+
+        public static DataTable ClosedShares()
+        {
+            DataTable accounts = new DataTable();
+            String query = "SELECT ShareID AS ID, MemberID, ShareType AS Type, Balance FROM Shares WHERE DateClosed IS NOT NULL;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve account information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return accounts;
+        }
+
+        public static DataTable ClosedLoans()
+        {
+            DataTable accounts = new DataTable();
+            String query = "SELECT LoanID AS ID, MemberID, LoanType AS Type, CurrentBalance AS Balance FROM Loans WHERE DateClosed IS NOT NULL;";
+
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(accounts);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve account information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return accounts;
+        }
+
+
+        // SEARCHES
+        public static DataTable SearchByID(int ID)
+        {
+            DataTable members = new DataTable();
+            String query = $"SELECT MemberID, FName, LName, SSN FROM Members WHERE MemberID = {ID};";
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(members);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve member information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return members;
+        }
+
+        public static DataTable SearchByName(string name)
+        {
+            DataTable members = new DataTable();
+            String query = $"SELECT MemberID, FName, LName, SSN FROM Members WHERE CONCAT(FName, ' ', LName) LIKE '%{name}%';";
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(members);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve member information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return members;
+        }
+
+        public static DataTable SearchBySSN(string social)
+        {
+            DataTable members = new DataTable();
+            String query = $"SELECT MemberID, FName, LName, SSN FROM Members WHERE SSN LIKE '%{social}%';";
+            try
+            {
+                DBOpen();
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, conn);
+                MySqlCommandBuilder cmd = new MySqlCommandBuilder(adp);
+                adp.Fill(members);
+                DBClose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Unable to retrieve member information. \n" + e.Message, "Retrieval Error");
+                return null;
+            }
+            return members;
         }
     }
 }

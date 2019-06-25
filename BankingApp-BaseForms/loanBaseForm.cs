@@ -12,16 +12,18 @@ namespace BankingApp_BaseForms
 {
     public partial class loanBaseForm : Form
     {
+        // Constructor
         public loanBaseForm()
         {
             InitializeComponent();
         }
 
-
+        // Validate inputs on form
         public bool ValidateForm()
         {
             bool isValid = true;
 
+            // Check if Description is null
             if (string.IsNullOrWhiteSpace(loanDescTextBox.Text))
             {
                 MessageBox.Show("The loan must have a description/name. Please enter one and try again.");
@@ -29,6 +31,7 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
+            // Check that a type has been selected
             if (loanTypeComboBox.SelectedIndex < 0)
             {
                 MessageBox.Show("A loan type must be selected.");
@@ -36,6 +39,7 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
+            // Verify that the loan amount contains integers and no other characters
             if (!double.TryParse(loanAmount.Text, out double value))
             {
                 MessageBox.Show("Amount must only contain numbers.");
@@ -43,6 +47,7 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
+            // Verify that the loan term contains only integers
             if (!int.TryParse(loanTermTextBox.Text, out int digits))
             {
                 MessageBox.Show("Loan terms must be in whole digits and only contain numbers.");
@@ -50,6 +55,7 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
+            // Verify that APR contains only numerical values and decimal
             if (!double.TryParse(loanAPR.Text, out value))
             {
                 MessageBox.Show("Loan APR must only contain numbers");
@@ -57,20 +63,24 @@ namespace BankingApp_BaseForms
                 isValid = false;
             }
 
+            // Verify that the DayDue only contains numbers
             if (!int.TryParse(loanDayDue.Text, out digits))
             {
                 MessageBox.Show("Loan Day Due must contain whole numbers.");
                 loanDayDue.BackColor = Color.Salmon;
                 isValid = false;
+            // If it only contains numbers, ensure it is within the accepted days of the month
             } else if (Convert.ToInt32(loanDayDue.Text) < 1 || Convert.ToInt32(loanDayDue.Text) > 28)
             {
                 MessageBox.Show("Loan Day Due must be between 1 and 28.");
                 loanDayDue.BackColor = Color.Salmon;
                 isValid = false;
             }
+            // return whether or not any of the checks failed
             return isValid;
         }
 
+        // 
         private void LoanDescTextBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanDescTextBox.Text))
@@ -140,7 +150,6 @@ namespace BankingApp_BaseForms
 
         private void LoanAmount_Leave(object sender, EventArgs e)
         {
-            //double amount = 0.0d;
             if (Double.TryParse(loanAmount.Text, System.Globalization.NumberStyles.Currency, null, out double amount))
             {
                 loanAmount.Text = amount.ToString("C");

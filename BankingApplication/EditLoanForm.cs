@@ -33,7 +33,7 @@ namespace BankingApplication
         private void EditLoanForm_Load(object sender, EventArgs e)
         {
             memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
-            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString("###-##-####");
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
             loanDescTextBox.Text = currentLoan.Description;
             loanTypeComboBox.SelectedItem = currentLoan.LoanType;
@@ -51,7 +51,7 @@ namespace BankingApplication
                 jointMember = DataHelper.GetMember(Convert.ToInt32(currentLoan.JointMemberID));
                 jointDOBPicker.Value = jointMember.Birthdate;
                 jointNameTextBox.Text = currentLoan.JointMemberName;
-                jointSSNTextBox.Text = currentLoan.JointMemberSSN.ToString("###-##-####");
+                jointSSNTextBox.Text = currentLoan.JointMemberSSN;
             }
             else
             {
@@ -122,7 +122,7 @@ namespace BankingApplication
 
                 joinInfoGroupBox.Enabled = true;
                 jointNameTextBox.Text = jointMember.FirstName + " " + jointMember.LastName;
-                jointSSNTextBox.Text = jointMember.SocialSecurityNumber.ToString("###-##-####");
+                jointSSNTextBox.Text = jointMember.SocialSecurityNumber;
                 jointDOBPicker.Value = jointMember.Birthdate;
             }
             else

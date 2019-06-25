@@ -26,7 +26,7 @@ namespace BankingApplication
         private void EditShareForm_Load(object sender, EventArgs e)
         {
             memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
-            memberSSNTextBox.Text = currentMember.SocialSecurityNumber.ToString("###-##-####");
+            memberSSNTextBox.Text = currentMember.SocialSecurityNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
             shareDescTextBox.Text = currentShare.Description;
             if (currentShare.Type == "Checking")
@@ -46,7 +46,7 @@ namespace BankingApplication
                 jointMember = DataHelper.GetMember(Convert.ToInt32(currentShare.JointMemberID));
                 jointDOBPicker.Value = jointMember.Birthdate;
                 jointNameTextBox.Text = currentShare.JointMemberName;
-                jointSSNTextBox.Text = currentShare.JointMemberSSN.ToString("###-##-####");
+                jointSSNTextBox.Text = currentShare.JointMemberSSN;
             } else
             {
                 jointDOBPicker.Value = jointDOBPicker.MinDate;
@@ -72,7 +72,7 @@ namespace BankingApplication
 
                 joinInfoGroupBox.Enabled = true;
                 jointNameTextBox.Text = jointMember.FirstName + " " + jointMember.LastName;
-                jointSSNTextBox.Text = jointMember.SocialSecurityNumber.ToString("###-##-####");
+                jointSSNTextBox.Text = jointMember.SocialSecurityNumber;
                 jointDOBPicker.Value = jointMember.Birthdate;
             }
             else

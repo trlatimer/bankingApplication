@@ -45,6 +45,7 @@
             this.editUserButton = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteUserButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.searchButton = new System.Windows.Forms.ToolStripButton();
             this.mainFooter = new System.Windows.Forms.GroupBox();
             this.mainFooterUserLabel = new System.Windows.Forms.Label();
             this.mainContainer = new System.Windows.Forms.SplitContainer();
@@ -132,7 +133,8 @@
             this.mainReportButton,
             this.toolStripSeparator5,
             this.mainManageButton,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.searchButton});
             this.mainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.Padding = new System.Windows.Forms.Padding(1, 2, 1, 2);
@@ -165,6 +167,7 @@
             this.mainTransactionButton.Name = "mainTransactionButton";
             this.mainTransactionButton.Size = new System.Drawing.Size(129, 21);
             this.mainTransactionButton.Text = "Perform Transaction";
+            this.mainTransactionButton.Click += new System.EventHandler(this.MainTransactionButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -188,7 +191,7 @@
             this.viewAccounButton.Name = "viewAccounButton";
             this.viewAccounButton.Size = new System.Drawing.Size(210, 22);
             this.viewAccounButton.Text = "View/Manage Member";
-            this.viewAccounButton.Click += new System.EventHandler(this.ViewAccounButton_Click);
+            this.viewAccounButton.Click += new System.EventHandler(this.ViewAccountButton_Click);
             // 
             // AddMemberButton
             // 
@@ -210,6 +213,7 @@
             this.mainReportButton.Name = "mainReportButton";
             this.mainReportButton.Size = new System.Drawing.Size(58, 21);
             this.mainReportButton.Text = "Reports";
+            this.mainReportButton.Click += new System.EventHandler(this.MainReportButton_Click);
             // 
             // toolStripSeparator5
             // 
@@ -254,6 +258,16 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 24);
+            // 
+            // searchButton
+            // 
+            this.searchButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
+            this.searchButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(128, 21);
+            this.searchButton.Text = "Search For Member";
+            this.searchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // mainFooter
             // 
@@ -725,6 +739,7 @@
             this.viewTranscationsButton.TabIndex = 0;
             this.viewTranscationsButton.Text = "View Transactions";
             this.viewTranscationsButton.UseVisualStyleBackColor = true;
+            this.viewTranscationsButton.Click += new System.EventHandler(this.ViewTranscationsButton_Click);
             // 
             // sharesDGV
             // 
@@ -945,5 +960,6 @@
         private System.Windows.Forms.Label accountJointSSNLabel;
         private System.Windows.Forms.Label accountJointName;
         private System.Windows.Forms.Label accountJointNameLabel;
+        private System.Windows.Forms.ToolStripButton searchButton;
     }
 }

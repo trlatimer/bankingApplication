@@ -11,12 +11,12 @@ namespace BankingApplication
         public decimal Balance { get; set; }
         public int JointMemberID { get; set; }
         public string JointMemberName { get; set; }
-        public int JointMemberSSN { get; set; }
+        public string JointMemberSSN { get; set; }
         public DateTime DateOpened { get; set; }
         public DateTime DateClosed { get; set; }
         public string ReasonClosed { get; set; }
 
-        public Share(int ID, int memID, string shareType, string shareDescription, decimal shareBalance, DateTime openDate, DateTime closeDate, string reason, int jointID = 0, string jointName = null, int jointSSN = 0)
+        public Share(int ID, int memID, string shareType, string shareDescription, decimal shareBalance, DateTime openDate, DateTime closeDate, string reason, int jointID = 0, string jointName = null, string jointSSN = null)
         {
             ShareID = ID;
             MemberID = memID;

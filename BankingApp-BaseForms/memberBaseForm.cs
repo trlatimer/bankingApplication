@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace BankingApp_BaseForms
@@ -202,20 +203,31 @@ namespace BankingApp_BaseForms
             }
 
             parsedPhone = memberCellTextBox.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace("-", string.Empty);
-            if (!int.TryParse(parsedPhone, out value) || (parsedPhone.Length != 10 && parsedPhone.Length != 11))
+            Console.WriteLine(parsedPhone);
+            if (Regex.Matches(parsedPhone, @"[a-zA-Z]").Count > 0)
             {
-                messages.Add("Invalid cell phone number. Please enter a valid number with 10 or 11 digits");
+                messages.Add("Invalid cell phone number. Phone numbers can only contain numbers, (, ), and -.");
+                memberCellTextBox.BackColor = Color.Salmon;
+                valid = false;
+            }
+            if (parsedPhone.Length != 10 && parsedPhone.Length != 11)
+            {
+                messages.Add("Invalid cell phone number.  Please enter a valid number with 10 or 11 digits");
                 memberCellTextBox.BackColor = Color.Salmon;
                 valid = false;
             }
 
             parsedPhone = memberHomeTextBox.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace("-", string.Empty);
-            if (!string.IsNullOrWhiteSpace(parsedPhone) &&
-                (!int.TryParse(parsedPhone, out value) ||
-                (parsedPhone.Length != 10 && parsedPhone.Length != 11)))
+            if (Regex.Matches(parsedPhone, @"[a-zA-Z]").Count > 0)
             {
-                messages.Add("Invalid home phone number. Please enter a valid number with 10 or 11 digits");
+                messages.Add("Invalid home phone number. Phone numbers can only contain numbers, (, ), and -.");
                 memberHomeTextBox.BackColor = Color.Salmon;
+                valid = false;
+            }
+            if (!string.IsNullOrWhiteSpace(parsedPhone) && parsedPhone.Length != 10 && parsedPhone.Length != 11)
+            {
+                messages.Add("Invalid cell phone number.  Please enter a valid number with 10 or 11 digits");
+                memberCellTextBox.BackColor = Color.Salmon;
                 valid = false;
             }
 
