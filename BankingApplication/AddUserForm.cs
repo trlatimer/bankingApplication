@@ -12,17 +12,22 @@ namespace BankingApplication
 {
     public partial class AddUserForm : BankingApp_BaseForms.userBaseForm
     {
+        // Store calling form
         public Form originatingForm = null;
+        // Store current user for change tracking
         public User currentUser = null;
         
+        // Constructor
         public AddUserForm()
         {
             InitializeComponent();
 
+            // Obtain existing usernames for comparison
             existingUsers = DataHelper.GetUsers();
             
         }
 
+        // Cancel Button Click
         private void UserCancelButton_Click(object sender, EventArgs e)
         {
             originatingForm.Enabled = true;
@@ -30,10 +35,12 @@ namespace BankingApplication
             this.Close();
         }
 
+        // Create Button Click
         private void UserCreateButton_Click(object sender, EventArgs e)
         {
             int selectedAuthLevel = 0;
 
+            // Set selected authLevel
             switch (userAuthLevelComboBox.SelectedItem)
             {
                 case "Guest":
@@ -53,14 +60,19 @@ namespace BankingApplication
                     break;
             }
 
+            // Validate inputs on form
             if (validateInputs())
             {
+                // create a new user in the database with inputs provided
                 DataHelper.CreateUser(addUserUsernameTextBox.Text, addUserPasswordTextBox.Text, selectedAuthLevel);
+                // Log creation of user
                 Console.WriteLine($"User, {addUserUsernameTextBox.Text}, created by {currentUser.GetUserID()}");
+                // return to calling form
                 originatingForm.Enabled = true;
                 originatingForm.Show();
                 this.Close();
             }
+            // if not valide, cancel
             return;
         }
     }

@@ -9,16 +9,20 @@ namespace BankingApp_BaseForms
 {
     public partial class memberBaseForm : Form
     {
+        // Instance Variables
         public List<TextBox> requiredTextBoxes;
         public List<TextBox> numericalTextBoxes;
 
+        // Constructor
         public memberBaseForm()
         {
             InitializeComponent();
 
+            // Set the DatePicker to correct format
             memberDOBPicker.Format = DateTimePickerFormat.Custom;
             memberDOBPicker.CustomFormat = "MM/dd/yyyy";
 
+            // Assign names of TextBoxes to requiredTextBoxes list for later checking
             requiredTextBoxes = new List<TextBox>
             {
                 memberFNameTextBox, memberLNameTextBox, memberSSNTextBox, memberIDNumTextBox,
@@ -26,14 +30,17 @@ namespace BankingApp_BaseForms
                 memberZipTextBox, memberCellTextBox
             };
 
+            // Assign textboxes to numericalTextBoxes list for later checking
             numericalTextBoxes = new List<TextBox>
             {
                 memberSSNTextBox, memberZipTextBox
             };
         }
 
+        // Occurs if check changes to indicate if Mailing Address is the same
         protected void MailingSameCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            // If true, mailing address fields are not needed
             if (mailingSameCheckBox.Checked == true)
             {
                 memberMailAddrGroupBox.Enabled = false;
@@ -48,10 +55,12 @@ namespace BankingApp_BaseForms
             }
             else
             {
+                // If false, group box is enabled and value need to be entered
                 memberMailAddrGroupBox.Enabled = true;
             }
         }
 
+        // General function to handle textChanged events - Change BackColor when value is needed
         protected void textChanged(Control control)
         {
             if (string.IsNullOrWhiteSpace(control.Text))
@@ -64,16 +73,20 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // General function for validating inputs on the form
         protected bool ValidateInputs()
         {
+            // Variables used throughout function
             bool valid = true;
             int value;
             string parsedSSN;
             string parsedZip;
             string parsedPhone;
 
+            // List of messages to display once validation is complete
             List<string> messages = new List<string>();
 
+            // If mailing checkbox is not checked, validate the mailing address fields
             if (!mailingSameCheckBox.Checked)
             {
                 requiredTextBoxes.Add(mailAddrStreetTextBox);
@@ -82,8 +95,10 @@ namespace BankingApp_BaseForms
                 requiredTextBoxes.Add(mailAddrZipTextBox);
             }
 
+            // Loop through the textboxes in the required list
             foreach (TextBox textbox in requiredTextBoxes)
             {
+                // If empty or null, add appropriate message and change the Control's BackColor
                 if (string.IsNullOrWhiteSpace(textbox.Text))
                 {
                     switch (textbox.Name)
@@ -141,14 +156,18 @@ namespace BankingApp_BaseForms
                             mailAddrZipTextBox.BackColor = Color.Salmon;
                             break;
                     }
+                    // Inputs are not valid, don't allow submission
                     valid = false;
                 }
             }
 
+            // Loop over the numerical textboxes on the form
             foreach (TextBox textbox in numericalTextBoxes)
             {
+                // If not null or empty and unable to parse the value
                 if (!string.IsNullOrWhiteSpace(textbox.Text) && !int.TryParse(textbox.Text.Replace("-", ""), out value))
                 {
+                    // Set the appropriate message and BackColor
                     switch (textbox.Name)
                     {
                         case "memberSSNTextBox":
@@ -165,7 +184,9 @@ namespace BankingApp_BaseForms
                 }
             }
 
+            // Remove any dashes from the input
             parsedSSN = memberSSNTextBox.Text.Replace("-", string.Empty);
+            // If SSN is not 9 characters without dashes, not valid
             if (parsedSSN.Length != 9)
             {
                 messages.Add("Social is not the correct length. It should be nine (9) characters long.");
@@ -173,6 +194,7 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // Check if the zip without dashes is the appropriate length
             parsedZip = memberZipTextBox.Text.Replace("-", string.Empty);
             if (parsedZip.Length != 5 && parsedZip.Length != 9)
             {
@@ -181,6 +203,7 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // Check if the Mailing Zip is the appropriate length
             parsedZip = mailAddrZipTextBox.Text.Replace("-", string.Empty);
             if (!string.IsNullOrWhiteSpace(mailAddrZipTextBox.Text) && parsedZip.Length != 5 && parsedZip.Length != 9)
             {
@@ -189,12 +212,14 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // Ensure that the Member's DOB is before today
             if (memberDOBPicker.Value > DateTime.Now)
             {
                 messages.Add("Member's date of birth cannot be after today's date. Please enter a valid date.");
                 valid = false;
             }
 
+            // Ensure that email address entered is valid
             if (!(new EmailAddressAttribute().IsValid(memberEmailTextBox.Text)))
             {
                 messages.Add("Email address is not valid. Please enter a valid email.");
@@ -202,6 +227,7 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // Check that cell phone entered doesn't contain invalid characters
             parsedPhone = memberCellTextBox.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace("-", string.Empty);
             Console.WriteLine(parsedPhone);
             if (Regex.Matches(parsedPhone, @"[a-zA-Z]").Count > 0)
@@ -210,6 +236,7 @@ namespace BankingApp_BaseForms
                 memberCellTextBox.BackColor = Color.Salmon;
                 valid = false;
             }
+            // check that cell phone is the proper length
             if (parsedPhone.Length != 10 && parsedPhone.Length != 11)
             {
                 messages.Add("Invalid cell phone number.  Please enter a valid number with 10 or 11 digits");
@@ -217,6 +244,7 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // Check that home phone entered doesn't contain invalid characters
             parsedPhone = memberHomeTextBox.Text.Replace("(", string.Empty).Replace(")", string.Empty).Replace("-", string.Empty);
             if (Regex.Matches(parsedPhone, @"[a-zA-Z]").Count > 0)
             {
@@ -224,6 +252,7 @@ namespace BankingApp_BaseForms
                 memberHomeTextBox.BackColor = Color.Salmon;
                 valid = false;
             }
+            // check that home phone is proper length
             if (!string.IsNullOrWhiteSpace(parsedPhone) && parsedPhone.Length != 10 && parsedPhone.Length != 11)
             {
                 messages.Add("Invalid cell phone number.  Please enter a valid number with 10 or 11 digits");
@@ -231,6 +260,7 @@ namespace BankingApp_BaseForms
                 valid = false;
             }
 
+            // If there are messages in the list, display them
             if (messages.Count > 0)
             {
                 string dialog = "";
@@ -242,6 +272,7 @@ namespace BankingApp_BaseForms
                 MessageBox.Show(dialog);
             }
 
+            // Return whether or not the inputs are valid
             return valid;
         }
 
@@ -321,6 +352,7 @@ namespace BankingApp_BaseForms
             
         }
 
+        // Add formatting as user types into input
         private void MemberCellTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Back)
@@ -343,6 +375,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // Add formatting as user types
         private void MemberHomeTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Back)
@@ -365,6 +398,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // Add formatting as user types
         private void MemberSSNTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Back)

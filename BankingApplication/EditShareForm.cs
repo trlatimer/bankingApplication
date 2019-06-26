@@ -12,19 +12,23 @@ namespace BankingApplication
 {
     public partial class EditShareForm : BankingApp_BaseForms.shareBaseForm
     {
+        // Store calling form and curremt member and account information
         public Form originatingForm = null;
         public User currentUser = null;
         public Member currentMember = null;
         public Member jointMember = null;
         public Share currentShare = null;
 
+        // Constructor
         public EditShareForm()
         {
             InitializeComponent();
         }
 
+        // Form Load
         private void EditShareForm_Load(object sender, EventArgs e)
         {
+            // Set form fields to existing values
             memberNameTextBox.Text = currentMember.FirstName + " " + currentMember.LastName;
             memberSSNTextBox.Text = currentMember.SocialSecurityNumber;
             memberDOBPicker.Value = currentMember.Birthdate;
@@ -37,6 +41,7 @@ namespace BankingApplication
                 shareSavingsRadioButton.Checked = true;
             }
 
+            // If a joint member exists, populate joint information
             if (currentShare.JointMemberID != 0)
             {
                 joinInfoGroupBox.Enabled = true;
@@ -54,8 +59,10 @@ namespace BankingApplication
             
         }
 
+        // Joint CheckBox CheckedChanged
         private void ShareJointCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            // If set to true, prompt for joint ID, obtain joint info, and populate fields
             if (shareJointCheckBox.Checked == true)
             {
                 string response = MainForm.ShowDialog("Enter joint ID:", "Add Joint");
@@ -84,16 +91,20 @@ namespace BankingApplication
             }
         }
 
+        // Cancel Click
         private void ShareCancelButton_Click(object sender, EventArgs e)
         {
+            // Return to calling form
             originatingForm.Enabled = true;
             originatingForm.Show();
             this.Close();
         }
 
+        // Submit Click
         private void ShareSubmitButton_Click(object sender, EventArgs e)
         {
             string selectedType;
+            // Set selectedType based on radio button is checked
             if (shareCheckingRadioButton.Checked)
             {
                 selectedType = "Checking";
@@ -103,6 +114,7 @@ namespace BankingApplication
                 selectedType = "Savings";
             }
 
+            // Ensure that the description has values
             if (string.IsNullOrWhiteSpace(shareDescTextBox.Text))
             {
                 MessageBox.Show("Share must have a description/name. Please enter one and try again.");
@@ -110,15 +122,19 @@ namespace BankingApplication
                 return;
             }
 
+            // If no joint, update without joint info
             if (shareJointCheckBox.Checked == false)
             {
                 DataHelper.UpdateShare(currentShare.ShareID, shareDescTextBox.Text, selectedType, currentUser.GetUserID());
             }
+            // If joint checked, update with joint info
             else
             {
                 DataHelper.UpdateShare(currentShare.ShareID, shareDescTextBox.Text, selectedType, currentUser.GetUserID(), jointMember.MemberID);
             }
+            // Log Share update
             Console.WriteLine($"Account updated for, {currentMember.FirstName} {currentMember.LastName}, by user {currentUser.GetUserID()}");
+            // Return to calling form
             originatingForm.Enabled = true;
             originatingForm.Show();
             this.Close();

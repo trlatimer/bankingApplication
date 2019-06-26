@@ -12,7 +12,7 @@ namespace BankingApp_BaseForms
 {
     public partial class shareBaseForm : Form
     {
-
+        // Constructor
         public shareBaseForm()
         {
             InitializeComponent();

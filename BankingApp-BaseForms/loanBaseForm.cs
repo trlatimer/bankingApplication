@@ -80,7 +80,7 @@ namespace BankingApp_BaseForms
             return isValid;
         }
 
-        // 
+        // If loan description changes, ensure it has a value
         private void LoanDescTextBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanDescTextBox.Text))
@@ -92,6 +92,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // If loan amount changes, ensure it has a value
         private void LoanAmount_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanAmount.Text))
@@ -104,6 +105,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // If type selection changes, ensure it is at least index 0
         private void LoanTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loanTypeComboBox.SelectedIndex > -1)
@@ -112,6 +114,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // If term is changed, ensure it contains a value
         private void LoanTermTextBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanTermTextBox.Text))
@@ -124,6 +127,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // if APR changes, ensure it contains a value
         private void LoanAPR_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanAPR.Text))
@@ -136,6 +140,7 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // if DayDue changes, ensure it contains a value
         private void LoanDayDue_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(loanDayDue.Text))
@@ -148,8 +153,10 @@ namespace BankingApp_BaseForms
             }
         }
 
+        // When leaving loan amount, convert value to current format
         private void LoanAmount_Leave(object sender, EventArgs e)
         {
+            // Ensure that value only contains numbers and a decimal
             if (Double.TryParse(loanAmount.Text, System.Globalization.NumberStyles.Currency, null, out double amount))
             {
                 loanAmount.Text = amount.ToString("C");

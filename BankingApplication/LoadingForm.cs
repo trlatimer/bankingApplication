@@ -12,6 +12,7 @@ namespace BankingApplication
 {
     public partial class LoadingForm : Form
     {
+        // Constructor
         public LoadingForm()
         {
             InitializeComponent();

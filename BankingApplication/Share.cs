@@ -4,6 +4,7 @@ namespace BankingApplication
 {
     public class Share
     {
+        // Instance Variables
         public int ShareID { get; set; }
         public int MemberID { get; set; }
         public string Type { get; set; }
@@ -16,6 +17,7 @@ namespace BankingApplication
         public DateTime DateClosed { get; set; }
         public string ReasonClosed { get; set; }
 
+        // Constructor with all variables - joint and closing parameters are optional
         public Share(int ID, int memID, string shareType, string shareDescription, decimal shareBalance, DateTime openDate, DateTime closeDate, string reason, int jointID = 0, string jointName = null, string jointSSN = null)
         {
             ShareID = ID;

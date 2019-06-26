@@ -8,6 +8,7 @@ namespace BankingApplication
 {
     public class Member
     {
+        // Instance Variables
         public int MemberID { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -30,6 +31,7 @@ namespace BankingApplication
         public string Email { get; set; }
 
 
+        // Constructor with all variables - Mailing address and home phone are optional
         public Member(int ID, string fName, string lName, string ssn, string idNum, string dob, string Street, string City,
             string State, int ZipCode, string cell, string Email, string mName = null, string extraAddress = null, string home = null,
             string MailStreet = null, string MailExtraAddress = null, string MailCity = null, string MailState = null, string MailZipCode = null)
