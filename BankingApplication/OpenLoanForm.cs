@@ -151,5 +151,11 @@ namespace BankingApplication
             // Calculate current loan payoff
             loanPayoffAmountTextBox.Text = Loan.CalculatePayoffAmount(Convert.ToDouble(loanAmount.Text.Replace("$", string.Empty).Replace(",", string.Empty)), Convert.ToDouble(loanAPR.Text)).ToString("$###,###,##0.00");
         }
+
+        private void OpenLoanForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

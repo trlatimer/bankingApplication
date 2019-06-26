@@ -82,5 +82,11 @@ namespace BankingApplication
             // Populate DGV with returned members
             searchResultsDGV.DataSource = members;
         }
+
+        private void SearchForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

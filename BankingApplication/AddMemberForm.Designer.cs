@@ -38,10 +38,12 @@
             // 
             // memberSubmitButton
             // 
+            this.memberSubmitButton.TabIndex = 1;
             this.memberSubmitButton.Click += new System.EventHandler(this.MemberSubmitButton_Click);
             // 
             // memberCancelButton
             // 
+            this.memberCancelButton.TabIndex = 0;
             this.memberCancelButton.Click += new System.EventHandler(this.MemberCancelButton_Click);
             // 
             // MemberTitle
@@ -50,6 +52,10 @@
             this.MemberTitle.Size = new System.Drawing.Size(208, 25);
             this.MemberTitle.Text = "Create New Member";
             // 
+            // memberDOBPicker
+            // 
+            this.memberDOBPicker.TabIndex = 2;
+            // 
             // AddMemberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -57,6 +63,7 @@
             this.ClientSize = new System.Drawing.Size(480, 585);
             this.Name = "AddMemberForm";
             this.Text = "AddMemberForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddMemberForm_FormClosed);
             this.addMemberPanel.ResumeLayout(false);
             this.addMemberPanel.PerformLayout();
             this.memberIdentificationGroupBox.ResumeLayout(false);

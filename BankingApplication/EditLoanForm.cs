@@ -175,5 +175,11 @@ namespace BankingApplication
                 "/" + DateTime.Today.AddMonths(1).Year).AddMonths(Convert.ToInt32(loanTermTextBox.Text));
             }
         }
+
+        private void EditLoanForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

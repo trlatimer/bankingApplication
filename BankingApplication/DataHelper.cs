@@ -982,7 +982,7 @@ namespace BankingApplication
             // If share is specified, select from Shares table
             if (shareID > 0)
             {
-                query = $"SELECT TransactionID, TransactionType, ExchangeType, Amount, DestMemberID, DestAccountID, Date FROM Transactions WHERE MemberID = {memberID} AND AccountID = {shareID};";
+                query = $"SELECT TransactionID, TransactionType, ExchangeType, Amount, DestMemberID, DestAccountID, Date FROM Transactions WHERE (MemberID = {memberID} AND AccountID = {shareID}) OR (DestMemberID = {memberID} AND DestAccountID = {shareID});";
             // If no share is specified, select from Loans table
             } else
             {

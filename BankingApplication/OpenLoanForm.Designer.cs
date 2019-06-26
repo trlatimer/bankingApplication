@@ -75,6 +75,7 @@
             this.ClientSize = new System.Drawing.Size(418, 508);
             this.Name = "OpenLoanForm";
             this.Text = "AddLoanForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OpenLoanForm_FormClosed);
             this.Load += new System.EventHandler(this.OpenLoanForm_Load);
             this.joinInfoGroupBox.ResumeLayout(false);
             this.joinInfoGroupBox.PerformLayout();

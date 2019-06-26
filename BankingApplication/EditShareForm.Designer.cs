@@ -38,12 +38,22 @@
             // 
             this.shareJointCheckBox.CheckedChanged += new System.EventHandler(this.ShareJointCheckBox_CheckedChanged);
             // 
+            // shareSavingsRadioButton
+            // 
+            this.shareSavingsRadioButton.TabIndex = 1;
+            // 
+            // shareDescTextBox
+            // 
+            this.shareDescTextBox.TabIndex = 0;
+            // 
             // shareCancelButton
             // 
+            this.shareCancelButton.TabIndex = 0;
             this.shareCancelButton.Click += new System.EventHandler(this.ShareCancelButton_Click);
             // 
             // shareSubmitButton
             // 
+            this.shareSubmitButton.TabIndex = 1;
             this.shareSubmitButton.Click += new System.EventHandler(this.ShareSubmitButton_Click);
             // 
             // EditShareForm
@@ -53,6 +63,7 @@
             this.ClientSize = new System.Drawing.Size(416, 350);
             this.Name = "EditShareForm";
             this.Text = "EditShareForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EditShareForm_FormClosed);
             this.Load += new System.EventHandler(this.EditShareForm_Load);
             this.memberInfoGroupBox.ResumeLayout(false);
             this.memberInfoGroupBox.PerformLayout();

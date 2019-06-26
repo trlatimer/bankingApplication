@@ -33,12 +33,12 @@
             this.reportsBackButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.generateReportButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.allAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allMembersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allMembersReportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.allAccountsReportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.allSharesReportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.allLoansReportButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.allAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closedSharesReportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.closedLoansReportButton = new System.Windows.Forms.ToolStripMenuItem();
             this.reportTextBox = new System.Windows.Forms.RichTextBox();
@@ -87,15 +87,6 @@
             this.generateReportButton.Text = "Generate Report";
             this.generateReportButton.ToolTipText = "Generate  a report";
             // 
-            // allAccountsToolStripMenuItem
-            // 
-            this.allAccountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closedSharesReportButton,
-            this.closedLoansReportButton});
-            this.allAccountsToolStripMenuItem.Name = "allAccountsToolStripMenuItem";
-            this.allAccountsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.allAccountsToolStripMenuItem.Text = "Closed Reports";
-            // 
             // allMembersToolStripMenuItem
             // 
             this.allMembersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -104,48 +95,57 @@
             this.allSharesReportButton,
             this.allLoansReportButton});
             this.allMembersToolStripMenuItem.Name = "allMembersToolStripMenuItem";
-            this.allMembersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allMembersToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.allMembersToolStripMenuItem.Text = "All Type Reports";
             // 
             // allMembersReportButton
             // 
             this.allMembersReportButton.Name = "allMembersReportButton";
-            this.allMembersReportButton.Size = new System.Drawing.Size(180, 22);
+            this.allMembersReportButton.Size = new System.Drawing.Size(141, 22);
             this.allMembersReportButton.Text = "All Members";
             this.allMembersReportButton.Click += new System.EventHandler(this.AllMembersReportButton_Click);
             // 
             // allAccountsReportButton
             // 
             this.allAccountsReportButton.Name = "allAccountsReportButton";
-            this.allAccountsReportButton.Size = new System.Drawing.Size(180, 22);
+            this.allAccountsReportButton.Size = new System.Drawing.Size(141, 22);
             this.allAccountsReportButton.Text = "All Accounts";
             this.allAccountsReportButton.Click += new System.EventHandler(this.AllAccountsReportButton_Click);
             // 
             // allSharesReportButton
             // 
             this.allSharesReportButton.Name = "allSharesReportButton";
-            this.allSharesReportButton.Size = new System.Drawing.Size(180, 22);
+            this.allSharesReportButton.Size = new System.Drawing.Size(141, 22);
             this.allSharesReportButton.Text = "All Shares";
             this.allSharesReportButton.Click += new System.EventHandler(this.AllSharesReportButton_Click);
             // 
             // allLoansReportButton
             // 
             this.allLoansReportButton.Name = "allLoansReportButton";
-            this.allLoansReportButton.Size = new System.Drawing.Size(180, 22);
+            this.allLoansReportButton.Size = new System.Drawing.Size(141, 22);
             this.allLoansReportButton.Text = "All Loans";
             this.allLoansReportButton.Click += new System.EventHandler(this.AllLoansReportButton_Click);
+            // 
+            // allAccountsToolStripMenuItem
+            // 
+            this.allAccountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closedSharesReportButton,
+            this.closedLoansReportButton});
+            this.allAccountsToolStripMenuItem.Name = "allAccountsToolStripMenuItem";
+            this.allAccountsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.allAccountsToolStripMenuItem.Text = "Closed Reports";
             // 
             // closedSharesReportButton
             // 
             this.closedSharesReportButton.Name = "closedSharesReportButton";
-            this.closedSharesReportButton.Size = new System.Drawing.Size(180, 22);
+            this.closedSharesReportButton.Size = new System.Drawing.Size(147, 22);
             this.closedSharesReportButton.Text = "Closed Shares";
             this.closedSharesReportButton.Click += new System.EventHandler(this.ClosedSharesReportButton_Click);
             // 
             // closedLoansReportButton
             // 
             this.closedLoansReportButton.Name = "closedLoansReportButton";
-            this.closedLoansReportButton.Size = new System.Drawing.Size(180, 22);
+            this.closedLoansReportButton.Size = new System.Drawing.Size(147, 22);
             this.closedLoansReportButton.Text = "Closed Loans";
             this.closedLoansReportButton.Click += new System.EventHandler(this.ClosedLoansReportButton_Click);
             // 
@@ -181,6 +181,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "ReportForm";
             this.Text = "Banking App | Reports";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReportForm_FormClosed);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

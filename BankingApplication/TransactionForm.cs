@@ -213,6 +213,14 @@ namespace BankingApplication
 
             // Convert amount input
             double amount = Convert.ToDouble(withdrawalAmountTextBox.Text.Replace("$", string.Empty).Replace(",", string.Empty));
+
+            Share selectedShare = DataHelper.GetShare(selectedShareID);
+            // Verify that the share has sufficient funds
+            if (amount > Convert.ToDouble(selectedShare.Balance))
+            {
+                MessageBox.Show("The selected share does not have enough funds. Please select a different share and try again.");
+                return;
+            }
             // Create new row
             DataRow withdrawalRow = pendingTransactionsTable.NewRow();
             // Set values for row
@@ -324,6 +332,14 @@ namespace BankingApplication
 
             // Convert amount
             double amount = Convert.ToDouble(transferAmountTextBox.Text.Replace("$", string.Empty).Replace(",", string.Empty));
+
+            Share selectedShare = DataHelper.GetShare(selectedShareID);
+            // Verify that the share has sufficient funds
+            if (amount > Convert.ToDouble(selectedShare.Balance))
+            {
+                MessageBox.Show("The selected share does not have enough funds. Please select a different share and try again.");
+                return;
+            }
             // Create new row
             DataRow transferRow = pendingTransactionsTable.NewRow();
             // Set values for row
@@ -558,6 +574,12 @@ namespace BankingApplication
         {
             // Remove transaction from pending table
             pendingDGV.Rows.Remove(pendingDGV.SelectedRows[0]);
+        }
+
+        private void TransactionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
         }
     }
 }

@@ -139,5 +139,11 @@ namespace BankingApplication
             originatingForm.Show();
             this.Close();
         }
+
+        private void EditShareForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

@@ -39,17 +39,25 @@
             // addUserPasswordConfirmTextBox
             // 
             this.addUserPasswordConfirmTextBox.PasswordChar = '*';
+            this.addUserPasswordConfirmTextBox.TabIndex = 2;
             // 
             // addUserPasswordTextBox
             // 
             this.addUserPasswordTextBox.PasswordChar = '*';
+            this.addUserPasswordTextBox.TabIndex = 1;
+            // 
+            // addUserUsernameTextBox
+            // 
+            this.addUserUsernameTextBox.TabIndex = 0;
             // 
             // userCancelButton
             // 
+            this.userCancelButton.TabIndex = 0;
             this.userCancelButton.Click += new System.EventHandler(this.UserCancelButton_Click);
             // 
             // userCreateButton
             // 
+            this.userCreateButton.TabIndex = 1;
             this.userCreateButton.Text = "Submit";
             this.userCreateButton.Click += new System.EventHandler(this.UserCreateButton_Click);
             // 
@@ -60,6 +68,7 @@
             this.ClientSize = new System.Drawing.Size(320, 240);
             this.Name = "EditUserForm";
             this.Text = "EditUserForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EditUserForm_FormClosed);
             this.Load += new System.EventHandler(this.EditUserForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -100,6 +100,7 @@
             this.Controls.Add(this.viewTransactionsTitle);
             this.Name = "ViewTransactionsForm";
             this.Text = "ViewTransactionsForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewTransactionsForm_FormClosed);
             this.Load += new System.EventHandler(this.ViewTransactionsForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

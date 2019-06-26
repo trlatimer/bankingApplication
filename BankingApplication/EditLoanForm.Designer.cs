@@ -75,6 +75,7 @@
             this.ClientSize = new System.Drawing.Size(419, 510);
             this.Name = "EditLoanForm";
             this.Text = "EditLoanForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EditLoanForm_FormClosed);
             this.Load += new System.EventHandler(this.EditLoanForm_Load);
             this.joinInfoGroupBox.ResumeLayout(false);
             this.joinInfoGroupBox.PerformLayout();

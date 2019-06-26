@@ -75,5 +75,11 @@ namespace BankingApplication
             // if not valide, cancel
             return;
         }
+
+        private void AddUserForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

@@ -58,5 +58,11 @@ namespace BankingApplication
             // If inputs are not valid, return
             return;
         }
+
+        private void AddMemberForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

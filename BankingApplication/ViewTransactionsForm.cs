@@ -53,5 +53,11 @@ namespace BankingApplication
             // Set DGV datasource to show data
             viewTransactionsDGV.DataSource = transactions;
         }
+
+        private void ViewTransactionsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

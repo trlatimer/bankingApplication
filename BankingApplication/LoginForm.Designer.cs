@@ -73,7 +73,7 @@
             this.loginSignInButton.Location = new System.Drawing.Point(162, 180);
             this.loginSignInButton.Name = "loginSignInButton";
             this.loginSignInButton.Size = new System.Drawing.Size(77, 24);
-            this.loginSignInButton.TabIndex = 2;
+            this.loginSignInButton.TabIndex = 3;
             this.loginSignInButton.Text = "Sign In";
             this.loginSignInButton.UseVisualStyleBackColor = true;
             this.loginSignInButton.Click += new System.EventHandler(this.loginSignInButton_Click);
@@ -84,7 +84,7 @@
             this.loginExitButton.Location = new System.Drawing.Point(43, 180);
             this.loginExitButton.Name = "loginExitButton";
             this.loginExitButton.Size = new System.Drawing.Size(70, 24);
-            this.loginExitButton.TabIndex = 3;
+            this.loginExitButton.TabIndex = 2;
             this.loginExitButton.Text = "Exit";
             this.loginExitButton.UseVisualStyleBackColor = true;
             this.loginExitButton.Click += new System.EventHandler(this.loginExitButton_Click);

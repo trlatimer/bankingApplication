@@ -978,6 +978,7 @@
             this.Controls.Add(this.mainToolStrip);
             this.Name = "TransactionForm";
             this.Text = "Banking App | Transactions";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TransactionForm_FormClosed);
             this.Load += new System.EventHandler(this.TransactionForm_Load);
             this.mainToolStrip.ResumeLayout(false);
             this.mainToolStrip.PerformLayout();

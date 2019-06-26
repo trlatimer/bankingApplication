@@ -115,5 +115,11 @@ namespace BankingApplication
             originalUsername = selectedUser.GetUserName();
             originalPassword = selectedUser.GetPassword();
         }
+
+        private void EditUserForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }

@@ -237,5 +237,11 @@ namespace BankingApplication
             reportTextBox.AppendText("\n     Total Closed Loan Balance:     " + totalClosedLoanBalances.ToString("$#,###,###,##0.00") + "\n");
             reportTextBox.AppendText("       Total Closed Loan Count:     " + closedLoanCount.ToString() + "\n");
         }
+
+        private void ReportForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            originatingForm.Enabled = true;
+            originatingForm.Show();
+        }
     }
 }
